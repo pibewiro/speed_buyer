@@ -9,6 +9,18 @@ export default class account extends Component {
     {
         super(props)
     }
+
+    componentDidMount()
+    {
+        if ("jwtToken" in localStorage) {
+        }
+
+        else
+        {
+            this.props.history.push("/signIn");
+        }
+    }
+
     render() {
 
         return (

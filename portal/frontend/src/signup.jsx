@@ -16,7 +16,8 @@ export default class signin extends Component {
             senha:"",
             primeiroNome:"",
             sobreNome:"",
-            usuario:""
+            usuario:"",
+            errors:[]
         }
     }
 
@@ -40,13 +41,16 @@ export default class signin extends Component {
             usuario:this.state.usuario
         }
 
-        console.log(newUser)
-
         axios.post("/user/new_user", newUser)
-        this.props.history.push("/dashboard")
+        .then(()=>{
+           this.props.history.push("/signin")
+        })
+        .catch(err=>this.setState({errors:err.response.data}))
+        
     }
     render() {
-        
+
+        const {errors} = this.state;
         return (
             <div>
                 <div>
@@ -59,26 +63,31 @@ export default class signin extends Component {
                     <div className="form-group">
                         <label htmlFor="">Primeiro Name</label>
                         <input type="text" onChange={this.changePrimeiroNome} value={this.state.primeiroNome} />
+                        <small className="errorMessage">{errors.primeiroNome}</small>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="">Sobre Nome</label>
                         <input type="text" onChange={this.changeSobreNome} value={this.state.sobreNome} />
+                        <small className="errorMessage">{errors.sobreNome}</small>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="">Usuario</label>
                         <input type="text" onChange={this.changeUsuario} value={this.state.usuario} />
+                        <small className="errorMessage">{errors.usuario}</small>
                     </div>
 
                    <div className="form-group">
                        <label htmlFor="">Senha</label>
                        <input type="password" onChange={this.changeSenha} value={this.state.senha} />
+                       <small className="errorMessage">{errors.senha}</small>
                    </div>
 
                    <div className="form-group">
                        <label htmlFor="">Email</label>
                        <input type="text" onChange={this.changeEmail} value={this.state.email} />
+                       <small className="errorMessage">{errors.email}</small>
                    </div>
 
                    <div className="form-group-btn">

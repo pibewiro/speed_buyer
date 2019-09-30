@@ -4,10 +4,14 @@ const env = require('./config/.env').port;
 const port = 5000;
 const bodyParser = require("body-parser")
 const userRoutes = require("./routes/users")
+const passport = require("passport");
+// const {pool} = require("pg");
 
-app.use(bodyParser.urlencoded({extended:true}));
+
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 app.use("/user", userRoutes);
 

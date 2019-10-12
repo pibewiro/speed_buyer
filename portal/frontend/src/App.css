@@ -232,12 +232,12 @@
     text-align: center;
 }
 
-#profile 
+.chooseProfile 
 {
-   margin-bottom:200px;
+   height: 84.5vh;
 }
 
-#profile div
+.chooseProfile div
 {
     display: flex;
     align-items: center;
@@ -245,7 +245,7 @@
     margin-top:40px;
 }
 
-#profile .profile-box
+.chooseProfile .profile-box
 {
     background: var(--primary-color);
     margin:10px;
@@ -257,7 +257,7 @@
     transition: all 1.5s ease-in-out;
 }
 
-#profile .profile-box:hover
+.chooseProfile .profile-box:hover
 {
     padding: 70px;
     cursor: pointer;
@@ -330,7 +330,7 @@
 
 #dashboard .dash-content
 {
-    height: 100vh;
+    height: 84.5vh;
     display: flex;
 }
 
@@ -418,6 +418,7 @@
     padding: 10px;
     text-align: center;
     border-top:1px solid gray;
+    z-index: -1;
 }
 
 .dash-header
@@ -435,10 +436,6 @@
     font-size:14px;
 }
 
-.crt-prf-btn
-{
-    margin-top: 40px;
-}
 #navbar .menuToggle
 {
     display: none;
@@ -493,9 +490,16 @@
     height: 100%;
     width: 100%;
     display:flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;;
+    align-items: flex-start;
+    padding: 20px;
+}
 
+.child h1{
+    width:100%;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 .store-card

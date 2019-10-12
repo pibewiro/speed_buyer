@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+// import axios from "axios";
 // import logoImage from "./images/logo.jpg";
 
 export default class signin extends Component {
@@ -22,6 +23,12 @@ export default class signin extends Component {
         }
     }
 
+    // componentDidMount()
+    // {
+    //     axios.get("/profile/get_user")
+    //     .then(res=>console.log(res))
+    // }
+
     changeNome = e => this.setState({nome:e.target.value})
     changeSobrenome = e => this.setState({sobrenome:e.target.value})
     changeCpf = e => this.setState({cpf:e.target.value})
@@ -33,6 +40,12 @@ export default class signin extends Component {
     changeCidade = e => this.setState({cidade:e.target.value})
     changeEstado = e => this.setState({estado:e.target.value})
     changeComplemento = e => this.setState({complemento:e.target.value})
+
+    newPessoaF = e => {
+
+        e.preventDefault();
+        alert("pessoaF");
+    }
 
 
 
@@ -111,7 +124,7 @@ export default class signin extends Component {
                         </div>
                    </div>
                    <div className="form-group-btn">
-                        <button className="btn">Enter</button>
+                        <button onClick={this.newPessoaF} className="btn">Enter</button>
                    </div>
                </form>
             </div>

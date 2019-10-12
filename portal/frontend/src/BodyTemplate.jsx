@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Footer from "./footer";
 import MenuLeft from "./menuLeft";
 import {Link} from "react-router-dom";
+import setAuthToken from './setAuthToken';
 
 export default class Dashboard extends Component {
 
@@ -14,6 +15,8 @@ export default class Dashboard extends Component {
       
 
     logout = e => {
+        localStorage.removeItem("jwtToken");
+        setAuthToken(false);
         window.location.href = "/";
     }
 

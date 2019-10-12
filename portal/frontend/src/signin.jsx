@@ -3,7 +3,7 @@ import logoImage from "./images/logo.jpg";
 import Navbar from './navbar';
 import Footer from './footer';
 import axios from 'axios';
-
+import setAuthToken from "./setAuthToken"
 
 export default class signin extends Component {
 
@@ -32,17 +32,8 @@ export default class signin extends Component {
         .then((res)=>{
             const {token} = res.data;
             localStorage.setItem("jwtToken", token);
-            if(token)
-            {
-                axios.defaults.headers.common['Authorization'] = token;
-                this.props.history.push("/account")
-            }
-
-            else
-            {
-                delete axios.defaults.headers.common['Authorization'];
-                this.props.history.push("/")
-            }
+            setAuthToken(token)
+            this.props.history.push("/profile")
         })
         .catch(err=>this.setState({errors:err.response.data}))
     }

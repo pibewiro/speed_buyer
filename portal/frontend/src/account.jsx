@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom"
-import Footer from "./footer";
 
 
 export default class account extends Component {
     
-    constructor(props)
-    {
-        super(props)
-    }
+
 
     componentDidMount()
     {

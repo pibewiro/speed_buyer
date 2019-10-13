@@ -18,6 +18,14 @@ export default class signin extends Component {
         }
     }
 
+    componentDidMount()
+    {
+        if("jwtToken" in localStorage)
+        {
+            this.props.history.push("/profile")
+        }
+    }
+
     changeEmail = (e) => this.setState({email:e.target.value})
     changeSenha = (e) => this.setState({senha:e.target.value})
 

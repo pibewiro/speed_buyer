@@ -41,6 +41,11 @@
     color:#fff;
 }
 
+.errors
+{
+    color:red;
+}
+
 /* navbar css */
 #navbar
 {

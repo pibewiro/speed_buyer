@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport")
 const auth = passport.authenticate('jwt', { session:false});
 
-router.post("/new_user", (req,response)=>{
+router.post("/new_user", async (req,response)=>{
 
     const {isValid, errors} = validateSignUp(req.body);
 
@@ -20,16 +20,40 @@ router.post("/new_user", (req,response)=>{
 
         const {email, senha, primeiroNome, sobreNome, usuario} = req.body;
         let senhaHashed = "";
-        
+
+        let queryUsuario = `SELECT usu_id_usu FROM usuario WHERE nome_usuario = '${usuario}'`;
+        let queryEmail = `SELECT usu_id_usu FROM usuario WHERE usu_email = '${email}'`;
+
+        await client.query(queryUsuario, (err,result)=>{
+            if(result.length > 0)
+            {
+                errors.usuario = "Username Already Exists";
+            }
+        })
+
+        await client.query(queryEmail, (err,result)=>{
+            if(result.length > 0)
+            {
+                errors.email = "Email Already Exists";
+            }
+
+            if(Object.keys(errors).length > 0)
+            {
+                return response.status(400).json(errors)
+            }
+        })
+
         bcrypt.genSalt(10, (err,salt)=>{
             bcrypt.hash(senha, salt, async (err,hash)=>{
 
                 senhaHashed = hash;
 
+                let errors = {};
                 let query = `
                 INSERT INTO usuario(usu_email, usu_senha, primeiro_nome, sobre_nome, nome_usuario, usu_ativo)
                 VALUES('${email}', '${senhaHashed}', '${primeiroNome}', '${sobreNome}', '${usuario}', 0);
             `;
+
 
                 const res = await client.query(query, (err,result)=>{
                     if(err) throw err;
@@ -80,7 +104,8 @@ router.post("/login_user", async (req,response)=>{
                         nome_usuario:result[0].nome_usuario,
                         email:result[0].usu_email,
                         primeiroNome:result[0].primeiro_nome,
-                        sobreNome:result[0].sobre_nome
+                        sobreNome:result[0].sobre_nome,
+                        ativo:result[0].usu_ativo
                     }
     
                     jwt.sign(payload, secretOrKey, {expiresIn:3600}, (err,token)=>{

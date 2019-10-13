@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-// import axios from "axios";
+import axios from "axios";
 // import logoImage from "./images/logo.jpg";
+import InputMask from "react-input-mask";
+import jwt_decode from 'jwt-decode';
+import Swal from 'sweetalert2';
 
 export default class signin extends Component {
 
@@ -20,14 +23,12 @@ export default class signin extends Component {
             cep:"",
             cidade:"",
             estado:"",
+            dataNascimento:"",
+            idUsuario: "jwtToken" in localStorage ? jwt_decode(localStorage.getItem("jwtToken")).id_usuario : "",
+            errors:[]
         }
     }
 
-    // componentDidMount()
-    // {
-    //     axios.get("/profile/get_user")
-    //     .then(res=>console.log(res))
-    // }
 
     changeNome = e => this.setState({nome:e.target.value})
     changeSobrenome = e => this.setState({sobrenome:e.target.value})
@@ -40,48 +41,80 @@ export default class signin extends Component {
     changeCidade = e => this.setState({cidade:e.target.value})
     changeEstado = e => this.setState({estado:e.target.value})
     changeComplemento = e => this.setState({complemento:e.target.value})
+    changeDataNascimento = e => this.setState({dataNascimento:e.target.value})
+
+    limparState = () => {
+        this.setState({
+            cpf:"",
+            dataNascimento:"",
+            rua:"",
+            numero:"",
+            complemento:"",
+            cep:"",
+            cidade:"",
+            estado:"",
+            errors:[]
+        })
+    }
 
     newPessoaF = e => {
 
         e.preventDefault();
-        alert("pessoaF");
+
+        const newPessoa = {
+            cpf:this.state.cpf,
+            rua:this.state.rua,
+            numero:this.state.numero,
+            complemento:this.state.complemento,
+            cep:this.state.cep,
+            cidade:this.state.cidade,
+            estado:this.state.estado,
+            dataNascimento:this.state.dataNascimento,
+            idUsuario:this.state.idUsuario,
+        }
+
+
+        axios.post("profile/post_pessoa_fisica", newPessoa)
+        .then((res)=>{
+            this.limparState();
+            Swal.fire({
+                title:"Created New Pessoa Fisica",
+                text:"Um novo Pessoa Fisica foi criado", 
+                type:"success",
+                confirmButtonColor: '#00283D',
+              })
+        })
+        .catch(err=>this.setState({errors:err.response.data}))
     }
 
 
 
     render() {
+
+        const {errors} = this.state;
+
         return (
             <div id="form-content-pj">
                 <h1 className="big-heading">Pessoa Fisica</h1>
                <form>
+                   <p>* Indicates a Required Field</p>
                    <div className="row">
                        <div className="form-group">
-                           <label htmlFor="">Nome</label>
-                           <input type="text" onChange={this.changeNome} value={this.state.nome}/>
+                           <label htmlFor="CPF">*CPF</label>
+                           <InputMask
+                                mask="999.999.999-99"
+                                maskChar=""
+                                type="text"
+                                onChange={this.changeCpf}
+                                value={this.state.cpf}
+                           />
+                           <small class="errors">{errors.cpf}</small>
                        </div>
-
+                       
                        <div className="form-group">
-                           <label htmlFor="">Sobrenome</label>
-                           <input type="text" onChange={this.changeSobrenome} value={this.state.sobrenome}/>
-                       </div>
-                   </div>
-
-                   <div className="row">
-                       <div className="form-group">
-                           <label htmlFor="">CPF</label>
-                           <input type="text" onChange={this.changeCpf} value={this.state.cpf}/>
-                       </div>
-                   </div>
-
-                   <div className="row">
-                       <div className="form-group">
-                           <label htmlFor="">Email</label>
-                           <input type="text" onChange={this.changeEmail} value={this.state.email}/>
-                       </div>
-
-                       <div className="form-group">
-                           <label htmlFor="">Senha</label>
-                           <input type="text" onChange={this.changeSenha} value={this.state.senha}/>
+                           <label htmlFor="">*Data de Nascimento</label>
+                           <input type="date" onChange={this.changeDataNascimento} value={this.state.dataNascimento} />
+                           <small class="errors">{errors.dataNascimento}</small>
                        </div>
                    </div>
 
@@ -90,37 +123,49 @@ export default class signin extends Component {
                     </div>
                    <div className="row">
                         <div className="form-group">
-                           <label htmlFor="">Rua</label>
+                           <label htmlFor="">*Rua</label>
                            <input type="text" onChange={this.changeRua} value={this.state.rua}/>
+                           <small class="errors">{errors.rua}</small>
                        </div>
 
                        <div className="form-group">
-                           <label htmlFor="">Numero</label>
-                        <input type="text" onChange={this.changeNumero} value={this.state.numero}/>
+                           <label htmlFor="">*Numero</label>
+                            <input type="text" onChange={this.changeNumero} value={this.state.numero}/>
+                            <small class="errors">{errors.numero}</small>
                        </div> 
 
                        <div className="form-group">
                            <label htmlFor="">Complemento</label>
-                        <input type="text" onChange={this.changeComplemento} value={this.state.complemento} />
+                            <input type="text" onChange={this.changeComplemento} value={this.state.complemento} />
+                            <small class="errors">{errors.complemento}</small>
                        </div>
                    </div>
 
                    <div className="row">
                         <div className="form-group">
-                           <label htmlFor="">CEP</label>
-                            <input type="text" onChange={this.changeCep} value={this.state.cep}/>
+                           <label htmlFor="">*CEP</label>
+                           <InputMask
+                                mask="99999-999"
+                                maskChar=""
+                                type="text"
+                                onChange={this.changeCep}
+                                value={this.state.cep}
+                           />
+                            <small class="errors">{errors.cep}</small>
                         </div>
                    </div>
 
                    <div className="row">
                         <div className="form-group">
-                           <label htmlFor="">Cidade</label>
+                           <label htmlFor="">*Cidade</label>
                             <input type="text" onChange={this.changeCidade} value={this.state.cidade}/>
+                            <small class="errors">{errors.cidade}</small>
                         </div>
 
                         <div className="form-group">
-                           <label htmlFor="">Estado</label>
+                           <label htmlFor="">*Estado</label>
                              <input type="text" onChange={this.changeEstado} value={this.state.estado}/>
+                             <small class="errors">{errors.estado}</small>
                         </div>
                    </div>
                    <div className="form-group-btn">

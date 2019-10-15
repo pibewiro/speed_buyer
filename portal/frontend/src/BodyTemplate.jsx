@@ -8,11 +8,15 @@ export default class Dashboard extends Component {
 
     // constructor(props) {
     //     super(props);
-    //     // this.state = { 
-    //     //   activeIndex: 0,
-    //     // };
+    //     this.state = { 
+    //       activeIndex: props,
+    //     };
     //   }
       
+    componentDidMount()
+    {
+        console.log(this.props)
+    }
 
     logout = e => {
         localStorage.removeItem("jwtToken");

@@ -24,11 +24,44 @@ export default class signin extends Component {
             cidade:"",
             estado:"",
             idUsuario:"jwtToken" in localStorage ? jwt_decode(localStorage.getItem("jwtToken")).id_usuario : "",
-            errors:[]
+            errors:[],
+            primeiroNome:"",
+            sobreNome:"",
+            email:"",
+            usuario:"",
         }
     }
 
+    componentDidMount()
+    {
+        axios.get(`profile/get_pessoa_juridico/${this.state.idUsuario}`)
+        .then(res=>{
+            console.log(res.data)
+            this.setState({
+                primeiroNome:res.data.primeiro_nome,
+                sobreNome:res.data.sobre_nome,
+                nomeFantasia:res.data.uj_nome_fantasia,
+                razaoSocial:res.data.uj_razao_social,
+                inscricaoMun:res.data.uj_inscricao_estadual,
+                inscricaoEst:res.data.uj_inscricao_municipal,
+                rua:res.data.en_rua,
+                numero:res.data.en_numero,
+                complemento:res.data.en_complemento,
+                cep:res.data.en_cep,
+                cidade:res.data.en_cidade,
+                estado:res.data.en_estado,
+                cnpj:res.data.uj_cnpj,
+                email:res.data.usu_email,
+                usuario:res.data.nome_usuario
+            })
+        })
+    }
+
+    
+
     changeEmail = e => this.setState({email:e.target.value})
+    changePrimeiroNome = e => this.setState({primeiroNome:e.target.value})
+    changeSobreNome = e => this.setState({sobreNome:e.target.value})
     changeSenha = e => this.setState({senha:e.target.value})
     changeCnpj = e => this.setState({cnpj:e.target.value})
     changeNomeFantasia = e => this.setState({nomeFantasia:e.target.value})
@@ -41,11 +74,12 @@ export default class signin extends Component {
     changeCidade = e => this.setState({cidade:e.target.value})
     changeEstado = e => this.setState({estado:e.target.value})
     changeComplemento = e => this.setState({complemento:e.target.value})
+    changeUsuario = e => this.setState({usuario:e.target.value})
 
-    salvar = (e) => {
+    salvarEdit = (e) => {
         e.preventDefault();
         
-        let novoPJ = {
+        let editPJ = {
             cnpj:this.state.cnpj,
             nomeFantasia:this.state.nomeFantasia,
             razaoSocial:this.state.razaoSocial,
@@ -57,20 +91,25 @@ export default class signin extends Component {
             cep:this.state.cep,
             cidade:this.state.cidade,
             estado:this.state.estado,
-            idUsuario: this.state.idUsuario
+            idUsuario: this.state.idUsuario,
+            primeiroNome:this.state.primeiroNome,
+            sobreNome:this.state.sobreNome,
+            email:this.state.email,
+            usuario:this.state.usuario
         }
 
-        axios.post("/profile/post_pessoa_juridica", novoPJ)
+        axios.post("/profile/update_pessoa_juridica", editPJ)
         .then(()=>{
-            this.limparState();
-            Swal.fire({
-                title:"Created New Pessoa Juridica",
-                text:"Um novo Pessoa Fisica foi criado", 
-                type:"success",
-                confirmButtonColor: '#00283D',
-            })
+            // this.limparState();
+            // Swal.fire({
+            //     title:"Created New Pessoa Juridica",
+            //     text:"Um novo Pessoa Fisica foi criado", 
+            //     type:"success",
+            //     confirmButtonColor: '#00283D',
+            // })
 
-            this.props.history.push("/profilePJ");
+            // this.props.history.push("/profilePJ");
+            console.log(editPJ);
         })
         .catch(err=>this.setState({errors:err.response.data}));
     }
@@ -96,6 +135,34 @@ export default class signin extends Component {
             <div id="form-content-pj">
                 <h1 class="big-heading">Pessoa Juridica</h1>
                <form>
+               <div className="row">
+                       <div className="form-group">
+                           <label htmlFor="">Primeiro Nome</label>
+                           <input type="text" onChange={this.changePrimeiroNome} value={this.state.primeiroNome} />
+                           <small class="errors">{errors.inscricaoMun}</small>
+                       </div>
+
+                       <div className="form-group">
+                           <label htmlFor="">Sobre Nome</label>
+                           <input type="text" onChange={this.changeSobreNome} value={this.state.sobreNome} />
+                           <small class="errors">{errors.inscricaoEst}</small>
+                       </div>
+                   </div>
+
+                   <div className="row">
+                       <div className="form-group">
+                           <label htmlFor="">Email</label>
+                           <input type="text" onChange={this.changeEmail} value={this.state.email} />
+                           <small class="errors">{errors.inscricaoMun}</small>
+                       </div>
+
+                       <div className="form-group">
+                           <label htmlFor="">Usuario</label>
+                           <input type="text" onChange={this.changeUsuario} value={this.state.usuario} />
+                           <small class="errors">{errors.inscricaoEst}</small>
+                       </div>
+                   </div>
+
                    <div className="row">
                        <div className="form-group">
                            <label htmlFor="">CNPJ</label>
@@ -187,7 +254,7 @@ export default class signin extends Component {
                         </div>
                    </div>
                    <div className="form-group-btn">
-                        <button onClick={this.salvar} type="submit" class="btn">Enter</button>
+                        <button onClick={this.salvarEdit} type="submit" class="btn">Enter</button>
                    </div>
                </form>
             </div>

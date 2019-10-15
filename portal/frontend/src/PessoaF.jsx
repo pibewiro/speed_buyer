@@ -70,7 +70,7 @@ export default class signin extends Component {
             cidade:this.state.cidade,
             estado:this.state.estado,
             dataNascimento:this.state.dataNascimento,
-            idUsuario:this.state.idUsuario,
+            idUsuario:this.state.idUsuario
         }
 
 
@@ -83,6 +83,7 @@ export default class signin extends Component {
                 type:"success",
                 confirmButtonColor: '#00283D',
               })
+              this.props.history.push("/profile");
         })
         .catch(err=>this.setState({errors:err.response.data}))
     }

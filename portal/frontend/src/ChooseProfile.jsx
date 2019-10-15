@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom"
+import jwtDecode from "jwt-decode"
 
 
 
@@ -9,7 +10,12 @@ export default class signin extends Component {
     {
         if("jwtToken" in localStorage === false)
         {
-            window.location.href = "/"
+            this.props.history.push("/")
+        }
+
+        if(jwtDecode(localStorage.getItem("jwtToken")).ativo > 0)
+        {
+            this.props.history.push("/profile")
         }
     }
 

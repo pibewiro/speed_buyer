@@ -10,8 +10,11 @@ import ChooseProfile from "./ChooseProfile";
 import Profile from "./Profile";
 import PessoaF from "./PessoaF";
 import PessoaJ from "./PessoaJ";
+import PessoaJEdit from "./PessoaJEdit";
 import Stores from "./Stores";
 import Dalben from "./Dalben";
+import ProfilePJ from "./ProfilePJ";
+
 
 export default class Routes extends Component {
     render() {
@@ -37,11 +40,13 @@ export default class Routes extends Component {
                   {/* <PrivateRouteUser exact path="/account" component={Account} /> */}
                   <PrivateRouteUser exact path="/stores" component={Stores} />
                   <PrivateRouteUser exact path="/pessoa_fisica" component={PessoaF} />
-                  <PrivateRouteUser exact path="/pessoa_juriduca" component={PessoaJ} />
+                  <PrivateRouteUser exact path="/pessoa_juridica" component={PessoaJ} />
+                  <PrivateRouteUser exact path="/pessoa_juridica_edit" component={PessoaJEdit} />
                     <PrivateRouteUser exact path="/dashboard" component={Dashboard} />
                     <PrivateRouteUser exact path="/profile" component={Profile} />
                     <PrivateRouteUser exact path="/items/Dalben" component={Dalben} />
                     <PrivateRouteUser exact path="/choose_profile" component={ChooseProfile} />
+                    <PrivateRouteUser exact path="/profilePJ" component={ProfilePJ} />
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/signin" component={Signin} />
                     <Route exact path="/signup" component={Signup} />

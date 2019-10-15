@@ -537,6 +537,47 @@
     color:red;
 }
 
+.profile1
+{
+    width:80%;
+    margin:0 auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}
+
+.profile-div
+{
+    display: flex;
+    width: 100%;
+    padding:10px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.profile-div .profile-field
+{
+    width: 25%;
+    font-weight: bold;
+}
+
+.profile-div .profile-info
+{
+    width: 75%;
+}
+
+.btn-edit-div
+{
+    text-align: center;
+    padding: 20px;
+}
+
+.view-profile
+{
+    padding: 20px;
+    text-align: center;
+}
+
 @media(max-width:768px)
 {
     .menu-left ul li p

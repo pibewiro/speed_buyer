@@ -4,6 +4,7 @@ import Navbar from './navbar';
 import Footer from './footer';
 import axios from 'axios';
 import setAuthToken from "./setAuthToken"
+import JWTDecode from "jwt-decode"
 
 export default class signin extends Component {
 
@@ -41,7 +42,16 @@ export default class signin extends Component {
             const {token} = res.data;
             localStorage.setItem("jwtToken", token);
             setAuthToken(token)
-            this.props.history.push("/profile")
+
+            if(JWTDecode(localStorage.getItem("jwtToken")).ativo > 0)
+            {
+                this.props.history.push("/profilePJ")
+            }
+
+            else
+            {
+                this.props.history.push("/profile")
+            }
         })
         .catch(err=>this.setState({errors:err.response.data}))
     }
@@ -49,6 +59,8 @@ export default class signin extends Component {
     render() {
 
         const {errors} = this.state;
+
+        
 
         return (
             <div>

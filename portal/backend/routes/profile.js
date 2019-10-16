@@ -6,6 +6,7 @@ const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
 const validateProfile = require("../validations/validateProfile")
 const validatePJ = require("../validations/validatePessoaJ");
+const validateUpdatePJ = require("../validations/validateUpdatePJ");
 
 
 router.post("/post_pessoa_fisica", async (req,response)=> {
@@ -169,7 +170,110 @@ router.get("/get_pessoa_juridico/:id", async (req, response)=>{
 })
 
 router.post("/update_pessoa_juridica", async (req,response)=>{
-    console.log(req.body)
+    
+    const {errors, isValid} = validateUpdatePJ(req.body);
+    if(!isValid) return response.status(400).json(errors);
+
+    console.log(req.body);
+    const client = await mysql.createConnection(env);
+
+    const updateUsuario = `
+        UPDATE usuario SET
+        primeiro_nome = '${req.body.primeiroNome}',
+        sobre_nome = '${req.body.sobreNome}',
+        usu_email = '${req.body.email}',
+        nome_usuario = '${req.body.usuario}'
+        WHERE usu_id_usu = ${req.body.idUsuario}
+    `;
+
+    const updateUJ = `
+        UPDATE usuario_juridico SET
+        uj_cnpj = '${req.body.cnpj}',
+        uj_nome_fantasia = '${req.body.nomeFantasia}',
+        uj_razao_social = '${req.body.razaoSocial}'
+        WHERE id_uj = ${req.body.idUJ}
+    `;
+
+    const updateEndereco = `
+        UPDATE endereco SET
+        en_rua = '${req.body.rua}',
+        en_numero = '${req.body.numero}',
+        en_complemento = '${req.body.complemento}',
+        en_cep = '${req.body.cep}',
+        en_cidade = '${req.body.cidade}',
+        en_estado = '${req.body.estado}'
+        WHERE en_id_endereco = ${req.body.idEndereco}
+    `;
+
+    const updatePJ = () => {
+
+        client.query(updateUsuario, (err, result)=>{
+            if(err) throw err;
+    
+            console.log("usuario updated")
+        })
+    
+        client.query(updateUJ, (err, result)=>{
+            if(err) throw err;
+    
+            console.log("updateUJ updated")
+        })
+    
+        client.query(updateEndereco, (err, result)=>{
+            if(err) throw err;
+    
+            client.end();
+            console.log("updateEndereco updated")
+            return response.status(200).json("Success")
+        })
+
+
+    }
+
+        if(req.body.email !== req.body.emailOriginal || req.body.usuario !== req.body.usuarioOriginal)
+        {
+            let errors = {}
+            const find = `SELECT usu_email, nome_usuario FROM usuario`;
+
+            client.query(find, (err,result)=>{
+
+                const emails = []
+                result.map(r=>emails.push(r.usu_email));
+
+                const usuarios = []
+                result.map(r=>usuarios.push(r.nome_usuario));
+
+                const checkEmail = emails.includes(req.body.email);
+                const checkUsuario = usuarios.includes(req.body.usuario);
+
+                if(checkEmail && (req.body.email !== req.body.emailOriginal))
+                {
+                    errors.email = "Email Already Exsists"
+                }
+
+                if(checkUsuario && (req.body.usuario !== req.body.usuarioOriginal))
+                {
+                    errors.usuario = "Usuario Already Exsists"
+                }
+
+                if(Object.keys(errors).length > 0)
+                {
+                    client.end();
+                    return response.status(400).json(errors)
+                } 
+
+                else
+                {
+                    updatePJ();
+                }
+
+            })
+        }
+
+        else
+        {
+            updatePJ();
+        }    
 })
 
 

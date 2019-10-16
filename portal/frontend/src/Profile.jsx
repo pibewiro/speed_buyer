@@ -23,9 +23,14 @@ export default class Profile extends Component {
                 this.props.history.push("/");
             }
 
-            if(jwt_decode(localStorage.getItem("jwtToken")).ativo > 0)
+            if(jwt_decode(localStorage.getItem("jwtToken")).ativo === 2)
             {
                 this.props.history.push("/profilePJ"); 
+            }
+
+            if(jwt_decode(localStorage.getItem("jwtToken")).ativo === 1)
+            {
+                this.props.history.push("/profilePF"); 
             }
         }
 

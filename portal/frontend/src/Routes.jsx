@@ -11,9 +11,12 @@ import Profile from "./Profile";
 import PessoaF from "./PessoaF";
 import PessoaJ from "./PessoaJ";
 import PessoaJEdit from "./PessoaJEdit";
+import PessoaPFEdit from "./PessoaPFEdit";
 import Stores from "./Stores";
 import Dalben from "./Dalben";
 import ProfilePJ from "./ProfilePJ";
+import ProfilePF from "./ProfilePF";
+
 
 
 export default class Routes extends Component {
@@ -39,9 +42,11 @@ export default class Routes extends Component {
               <Switch>
                   {/* <PrivateRouteUser exact path="/account" component={Account} /> */}
                   <PrivateRouteUser exact path="/stores" component={Stores} />
+                  <PrivateRouteUser exact path="/profilePF" component={ProfilePF} />
                   <PrivateRouteUser exact path="/pessoa_fisica" component={PessoaF} />
                   <PrivateRouteUser exact path="/pessoa_juridica" component={PessoaJ} />
                   <PrivateRouteUser exact path="/pessoa_juridica_edit" component={PessoaJEdit} />
+                  <PrivateRouteUser exact path="/pessoa_fisica_edit" component={PessoaPFEdit} />
                     <PrivateRouteUser exact path="/dashboard" component={Dashboard} />
                     <PrivateRouteUser exact path="/profile" component={Profile} />
                     <PrivateRouteUser exact path="/items/Dalben" component={Dalben} />

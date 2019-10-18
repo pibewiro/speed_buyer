@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://arcane-savannah-75129.herokuapp.com",
+  "proxy": "http://arcane-savannah-75129.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },

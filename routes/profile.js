@@ -81,7 +81,7 @@ router.post("/post_pessoa_fisica", async (req,response)=> {
 })
 
 router.post("/post_pessoa_juridica", async (req,response)=>{
-
+    
     const {errors, isValid} = validatePJ(req.body);
 
     if(!isValid) return response.status(400).json(errors)
@@ -173,6 +173,7 @@ router.get("/get_pessoa_juridico/:id", async (req, response)=>{
 
 router.post("/update_pessoa_juridica", async (req,response)=>{
     
+    console.log(req.body)
     const {errors, isValid} = validateUpdatePJ(req.body);
     if(!isValid) return response.status(400).json(errors);
 

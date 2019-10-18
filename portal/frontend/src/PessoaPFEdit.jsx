@@ -4,6 +4,12 @@ import InputMask from "react-input-mask";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import moment from "moment"
+// import DatePicker, { registerLocale } from 'react-datepicker';
+// import "react-datepicker/dist/react-datepicker.css";
+// import pt_BR from "date-fns/locale/pt-BR";
+// import { th } from 'date-fns/esm/locale';
+// registerLocale("pt-BR", pt_BR);
 
 export default class signin extends Component {
 
@@ -29,40 +35,40 @@ export default class signin extends Component {
             sobreNome:"",
             email:"",
             usuario:"",
-            idUJ:"",
+            idUF:"",
             idEndereco:"",
             emailOriginal:"",
-            usuarioOriginal:""
+            usuarioOriginal:"",
+            dataNascimento:"",
+            cpf:""
         }
     }
 
     componentDidMount()
     {
-        axios.get(`profile/get_pessoa_juridico/${this.state.idUsuario}`)
+        axios.get(`profile/get_pessoa_fisica/${this.state.idUsuario}`)
         .then(res=>{
             console.log(res.data)
             this.setState({
-                primeiroNome:res.data.primeiro_nome,
-                sobreNome:res.data.sobre_nome,
-                nomeFantasia:res.data.uj_nome_fantasia,
-                razaoSocial:res.data.uj_razao_social,
-                inscricaoMun:res.data.uj_inscricao_estadual,
-                inscricaoEst:res.data.uj_inscricao_municipal,
-                rua:res.data.en_rua,
-                numero:res.data.en_numero,
-                complemento:res.data.en_complemento,
+                idEndereco:res.data.en_id_endereco,
                 cep:res.data.en_cep,
                 cidade:res.data.en_cidade,
                 estado:res.data.en_estado,
-                cnpj:res.data.uj_cnpj,
+                rua:res.data.en_rua,
+                numero:res.data.en_numero,
+                complemento:res.data.en_complemento,
+                primeiroNome:res.data.primeiro_nome,
+                sobreNome:res.data.sobre_nome,
                 email:res.data.usu_email,
+                idUF:res.data.id_uf,
+                dataNascimento:moment(res.data.uf_data_nascimento).format('DD-MM-YYYY'),
                 usuario:res.data.nome_usuario,
-                idEndereco:res.data.en_id_endereco,
-                idUJ:res.data.id_uj,
+                ativo:res.data.usu_ativo,
+                cpf:res.data.uf_cpf,
                 emailOriginal:res.data.usu_email,
                 usuarioOriginal:res.data.nome_usuario
             })
-        })
+        })         
     }
 
     
@@ -83,16 +89,15 @@ export default class signin extends Component {
     changeEstado = e => this.setState({estado:e.target.value})
     changeComplemento = e => this.setState({complemento:e.target.value})
     changeUsuario = e => this.setState({usuario:e.target.value})
+    changedataN = e => this.setState({dataNascimento:e.target.value})
+    changeCPF = e => this.setState({cpf:e.target.value})
 
     salvarEdit = (e) => {
         e.preventDefault();
         
-        let editPJ = {
-            cnpj:this.state.cnpj,
-            nomeFantasia:this.state.nomeFantasia,
-            razaoSocial:this.state.razaoSocial,
-            inscricaoMun:this.state.inscricaoMun,
-            inscricaoEst:this.state.inscricaoEst,
+        let editPF = {
+            dataNascimento:this.state.dataNascimento,
+            cpf:this.state.cpf,
             rua:this.state.rua,
             numero:this.state.numero,
             complemento:this.state.complemento,
@@ -105,23 +110,22 @@ export default class signin extends Component {
             usuario:this.state.usuario,
             idUsuario: this.state.idUsuario,
             idEndereco:this.state.idEndereco,
-            idUJ:this.state.idUJ,
+            idUF:this.state.idUF,
             emailOriginal:this.state.emailOriginal,
-            usuarioOriginal:this.state.usuarioOriginal
+            usuarioOriginal:this.state.usuarioOriginal,
         }
 
-        axios.post("/profile/update_pessoa_juridica", editPJ)
+        axios.post("/profile/update_pessoa_fisica", editPF)
         .then(()=>{
             this.limparState();
             Swal.fire({
-                title:"Created New Pessoa Juridica",
+                title:"Created New Pessoa Fisica",
                 text:"Um novo Pessoa Fisica foi editado", 
                 type:"success",
                 confirmButtonColor: '#00283D',
             })
 
-            this.props.history.push("/profilePJ");
-            console.log(editPJ);
+            this.props.history.push("/profilePF");
         })
         .catch(err=>this.setState({errors:err.response.data}));
     }
@@ -145,9 +149,9 @@ export default class signin extends Component {
 
         return (
             <div id="form-content-pj">
-                <h1 class="big-heading">Pessoa Juridica</h1>
+                <h1 class="big-heading">Pessoa Fisica</h1>
                <form>
-               <div className="row">
+                    <div className="row">
                        <div className="form-group">
                            <label htmlFor="">Primeiro Nome</label>
                            <input type="text" onChange={this.changePrimeiroNome} value={this.state.primeiroNome} />
@@ -159,9 +163,31 @@ export default class signin extends Component {
                            <input type="text" onChange={this.changeSobreNome} value={this.state.sobreNome} />
                            <small class="errors">{errors.sobreNome}</small>
                        </div>
+
+                       <div className="form-group">
+                           <label htmlFor="">Data de Nascimento</label>
+                           <InputMask
+                                onChange={this.changedataN}
+                                mask="99-99-9999"
+                                maskChar=""
+                                value={this.state.dataNascimento}
+                           />
+                           <small class="errors">{errors.dataNascimento}</small>
+                       </div>
                    </div>
 
                    <div className="row">
+                   <div className="form-group">
+                           <label htmlFor="">CPF</label>
+                           <InputMask
+                                onChange={this.changeCPF}
+                                mask="999.999.999-99"
+                                maskChar=""
+                                value={this.state.cpf}
+                           />
+                           <small class="errors">{errors.cpf}</small>
+                       </div>
+
                        <div className="form-group">
                            <label htmlFor="">Email</label>
                            <input type="text" onChange={this.changeEmail} value={this.state.email} />
@@ -172,46 +198,6 @@ export default class signin extends Component {
                            <label htmlFor="">Usuario</label>
                            <input type="text" onChange={this.changeUsuario} value={this.state.usuario} />
                            <small class="errors">{errors.usuario}</small>
-                       </div>
-                   </div>
-
-                   <div className="row">
-                       <div className="form-group">
-                           <label htmlFor="">CNPJ</label>
-                            <InputMask
-                                mask="99.999.999/9999-99"
-                                maskChar=""
-                                type="text"
-                                onChange={this.changeCnpj}
-                                value={this.state.cnpj}
-                            />
-                            <small class="errors">{errors.cnpj}</small>
-                       </div>
-
-                       <div className="form-group">
-                           <label htmlFor="">Nome Fantasia</label>
-                           <input type="text" onChange={this.changeNomeFantasia} value={this.state.nomeFantasia} />
-                           <small class="errors">{errors.nomeFantasia}</small>
-                       </div>
-
-                       <div className="form-group">
-                           <label htmlFor="">Razão Social</label>
-                           <input type="text" onChange={this.changeRazaoSocial} value={this.state.razaoSocial} />
-                           <small class="errors">{errors.razaoSocial}</small>
-                       </div>
-                   </div>
-
-                   <div className="row">
-                       <div className="form-group">
-                           <label htmlFor="">Inscrição Municipal</label>
-                           <input type="text" onChange={this.changeInscricaoMun} value={this.state.inscricaoMun} />
-                           <small class="errors">{errors.inscricaoMun}</small>
-                       </div>
-
-                       <div className="form-group">
-                           <label htmlFor="">Inscrição Estadual</label>
-                           <input type="text" onChange={this.changeInscricaoEst} value={this.state.inscricaoEst} />
-                           <small class="errors">{errors.inscricaoEst}</small>
                        </div>
                    </div>
 

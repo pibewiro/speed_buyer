@@ -58,7 +58,6 @@ router.post("/new_user", async (req,response)=>{
                 const res = await client.query(query, (err,result)=>{
                     if(err) throw err;
 
-                    console.log(result, query)
                     client.end();
                 });
                 return response.status(200).json("Success")
@@ -81,13 +80,11 @@ router.post("/login_user", async (req,response)=>{
 
             const res1 = await client.query(findUser, (err,result)=>{
             if(err) throw err;
-            console.log(result)
             client.end();
 
             if(result.length > 0)
             {
                 senhaLogin = result[0].usu_senha;
-                console.log(senhaLogin)
             }
 
             if(result.length === 0)
@@ -122,10 +119,10 @@ router.post("/login_user", async (req,response)=>{
         });
 })
 
-router.get("/current", auth, (req,res)=>{
-    console.log("JWT INFO", req.user)
-    res.send(req.user)
-})
+// router.get("/current", auth, (req,res)=>{
+//     console.log("JWT INFO", req.user)
+//     res.send(req.user)
+// })
 
 
 

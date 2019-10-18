@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import jwtDecode from "jwt-decode";
 import {Link} from "react-router-dom"
+import moment from "moment"
 
-export default class ProfilePJ extends Component {
+export default class ProfilePF extends Component {
 
     constructor()
     {
@@ -24,30 +25,33 @@ export default class ProfilePJ extends Component {
             estado:"",
             cpf:"",
             cnpj:"",
-            idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario
-
+            idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario,
+            usuario:"",
+            ativo:null,
         }
     }
 
     componentDidMount()
     {
-        axios.get(`profile/get_pessoa_juridico/${this.state.idUsuario}`)
+        axios.get(`profile/get_pessoa_fisica/${this.state.idUsuario}`)
         .then(res=>{
             console.log(res.data)
             this.setState({
-                primeiroNome:res.data.primeiro_nome,
-                sobreNome:res.data.sobre_nome,
-                nomeFantasia:res.data.uj_nome_fantasia,
-                razaoSocial:res.data.uj_razao_social,
-                inscricaoMun:res.data.uj_inscricao_estadual,
-                inscricaoEst:res.data.uj_inscricao_municipal,
-                rua:res.data.en_rua,
-                numero:res.data.en_numero,
-                complemento:res.data.en_complemento,
+                idEndereco:res.data.en_id_endereco,
                 cep:res.data.en_cep,
                 cidade:res.data.en_cidade,
                 estado:res.data.en_estado,
-                cnpj:res.data.uj_cnpj
+                rua:res.data.en_rua,
+                numero:res.data.en_numero,
+                complemento:res.data.en_complemento,
+                primeiroNome:res.data.primeiro_nome,
+                sobreNome:res.data.sobre_nome,
+                email:res.data.usu_email,
+                idUF:res.data.id_uf,
+                dataNascimento:moment(res.data.uf_data_nascimento).format("MM-DD-YYYY"),
+                usuario:res.data.nome_usuario,
+                ativo:res.data.usu_ativo,
+                cpf:res.data.uf_cpf,
             })
         })
     }
@@ -67,23 +71,23 @@ export default class ProfilePJ extends Component {
             </div>
 
             <div className="profile-div">
-                <p className="profile-field">Nome Fantasia</p>
-                <p className="profile-info">{this.state.nomeFantasia}</p>
+                <p className="profile-field">Usuario</p>
+                <p className="profile-info">{this.state.usuario}</p>
             </div>
 
             <div className="profile-div">
-                <p className="profile-field">Razao Social</p>
-                <p className="profile-info">{this.state.razaoSocial}</p>
-            </div>
-            
-            <div className="profile-div">
-                <p className="profile-field">Inscrição Municipal</p>
-                <p className="profile-info">{this.state.inscricaoMun}</p>
+                <p className="profile-field">Data Nascimento</p>
+                <p className="profile-info">{this.state.dataNascimento}</p>
             </div>
 
             <div className="profile-div">
-                <p className="profile-field">Inscrição Estadual</p>
-                <p className="profile-info">{this.state.inscricaoMun}</p>
+                <p className="profile-field">CPF</p>
+                <p className="profile-info">{this.state.cpf}</p>
+            </div>
+
+            <div className="profile-div">
+                <p className="profile-field">Email</p>
+                <p className="profile-info">{this.state.email}</p>
             </div>
             
             <div className="profile-div">
@@ -114,11 +118,6 @@ export default class ProfilePJ extends Component {
             <div className="profile-div">
                 <p className="profile-field">Estado</p>
                 <p className="profile-info">{this.state.estado}</p>
-            </div>
-
-            <div className="profile-div">
-                <p className="profile-field">CNPJ</p>
-                <p className="profile-info">{this.state.cnpj}</p>
             </div>
         </div>
 

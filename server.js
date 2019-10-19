@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const userRoutes = require("./routes/users")
 const profileRoutes = require("./routes/profile")
 const lojasRoutes = require("./routes/lojas")
+const path = require("path")
 
 const passport = require("passport");
 // const {pool} = require("pg");

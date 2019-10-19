@@ -32,6 +32,7 @@ export default class stores extends Component {
         return (
             <div className="store-cards">
                 {this.state.storesList.map(res=>(
+                    <div className="store-card-wrapper">
                     <div className="store-card">
                         <div className="store-card-1">
                             <h1>{res.mer_nome}</h1>
@@ -48,6 +49,7 @@ export default class stores extends Component {
                         <div className="store-card-3">
                            <button className="btn">Comprar</button> 
                         </div>
+                    </div>
                     </div>
                 ))}
             </div>

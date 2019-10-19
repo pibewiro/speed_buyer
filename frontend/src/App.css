@@ -514,6 +514,14 @@
     background: var(--secondary-color);
     display:grid;
     grid-template-columns: 1fr 2fr 1fr;
+    width: 95%;
+    margin:auto;
+}
+
+.store-card-wrapper
+{
+    border-bottom: 1px solid black;
+    background: var(--secondary-color);
 }
 
 .store-card:last-child
@@ -524,6 +532,12 @@
 /* .store-card-1
 {
     background: red;
+} */
+
+/* .store-container
+{
+    width: 80%;
+    margin:auto;
 } */
 
 .store-card-1 h1

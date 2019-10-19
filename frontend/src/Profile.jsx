@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom"
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
 
 export default class Profile extends Component {
 

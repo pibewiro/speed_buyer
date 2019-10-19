@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import dalben from "./images/dalben.png"
-import walmart from "./images/walmart.jpg"
 import axios from "axios"
 
 export default class stores extends Component {

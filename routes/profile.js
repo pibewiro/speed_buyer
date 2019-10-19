@@ -46,20 +46,20 @@ router.post("/post_pessoa_fisica", async (req,response)=> {
      await client.query(queryEndereco, (err, result)=>{
 
         if(err) throw err
-        console.log(result)
+        // console.log(result)
      })
 
      await client.query(queryUF, (err, result)=>{
 
         if(err) throw err
-        console.log(result)
+        // console.log(result)
      })
 
      await client.query(getIDEndereco, (err, result)=>{
 
         if(err) throw err
 
-        console.log("Get id end", result[0].en_id_endereco);
+        // console.log("Get id end", result[0].en_id_endereco);
         const idEndereco = result[0].en_id_endereco;
         
         const queryUsuario = `
@@ -72,7 +72,7 @@ router.post("/post_pessoa_fisica", async (req,response)=> {
         client.query(queryUsuario, (err, result)=>{
             if(err) throw err;
 
-            console.log("User updated");
+            // console.log("User updated");
             client.end();
             return response.status(200).json("Success");
         });
@@ -173,7 +173,7 @@ router.get("/get_pessoa_juridico/:id", async (req, response)=>{
 
 router.post("/update_pessoa_juridica", async (req,response)=>{
     
-    console.log(req.body)
+    // console.log(req.body)
     const {errors, isValid} = validateUpdatePJ(req.body);
     if(!isValid) return response.status(400).json(errors);
 

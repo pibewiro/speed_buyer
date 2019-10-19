@@ -5,6 +5,8 @@ const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser")
 const userRoutes = require("./routes/users")
 const profileRoutes = require("./routes/profile")
+const lojasRoutes = require("./routes/lojas")
+
 const passport = require("passport");
 // const {pool} = require("pg");
 
@@ -16,10 +18,7 @@ require("./config/passport")(passport);
 
 app.use("/user", userRoutes);
 app.use("/profile", profileRoutes);
-
-
-// pool.connect()
-// .then(res=>console.log("Connected to DB"));
+app.use("/lojas", lojasRoutes);
 
 if(process.env.NODE_ENV === "production")
 {

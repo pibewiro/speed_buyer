@@ -45,6 +45,10 @@ export default class navbar extends Component {
                         </li>
 
                         <li>
+                            <Link to="/view_stores" href="#">Stores</Link>
+                        </li>
+
+                        <li>
                             <Link to="/account" href="#">About Us</Link>
                         </li>
 

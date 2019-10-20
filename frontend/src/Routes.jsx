@@ -16,6 +16,10 @@ import Stores from "./Stores";
 import Dalben from "./Dalben";
 import ProfilePJ from "./ProfilePJ";
 import ProfilePF from "./ProfilePF";
+import SigninAdmin from "./SigninAdmin";
+import viewStores from "./viewStores";
+
+
 
 
 
@@ -52,8 +56,10 @@ export default class Routes extends Component {
                     <PrivateRouteUser exact path="/items/Dalben" component={Dalben} />
                     <PrivateRouteUser exact path="/choose_profile" component={ChooseProfile} />
                     <PrivateRouteUser exact path="/profilePJ" component={ProfilePJ} />
-                    <Route exact path="/" component={Landing}/>
+                    <Route exact path="/admin/20192019" component={SigninAdmin}/>
+                    <Route exact path="/" component={Signin}/>
                     <Route exact path="/signin" component={Signin} />
+                    <Route exact path="/view_stores" component={viewStores} />
                     <Route exact path="/signup" component={Signup} />
                 </Switch>
             </Router>

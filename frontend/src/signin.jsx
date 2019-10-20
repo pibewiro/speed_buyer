@@ -13,7 +13,7 @@ export default class signin extends Component {
         super()
 
         this.state = {
-            email:"",
+            cpf_cnpj:"",
             senha:"",
             errors:[]
         }
@@ -27,14 +27,14 @@ export default class signin extends Component {
         }
     }
 
-    changeEmail = (e) => this.setState({email:e.target.value})
+    changeCpf_cnpj = (e) => this.setState({cpf_cnpj:e.target.value})
     changeSenha = (e) => this.setState({senha:e.target.value})
 
     signin = e => {
         e.preventDefault();
         const loginUser = {
             senha:this.state.senha,
-            email:this.state.email
+            cpf_cnpj:this.state.cpf_cnpj,
         }
 
         axios.post("/user/login_user", loginUser)
@@ -77,9 +77,9 @@ export default class signin extends Component {
                 <img src={logoImage} alt=""/>
                <form>
                    <div className="form-group">
-                       <label htmlFor="">Email</label>
-                       <input type="text" onChange={this.changeEmail} value={this.state.email} />
-                       <small className="errorMessage">{errors.email}</small>
+                       <label htmlFor="">CPF/CNPJ</label>
+                       <input type="text" onChange={this.changeCpf_cnpj} value={this.state.cpf_cnpj} />
+                       <small className="errorMessage">{errors.cpf_cnpj}</small>
                    </div>
 
                    <div className="form-group">

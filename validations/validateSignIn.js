@@ -5,18 +5,12 @@ module.exports = function validateSignInInput(data) {
 
     let errors = {};
 
-    data.email = !isEmpty(data.email) ? data.email : "";
+    data.cpf_cnpj = !isEmpty(data.cpf_cnpj) ? data.cpf_cnpj : "";
     data.senha = !isEmpty(data.senha) ? data.senha : "";
 
-
-    if(!validator.isEmail(data.email))
+    if(validator.isEmpty(data.cpf_cnpj))
     {
-        errors.email = "Invalid Email Input"
-    }
-
-    if(validator.isEmpty(data.email))
-    {
-        errors.email = "Email is required"
+        errors.cpf_cnpj = "cpf_cnpj is required"
     }
 
     //senha

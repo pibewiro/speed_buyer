@@ -74,11 +74,32 @@ router.post("/login_user", async (req,response)=>{
 
     const client = await mysql.createConnection(env);
 
-  
-        const findUser = `SELECT * FROM usuario WHERE usu_email = '${req.body.email}'`;
+        const inputLength = req.body.cpf_cnpj.length;
+        let findUser = "";
+        
+        if(inputLength === 14)
+        {
+            findUser = `
+                select *
+                from usuario 
+                inner join usuario_fisico on uf_id_usu = usu_id_usu
+                where uf_cpf = '${req.body.cpf_cnpj}' 
+            `;
+        }
+
+        else if(inputLength === 18)
+        {
+            findUser = `
+            select *
+            from usuario 
+            inner join usuario_juridico on uju_id_usuario = usu_id_usu
+            where uj_cnpj = '${req.body.cpf_cnpj}' 
+            `;
+        }
+
         let senhaLogin = "";
 
-            const res1 = await client.query(findUser, (err,result)=>{
+            client.query(findUser, (err,result)=>{
             if(err) throw err;
             client.end();
 
@@ -89,7 +110,7 @@ router.post("/login_user", async (req,response)=>{
 
             if(result.length === 0)
             {
-                return response.status(404).json({email:"User not found"})
+                return response.status(404).json({cpf_cnpj:"User not found"})
             }
     
             bcrypt.compare(req.body.senha, senhaLogin)

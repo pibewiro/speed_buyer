@@ -40,7 +40,8 @@ export default class signin extends Component {
             emailOriginal:"",
             usuarioOriginal:"",
             dataNascimento:"",
-            cpf:""
+            cpf:"",
+            cpfOriginal:""
         }
     }
 
@@ -66,7 +67,8 @@ export default class signin extends Component {
                 ativo:res.data.usu_ativo,
                 cpf:res.data.uf_cpf,
                 emailOriginal:res.data.usu_email,
-                usuarioOriginal:res.data.nome_usuario
+                usuarioOriginal:res.data.nome_usuario,
+                cpfOriginal:res.data.uf_cpf
             })
         })         
     }
@@ -113,6 +115,7 @@ export default class signin extends Component {
             idUF:this.state.idUF,
             emailOriginal:this.state.emailOriginal,
             usuarioOriginal:this.state.usuarioOriginal,
+            cpfOriginal:this.state.cpfOriginal
         }
 
         axios.post("/profile/update_pessoa_fisica", editPF)

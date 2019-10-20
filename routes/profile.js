@@ -30,6 +30,8 @@ router.post("/post_pessoa_fisica", async (req,response)=> {
         VALUES('${req.body.cpf}', '${req.body.dataNascimento}', ${req.body.idUsuario})
     `;
 
+    const queryCPF = `SELECT uf_cpf FROM usuario_fisico WHERE uf_cpf = '${req.body.cpf}'`;
+
     const getIDEndereco = `
         SELECT en_id_endereco from endereco 
         WHERE
@@ -41,42 +43,53 @@ router.post("/post_pessoa_fisica", async (req,response)=> {
         en_complemento = '${req.body.complemento}' 
     `;
 
-
-
-     await client.query(queryEndereco, (err, result)=>{
-
-        if(err) throw err
-        // console.log(result)
-     })
-
-     await client.query(queryUF, (err, result)=>{
-
-        if(err) throw err
-        // console.log(result)
-     })
-
-     await client.query(getIDEndereco, (err, result)=>{
-
+    client.query(queryCPF, (err, result)=>{
+        let errors = {};
         if(err) throw err
 
-        // console.log("Get id end", result[0].en_id_endereco);
-        const idEndereco = result[0].en_id_endereco;
+        if(result.length > 0)
+        {
+            errors.cpf = "CPF Already exsists"
+            return response.status(400).json(errors)
+        }
+
+        else
+        {
+            client.query(queryEndereco, (err, result)=>{
+
+                if(err) throw err
+             })
         
-        const queryUsuario = `
-            UPDATE usuario SET 
-            usu_ativo = 1, 
-            usu_id_endereco = ${idEndereco} 
-            WHERE  usu_id_usu = ${req.body.idUsuario}
-        `;
-
-        client.query(queryUsuario, (err, result)=>{
-            if(err) throw err;
-
-            // console.log("User updated");
-            client.end();
-            return response.status(200).json("Success");
-        });
-     });
+             client.query(queryUF, (err, result)=>{
+        
+                if(err) throw err
+             })
+        
+             client.query(getIDEndereco, (err, result)=>{
+        
+                if(err) throw err
+        
+                // console.log("Get id end", result[0].en_id_endereco);
+                const idEndereco = result[0].en_id_endereco;
+                
+                const queryUsuario = `
+                    UPDATE usuario SET 
+                    usu_ativo = 1, 
+                    usu_id_endereco = ${idEndereco} 
+                    WHERE  usu_id_usu = ${req.body.idUsuario}
+                `;
+        
+                client.query(queryUsuario, (err, result)=>{
+                    if(err) throw err;
+        
+                    // console.log("User updated");
+                    client.end();
+                    return response.status(200).json("Success");
+                });
+             });
+        
+        }
+     })
      
 })
 
@@ -173,7 +186,7 @@ router.get("/get_pessoa_juridico/:id", async (req, response)=>{
 
 router.post("/update_pessoa_juridica", async (req,response)=>{
     
-    // console.log(req.body)
+    console.log(req.body)
     const {errors, isValid} = validateUpdatePJ(req.body);
     if(!isValid) return response.status(400).json(errors);
 
@@ -348,18 +361,24 @@ router.post("/update_pessoa_fisica", async (req,response)=>{
         })
     }
 
-    if(req.body.email !== req.body.emailOriginal || req.body.usuario !== req.body.usuarioOriginal)
+    if(req.body.email !== req.body.emailOriginal || req.body.usuario !== req.body.usuarioOriginal || req.body.cpf !== req.body.cpfOriginal)
     {
-        const searchEmail = "SELECT usu_email, nome_usuario From usuario";
+        const searchEmail = `
+        SELECT usu_email, nome_usuario, uf_cpf From usuario
+        INNER JOIN usuario_fisico ON uf_id_usu = usu_id_usu
+        `;
+
         let errors = {}
 
         client.query(searchEmail, (err, result)=>{
             let ArrEmail = []
             let ArrUsuario = []
+            let ArrCPF = []
 
             if(err) throw err;
             result.map(res=>ArrEmail.push(res.usu_email))
             result.map(res=>ArrUsuario.push(res.nome_usuario))
+            result.map(res=>ArrCPF.push(res.uf_cpf))
 
             if(ArrEmail.includes(req.body.email) && (req.body.email !== req.body.emailOriginal))
             {
@@ -371,9 +390,14 @@ router.post("/update_pessoa_fisica", async (req,response)=>{
                 errors.usuario = "Usuario Exists";
             }
 
+            if(ArrCPF.includes(req.body.cpf) && (req.body.cpf !== req.body.cpfOriginal))
+            {
+                errors.cpf = "CPF Exists";
+            }
+
             if(Object.keys(errors).length > 0)
             {
-                return response.status(400).json(errors)
+               return response.status(400).json(errors)
             }
 
             else
@@ -385,7 +409,7 @@ router.post("/update_pessoa_fisica", async (req,response)=>{
 
     else
     {
-        update()
+       update()
     }
 })
 

@@ -22,7 +22,7 @@ export default class signin extends Component {
             complemento:"",
             cep:"",
             cidade:"",
-            estado:"",
+            estado:"São Paulo",
             idUsuario:"jwtToken" in localStorage ? jwt_decode(localStorage.getItem("jwtToken")).id_usuario : "",
             errors:[]
         }
@@ -182,7 +182,7 @@ export default class signin extends Component {
 
                         <div className="form-group">
                            <label htmlFor="">Estado</label>
-                           <input type="text" onChange={this.changeEstado} value={this.state.estado} />
+                           <input type="text" onChange={this.changeEstado} value={this.state.estado} readOnly />
                            <small class="errors">{errors.estado}</small>
                         </div>
                    </div>

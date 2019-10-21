@@ -24,6 +24,8 @@ export default class ProfilePJ extends Component {
             estado:"",
             cpf:"",
             cnpj:"",
+            email:"",
+            nomeUsuario:"",
             idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario
 
         }
@@ -47,7 +49,9 @@ export default class ProfilePJ extends Component {
                 cep:res.data.en_cep,
                 cidade:res.data.en_cidade,
                 estado:res.data.en_estado,
-                cnpj:res.data.uj_cnpj
+                cnpj:res.data.uj_cnpj,
+                email:res.data.usu_email,
+                nomeUsuario:res.data.nome_usuario
             })
         })
     }
@@ -64,6 +68,16 @@ export default class ProfilePJ extends Component {
             <div className="profile-div">
                 <p className="profile-field">Sobre Nome</p>
                 <p className="profile-info">{this.state.sobreNome}</p>
+            </div>
+
+            <div className="profile-div">
+                <p className="profile-field">Email</p>
+                <p className="profile-info">{this.state.email}</p>
+            </div>
+
+            <div className="profile-div">
+                <p className="profile-field">Usuario</p>
+                <p className="profile-info">{this.state.nomeUsuario}</p>
             </div>
 
             <div className="profile-div">

@@ -11,12 +11,12 @@ export default class menuLeft extends Component {
             <ul>
                 <Link to="/profile"><li><i class="fas fa-id-badge"></i><p>Meu Profile</p></li></Link>
                 <Link to="stores"><li><i class="fas fa-store"></i><p>Stores</p></li></Link>
-                <li><i class="fas fa-shopping-cart"></i><p>Categorias</p></li>
-                <li><i class="fas fa-sort-numeric-up-alt"></i><p>Minha Lista</p></li>
-                <li><i class="fas fa-sort-numeric-up-alt"></i><p>Meu Carrinho</p></li>
-                <li><i class="fas fa-sort-numeric-up-alt"></i><p>Promoçoes</p></li>
-                <li><i class="fas fa-sort-numeric-up-alt"></i><p>Favoritos</p></li>
-                <li><i class="fas fa-sort-numeric-up-alt"></i><p>Ajuda Central</p></li>
+                <li><i class="fas fa-list"></i><p>Categorias</p></li>
+                <li><i class="fas fa-list"></i><p>Minha Lista</p></li>
+                <li><i class="fas fa-shopping-cart"></i><p>Meu Carrinho</p></li>
+                <li><i class="fas fa-tags"></i><p>Promoçoes</p></li>
+                <li><i class="far fa-star"></i><p>Favoritos</p></li>
+                <li><i class="fas fa-question"></i><p>Ajuda Central</p></li>
             </ul>
         </div>
 

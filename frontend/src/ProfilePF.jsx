@@ -27,6 +27,7 @@ export default class ProfilePF extends Component {
             cnpj:"",
             idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario,
             usuario:"",
+            email:"",
             ativo:null,
         }
     }
@@ -52,6 +53,7 @@ export default class ProfilePF extends Component {
                 usuario:res.data.nome_usuario,
                 ativo:res.data.usu_ativo,
                 cpf:res.data.uf_cpf,
+                email:res.data.usu_email,
             })
         })
     }
@@ -76,6 +78,11 @@ export default class ProfilePF extends Component {
             </div>
 
             <div className="profile-div">
+                <p className="profile-field">Email</p>
+                <p className="profile-info">{this.state.email}</p>
+            </div>
+
+            <div className="profile-div">
                 <p className="profile-field">Data Nascimento</p>
                 <p className="profile-info">{this.state.dataNascimento}</p>
             </div>
@@ -83,11 +90,6 @@ export default class ProfilePF extends Component {
             <div className="profile-div">
                 <p className="profile-field">CPF</p>
                 <p className="profile-info">{this.state.cpf}</p>
-            </div>
-
-            <div className="profile-div">
-                <p className="profile-field">Email</p>
-                <p className="profile-info">{this.state.email}</p>
             </div>
             
             <div className="profile-div">

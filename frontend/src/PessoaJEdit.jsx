@@ -32,7 +32,12 @@ export default class signin extends Component {
             idUJ:"",
             idEndereco:"",
             emailOriginal:"",
-            usuarioOriginal:""
+            usuarioOriginal:"",
+            cnpjOriginal:"",
+            nomeFantasiaOriginal:"",
+            razaoSocialOriginal:"",
+            insEstOriginal:"",
+            insMunOriginal:"",
         }
     }
 
@@ -60,7 +65,12 @@ export default class signin extends Component {
                 idEndereco:res.data.en_id_endereco,
                 idUJ:res.data.id_uj,
                 emailOriginal:res.data.usu_email,
-                usuarioOriginal:res.data.nome_usuario
+                usuarioOriginal:res.data.nome_usuario,
+                cnpjOriginal:res.data.uj_cnpj,
+                nomeFantasiaOriginal:res.data.uj_nome_fantasia,
+                razaoSocialOriginal:res.data.uj_razao_social,
+                insEstOriginal:res.data.uj_inscricao_estadual,
+                insMunOriginal:res.data.uj_inscricao_municipal
             })
         })
     }
@@ -107,7 +117,12 @@ export default class signin extends Component {
             idEndereco:this.state.idEndereco,
             idUJ:this.state.idUJ,
             emailOriginal:this.state.emailOriginal,
-            usuarioOriginal:this.state.usuarioOriginal
+            usuarioOriginal:this.state.usuarioOriginal,
+            cnpjOriginal:this.state.cnpjOriginal,
+            nomeFantasiaOriginal:this.state.nomeFantasiaOriginal,
+            razaoSocialOriginal:this.state.razaoSocialOriginal,
+            insEstOriginal:this.state.insEstOriginal,
+            insMunOriginal:this.state.insMunOriginal
         }
 
         axios.post("/profile/update_pessoa_juridica", editPJ)

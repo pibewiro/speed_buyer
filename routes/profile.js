@@ -94,7 +94,7 @@ router.post("/post_pessoa_fisica", async (req,response)=> {
 })
 
 router.post("/post_pessoa_juridica", async (req,response)=>{
-    
+    console.log(req.body)
     const {errors, isValid} = validatePJ(req.body);
 
     if(!isValid) return response.status(400).json(errors)
@@ -122,16 +122,49 @@ router.post("/post_pessoa_juridica", async (req,response)=>{
         en_complemento = '${req.body.complemento}' 
     `;
 
+    const getDuplicidade = `
+        SELECT * FROM usuario_juridico
+    `;
 
-    await client.query(queryEndereco, (err, result)=>{
+
+    client.query(getDuplicidade, (err, result)=>{
+
+        let arrCNPJ = [];
+        let arrNomeFantasia = [];
+        let arrRazaoSocial = [];
+        let arrInsEst = [];
+        let arrInsMun = [];
+        let errors = {};
+
+        if(err) throw err
+        result.map(res=>arrCNPJ.push(res.uj_cnpj))
+        result.map(res=>arrNomeFantasia.push(res.uj_nome_fantasia))
+        result.map(res=>arrRazaoSocial.push(res.uj_razao_social))
+        result.map(res=>arrInsEst.push(res.uj_inscricao_estadual))
+        result.map(res=>arrInsMun.push(res.uj_inscricao_municipal))
+        
+        if(arrCNPJ.includes(req.body.cnpj)) errors.cnpj = "CNPJ Exists";
+        if(arrNomeFantasia.includes(req.body.nomeFantasia)) errors.nomeFantasia = "nomeFantasia Exists"
+        if(arrRazaoSocial.includes(req.body.razaoSocial)) errors.razaoSocial = "razaoSocial Exists"
+        if(arrInsEst.includes(req.body.inscricaoEst)) errors.inscricaoEst = "inscricaoEst Exists"
+        if(arrInsMun.includes(req.body.inscricaoMun)) errors.inscricaoMun = "inscricaoMun Exists"
+
+        if(Object.keys(errors).length > 0)
+        {
+            return response.status(400).json(errors);
+        }
+
+    })
+
+    client.query(queryEndereco, (err, result)=>{
         if(err) throw err
     })
 
-    await client.query(queryInsertPJ, (err, result)=>{
+    client.query(queryInsertPJ, (err, result)=>{
         if(err) throw err
     })
 
-    await client.query(getIDEndereco, (err, result)=>{
+    client.query(getIDEndereco, (err, result)=>{
         if(err) throw err
 
         const idEndereco = result[0].en_id_endereco;
@@ -186,7 +219,6 @@ router.get("/get_pessoa_juridico/:id", async (req, response)=>{
 
 router.post("/update_pessoa_juridica", async (req,response)=>{
     
-    console.log(req.body)
     const {errors, isValid} = validateUpdatePJ(req.body);
     if(!isValid) return response.status(400).json(errors);
 
@@ -240,12 +272,20 @@ router.post("/update_pessoa_juridica", async (req,response)=>{
 
     }
 
-        if(req.body.email !== req.body.emailOriginal || req.body.usuario !== req.body.usuarioOriginal)
+        if(req.body.email !== req.body.emailOriginal || 
+            req.body.usuario !== req.body.usuarioOriginal ||
+            req.body.cnpj !== req.body.cnpjOriginal ||
+            req.body.nomeFantasia !== req.body.nomeFantasiaOriginal ||
+            req.body.inscricaoEst !== req.body.insEstOriginal ||
+            req.body.inscricaoMun !== req.body.insMunOriginal)
         {
-            let errors = {}
-            const find = `SELECT usu_email, nome_usuario FROM usuario`;
+            const find = `
+                SELECT * FROM usuario
+                INNER JOIN usuario_juridico ON uju_id_usuario = usu_id_usu
+            `;
 
             client.query(find, (err,result)=>{
+                let errors = {}
 
                 const emails = []
                 result.map(r=>emails.push(r.usu_email));
@@ -253,8 +293,28 @@ router.post("/update_pessoa_juridica", async (req,response)=>{
                 const usuarios = []
                 result.map(r=>usuarios.push(r.nome_usuario));
 
+                const arrCNPJ = []
+                result.map(r=>arrCNPJ.push(r.uj_cnpj));
+
+                const arrRS = []
+                result.map(r=>arrRS.push(r.uj_razao_social));
+
+                const arrNF = []
+                result.map(r=>arrNF.push(r.uj_nome_fantasia));
+
+                const arrIE = []
+                result.map(r=>arrIE.push(r.uj_inscricao_estadual));
+
+                const arrIM = []
+                result.map(r=>arrIM.push(r.uj_inscricao_municipal));
+
                 const checkEmail = emails.includes(req.body.email);
                 const checkUsuario = usuarios.includes(req.body.usuario);
+                const checkCNPJ = arrCNPJ.includes(req.body.cnpj);
+                const checkNF = arrNF.includes(req.body.nomeFantasia);
+                const checkRS = arrRS.includes(req.body.razaoSocial);
+                const checkIE = arrIE.includes(req.body.inscricaoEst);
+                const checkIM = arrIM.includes(req.body.inscricaoMun);
 
                 if(checkEmail && (req.body.email !== req.body.emailOriginal))
                 {
@@ -266,6 +326,31 @@ router.post("/update_pessoa_juridica", async (req,response)=>{
                     errors.usuario = "Usuario Already Exsists"
                 }
 
+                if(checkCNPJ && (req.body.cnpj !== req.body.cnpjOriginal))
+                {
+                    errors.cnpj = "cnpj Already Exsists"
+                }
+
+                if(checkNF && (req.body.nomeFantasia !== req.body.nomeFantasiaOriginal))
+                {
+                    errors.nomeFantasia = "nomeFantasia Already Exsists"
+                }
+
+                if(checkRS && (req.body.razaoSocial !== req.body.razaoSocialOriginal))
+                {
+                    errors.razaoSocial = "razaoSocial Already Exsists"
+                }
+
+                if(checkIE && (req.body.inscricaoEst !== req.body.insEstOriginal))
+                {
+                    errors.inscricaoEst = "inscricaoEst Already Exsists"
+                }
+
+                if(checkIM && (req.body.inscricaoMun !== req.body.insMunOriginal))
+                {
+                    errors.inscricaoMun = "inscricaoMun Already Exsists"
+                }
+
                 if(Object.keys(errors).length > 0)
                 {
                     client.end();
@@ -274,7 +359,7 @@ router.post("/update_pessoa_juridica", async (req,response)=>{
 
                 else
                 {
-                    updatePJ();
+                   updatePJ();
                 }
 
             })

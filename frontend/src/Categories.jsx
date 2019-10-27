@@ -46,7 +46,7 @@ export default class Categorias extends Component {
     }
 
     clickCat = (cat) => {
-        this.props.history.push(`/store/${this.state.nomeMercado}/${this.state.rua}/${this.state.idMercado}/${cat}`)
+        this.props.history.push(`/store/${this.state.nomeMercado.toLowerCase()}/${this.state.rua.toLowerCase()}/${this.state.idMercado}/${cat.toLowerCase().replace(/\s/g, "_")}`)
     }
 
 

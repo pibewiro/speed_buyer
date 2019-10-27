@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios"
 import {Link} from "react-router-dom"
+import removeAccents from "remove-accents"
 
 export default class stores extends Component {
 
@@ -46,7 +47,7 @@ export default class stores extends Component {
                         </div>
 
                         <div className="store-card-3">
-                           <Link to={`/store/${res.mer_nome.toLowerCase().replace(/\s/g, "_")}/${res.en_rua.toLowerCase().replace(/\s/g, '_')}/${res.mer_info_id}`} className="btn">Comprar</Link> 
+                           <Link to={`/store/${res.mer_nome.toLowerCase().replace(/\s/g, "_")}/${removeAccents(res.en_rua).toLowerCase().replace(/\s/g, '_')}/${res.mer_info_id}`} className="btn">Comprar</Link> 
                         </div>
                     </div>
                     </div>

@@ -28,6 +28,7 @@
     "passport-jwt": "^4.0.0",
     "pg": "^7.12.1",
     "react-input-mask": "^2.0.4",
+    "remove-accents": "^0.4.2",
     "validator": "^11.1.0"
   }
 }

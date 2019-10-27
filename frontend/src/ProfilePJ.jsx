@@ -35,7 +35,6 @@ export default class ProfilePJ extends Component {
     {
         axios.get(`profile/get_pessoa_juridico/${this.state.idUsuario}`)
         .then(res=>{
-            console.log(res.data)
             this.setState({
                 primeiroNome:res.data.primeiro_nome,
                 sobreNome:res.data.sobre_nome,

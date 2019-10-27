@@ -52,8 +52,7 @@ export default class ProfilePF extends Component {
                 dataNascimento:moment(res.data.uf_data_nascimento).format("MM-DD-YYYY"),
                 usuario:res.data.nome_usuario,
                 ativo:res.data.usu_ativo,
-                cpf:res.data.uf_cpf,
-                email:res.data.usu_email,
+                cpf:res.data.uf_cpf
             })
         })
     }

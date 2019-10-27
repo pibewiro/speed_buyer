@@ -15,7 +15,7 @@ export default class Dashboard extends Component {
       
     componentDidMount()
     {
-        console.log(this.props)
+        //console.log(this.props)
     }
 
     logout = e => {
@@ -27,6 +27,15 @@ export default class Dashboard extends Component {
     render() {
         let dashtext = this.props.children.props.location.pathname.slice(1).split("/")[0];
         dashtext = dashtext.charAt(0).toUpperCase() + dashtext.slice(1);
+
+        if(dashtext === 'ProfilePJ') dashtext = 'Pessoa Juridico';
+        if(dashtext === 'ProfilePF') dashtext = 'Pessoa Fisica';
+        if(dashtext === 'Pessoa_fisica_edit') dashtext = 'Editar Pessoa Fisica';
+        if(dashtext === 'Pessoa_juridica_edit') dashtext = 'Editar Pessoa Juridica';
+        if(dashtext === 'Choose_profile') dashtext = 'Choose Profile';
+        if(dashtext === 'Pessoa_fisica') dashtext = 'Pessoa Fisica';
+        if(dashtext === 'Pessoa_juridica') dashtext = 'Pessoa Juridica';
+
         return (
                     <div id="dashboard">
                         <div className="dash-content">

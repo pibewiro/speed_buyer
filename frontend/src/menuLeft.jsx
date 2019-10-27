@@ -10,7 +10,7 @@ export default class menuLeft extends Component {
             <img src={logoImage} alt=""/>
             <ul>
                 <Link to="/profile"><li><i class="fas fa-id-badge"></i><p>Meu Profile</p></li></Link>
-                <Link to="stores"><li><i class="fas fa-store"></i><p>Stores</p></li></Link>
+                <Link to="/stores"><li><i class="fas fa-store"></i><p>Stores</p></li></Link>
                 <li><i class="fas fa-list"></i><p>Categorias</p></li>
                 <li><i class="fas fa-list"></i><p>Minha Lista</p></li>
                 <li><i class="fas fa-shopping-cart"></i><p>Meu Carrinho</p></li>

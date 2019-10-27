@@ -1,0 +1,61 @@
+:root
+{
+    --primary-color:#00283D;
+    --secondary-color:#f4f4f4;
+    --hover:#1D3B4A;
+}
+
+.rowCat
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap:20px;
+    padding:20px;
+}
+
+.rowCat2
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap:20px;
+    padding:20px;
+    width:80%;
+    margin: auto;
+}
+
+.cat-div
+{
+    background:var(--primary-color);
+    height: 200px;
+    color:#fff;
+}
+
+.cat-div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cat-div h2
+{
+    padding: 10px;
+}
+
+.cat-div i
+{
+    display: block;
+    text-align: center;
+}
+
+#categories
+{
+    height:84.5vh;
+}
+
+.cat-div:hover
+{
+    background: var(--hover);
+    cursor: pointer;
+}

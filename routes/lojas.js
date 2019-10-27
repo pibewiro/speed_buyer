@@ -24,6 +24,25 @@ router.get("/get_stores", async (req, response)=>{
     })
 })
 
+router.get("/get_categorias", async (req,res)=>{
+
+    
+    const query = 'SELECT * FROM categoria';
+    
+    const client = mysql.createConnection(env);
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+       // console.log(result);
+
+        client.end();
+        return res.status(200).json(result)
+    })
+
+
+})
+
 
 
 module.exports = router;

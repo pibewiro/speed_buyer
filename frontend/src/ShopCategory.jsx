@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class Dalben extends Component {
+export default class ShopCategory extends Component {
     render() {
         return (
             <div>
-                vrgbrgtbrgtb
+                <p>jkwvjkh</p>
             </div>
         )
     }

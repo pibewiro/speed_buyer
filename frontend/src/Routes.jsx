@@ -13,14 +13,12 @@ import PessoaJ from "./PessoaJ";
 import PessoaJEdit from "./PessoaJEdit";
 import PessoaPFEdit from "./PessoaPFEdit";
 import Stores from "./Stores";
-import Dalben from "./Dalben";
+import Categories from "./Categories";
 import ProfilePJ from "./ProfilePJ";
 import ProfilePF from "./ProfilePF";
 import SigninAdmin from "./SigninAdmin";
 import viewStores from "./viewStores";
-
-
-
+import ShopCategory from "./ShopCategory";
 
 
 export default class Routes extends Component {
@@ -53,7 +51,8 @@ export default class Routes extends Component {
                   <PrivateRouteUser exact path="/pessoa_fisica_edit" component={PessoaPFEdit} />
                     <PrivateRouteUser exact path="/dashboard" component={Dashboard} />
                     <PrivateRouteUser exact path="/profile" component={Profile} />
-                    <PrivateRouteUser exact path="/items/Dalben" component={Dalben} />
+                    <PrivateRouteUser exact path="/store/:name/:rua/:id" component={Categories} />
+                    <PrivateRouteUser exact path="/store/:name/:rua/:id/:cat" component={ShopCategory} />
                     <PrivateRouteUser exact path="/choose_profile" component={ChooseProfile} />
                     <PrivateRouteUser exact path="/profilePJ" component={ProfilePJ} />
                     <Route exact path="/admin/20192019" component={SigninAdmin}/>

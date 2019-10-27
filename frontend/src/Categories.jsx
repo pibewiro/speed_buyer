@@ -7,20 +7,20 @@ export default class Categorias extends Component {
     constructor()
     {
         super()
-        {
-            this.state = {
-                derivados:"",
-                frutas:"",
-                vegetais:"",
-                bebidas:"",
-                carnes:"",
-                dolces:"",
-                outras:"",
-                idMercado:"",
-                nomeMercado:"",
-                rua:""
-            }
+        
+        this.state = {
+            derivados:"",
+            frutas:"",
+            vegetais:"",
+            bebidas:"",
+            carnes:"",
+            dolces:"",
+            outras:"",
+            idMercado:"",
+            nomeMercado:"",
+            rua:""
         }
+        
     }
 
     componentDidMount()

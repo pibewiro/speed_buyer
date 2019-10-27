@@ -46,7 +46,7 @@ export default class stores extends Component {
                         </div>
 
                         <div className="store-card-3">
-                           <Link to={`/store/${res.mer_nome}/${res.en_rua.replace(" ", "%")}/${res.mer_info_id}`} className="btn">Comprar</Link> 
+                           <Link to={`/store/${res.mer_nome}/${res.en_rua.replace(/\s/g, '%')}/${res.mer_info_id}`} className="btn">Comprar</Link> 
                         </div>
                     </div>
                     </div>

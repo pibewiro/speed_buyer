@@ -43,6 +43,32 @@ router.get("/get_categorias", async (req,res)=>{
 
 })
 
+router.post("/get_items", async (req,res)=>{
+
+    console.log(req.body);
+    const {idMercado, categoria} = req.body;
+
+    const query = `
+        select * from item
+        inner join mercado_info on it_id_mercado = mer_info_id
+        inner join produto on it_id_produto = pro_id_produto
+        inner join categoria on pro_id_categoria = cat_id_categoria
+        where 
+        it_id_mercado = ${parseInt(idMercado)} and
+        cat_nome = '${categoria}'
+    `;
+
+    const client = mysql.createConnection(env);
+
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+        console.log(query)
+        console.log(result)
+        client.end();
+        return res.status(200).json(result)
+    })
+})
+
 
 
 module.exports = router;

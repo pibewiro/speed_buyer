@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import "./categories.css";
 import axios from 'axios';
+import removeAccents from "remove-accents"
 
 export default class Categorias extends Component {
 
@@ -15,7 +16,7 @@ export default class Categorias extends Component {
             bebidas:"",
             carnes:"",
             dolces:"",
-            outras:"",
+            graos:"",
             idMercado:"",
             nomeMercado:"",
             rua:""
@@ -33,7 +34,7 @@ export default class Categorias extends Component {
             bebidas:res.data[3].cat_nome,
             carnes:res.data[4].cat_nome,
             dolces:res.data[5].cat_nome,
-            outras:res.data[6].cat_nome
+            graos:res.data[6].cat_nome
         }))
 
         console.log(this.props.match.params)
@@ -46,7 +47,7 @@ export default class Categorias extends Component {
     }
 
     clickCat = (cat) => {
-        this.props.history.push(`/store/${this.state.nomeMercado.toLowerCase()}/${this.state.rua.toLowerCase()}/${this.state.idMercado}/${cat.toLowerCase().replace(/\s/g, "_")}`)
+        this.props.history.push(`/store/${this.state.nomeMercado.toLowerCase()}/${this.state.rua.toLowerCase()}/${this.state.idMercado}/${removeAccents(cat).toLowerCase().replace(/\s/g, "_")}`)
     }
 
 
@@ -99,10 +100,10 @@ export default class Categorias extends Component {
                         </div>
                     </div>
 
-                    <div onClick={this.clickCat.bind(this, this.state.outras)} className="cat-div">
+                    <div onClick={this.clickCat.bind(this, this.state.graos)} className="cat-div">
                         <div>
-                            <i class="fas fa-random fa-3x"></i>
-                            <h2>{this.state.outras}</h2>
+                            <i class="fas fa-bread-slice fa-3x"></i>                            
+                            <h2>{this.state.graos}</h2>
                         </div>
                     </div>
 

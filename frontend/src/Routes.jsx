@@ -22,6 +22,8 @@ import ShopCategory from "./ShopCategory";
 
 
 export default class Routes extends Component {
+
+  componentDidmo
     render() {
 
         const PrivateRouteUser = ({ component: Component, ...rest }) => (

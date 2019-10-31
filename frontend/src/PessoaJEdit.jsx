@@ -4,6 +4,7 @@ import InputMask from "react-input-mask";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import Spinner from "./Spinner"
 
 export default class signin extends Component {
 
@@ -38,11 +39,13 @@ export default class signin extends Component {
             razaoSocialOriginal:"",
             insEstOriginal:"",
             insMunOriginal:"",
+            loading:false
         }
     }
 
     componentDidMount()
     {
+        this.setState({loading:true})
         axios.get(`profile/get_pessoa_juridico/${this.state.idUsuario}`)
         .then(res=>{
             console.log(res.data)
@@ -70,7 +73,8 @@ export default class signin extends Component {
                 nomeFantasiaOriginal:res.data.uj_nome_fantasia,
                 razaoSocialOriginal:res.data.uj_razao_social,
                 insEstOriginal:res.data.uj_inscricao_estadual,
-                insMunOriginal:res.data.uj_inscricao_municipal
+                insMunOriginal:res.data.uj_inscricao_municipal,
+                loading:false
             })
         })
     }
@@ -159,7 +163,8 @@ export default class signin extends Component {
         const {errors} = this.state;
 
         return (
-            <div id="form-content-pj">
+            <>
+            {this.state.loading ? <Spinner /> : <div id="form-content-pj">
                 <h1 class="big-heading">Pessoa Juridica</h1>
                <form>
                <div className="row">
@@ -284,7 +289,8 @@ export default class signin extends Component {
                         <button onClick={this.salvarEdit} type="submit" class="btn">Enter</button>
                    </div>
                </form>
-            </div>
+            </div>}
+            </>
         )
     }
 }

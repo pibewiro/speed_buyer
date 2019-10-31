@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from "axios"
 import {Link} from "react-router-dom"
 import removeAccents from "remove-accents"
+import Spinner from "./Spinner"
 
 export default class stores extends Component {
 
@@ -10,18 +11,23 @@ export default class stores extends Component {
         super()
 
         this.state = {
-            storesList:[]
+            storesList:[],
+            loading:false
         }
     }
     componentDidMount()
     {
+        this.setState({loading:true})
+
         if("jwtToken" in localStorage === false)
         {
             this.props.history.push("/")
         }
 
         axios.get("lojas/get_stores")
-        .then(res=>this.setState({storesList:res.data.result}))
+        .then(res=>{
+            this.setState({storesList:res.data.result, loading:false})
+        })
     }
 
     clickShop = store => {
@@ -31,7 +37,7 @@ export default class stores extends Component {
 
         return (
             <div className="store-cards">
-                {this.state.storesList.map(res=>(
+                {this.state.loading ? <Spinner /> : this.state.storesList.map(res=>(
                     <div className="store-card-wrapper">
                     <div className="store-card">
                         <div className="store-card-1">

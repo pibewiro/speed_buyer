@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import jwtDecode from "jwt-decode";
 import {Link} from "react-router-dom"
+import Spinner from "./Spinner"
 
 export default class ProfilePJ extends Component {
 
@@ -26,13 +27,14 @@ export default class ProfilePJ extends Component {
             cnpj:"",
             email:"",
             nomeUsuario:"",
-            idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario
-
+            idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario,
+            loading:false
         }
     }
 
     componentDidMount()
     {
+        this.setState({loading:true})
         axios.get(`profile/get_pessoa_juridico/${this.state.idUsuario}`)
         .then(res=>{
             this.setState({
@@ -50,14 +52,16 @@ export default class ProfilePJ extends Component {
                 estado:res.data.en_estado,
                 cnpj:res.data.uj_cnpj,
                 email:res.data.usu_email,
-                nomeUsuario:res.data.nome_usuario
+                nomeUsuario:res.data.nome_usuario,
+                loading:false
             })
         })
     }
+
     render() {
         return (
-            <>
-             <h1 className="view-profile">View Profile</h1>
+        <>
+        {this.state.loading ? <Spinner /> :<> <h1 className="view-profile">View Profile</h1>
             <div className="profile1">
             <div className="profile-div">
                 <p className="profile-field">Primeiro Nome</p>
@@ -134,12 +138,12 @@ export default class ProfilePJ extends Component {
                 <p className="profile-info">{this.state.cnpj}</p>
             </div>
         </div>
-
-            <div className="btn-edit-div">
+        <div className="btn-edit-div">
                 <Link to="/pessoa_juridica_edit" className="btn">Edit Profile</Link>
             </div>
-            </>
-
+        
+        </>}
+        </>
         )
     }
 }

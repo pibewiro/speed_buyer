@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Swal from 'sweetalert2';
 import moment from "moment"
+import Spinner from "./Spinner"
 // import DatePicker, { registerLocale } from 'react-datepicker';
 // import "react-datepicker/dist/react-datepicker.css";
 // import pt_BR from "date-fns/locale/pt-BR";
@@ -41,15 +42,16 @@ export default class signin extends Component {
             usuarioOriginal:"",
             dataNascimento:"",
             cpf:"",
-            cpfOriginal:""
+            cpfOriginal:"",
+            loading:false
         }
     }
 
     componentDidMount()
     {
+        this.setState({loading:true})
         axios.get(`profile/get_pessoa_fisica/${this.state.idUsuario}`)
         .then(res=>{
-            console.log(res.data)
             this.setState({
                 idEndereco:res.data.en_id_endereco,
                 cep:res.data.en_cep,
@@ -68,7 +70,8 @@ export default class signin extends Component {
                 cpf:res.data.uf_cpf,
                 emailOriginal:res.data.usu_email,
                 usuarioOriginal:res.data.nome_usuario,
-                cpfOriginal:res.data.uf_cpf
+                cpfOriginal:res.data.uf_cpf,
+                loading:false
             })
         })         
     }
@@ -151,7 +154,8 @@ export default class signin extends Component {
         const {errors} = this.state;
 
         return (
-            <div id="form-content-pj">
+            <>
+            {this.state.loading ? <Spinner /> : <div id="form-content-pj">
                 <h1 class="big-heading">Pessoa Fisica</h1>
                <form>
                     <div className="row">
@@ -259,6 +263,8 @@ export default class signin extends Component {
                    </div>
                </form>
             </div>
+            }
+            </>
         )
     }
 }

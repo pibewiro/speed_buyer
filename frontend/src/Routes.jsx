@@ -19,6 +19,7 @@ import ProfilePF from "./ProfilePF";
 import SigninAdmin from "./SigninAdmin";
 import viewStores from "./viewStores";
 import ShopCategory from "./ShopCategory";
+import Spinner from "./Spinner"
 
 
 export default class Routes extends Component {
@@ -44,7 +45,6 @@ export default class Routes extends Component {
           <>
             <Router>
               <Switch>
-                  {/* <PrivateRouteUser exact path="/account" component={Account} /> */}
                   <PrivateRouteUser exact path="/stores" component={Stores} />
                   <PrivateRouteUser exact path="/profilePF" component={ProfilePF} />
                   <PrivateRouteUser exact path="/pessoa_fisica" component={PessoaF} />

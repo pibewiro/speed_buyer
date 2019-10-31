@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "./categories.css";
 import axios from 'axios';
 import removeAccents from "remove-accents"
+import Spinner from "./Spinner"
 
 export default class Categorias extends Component {
 
@@ -19,13 +20,16 @@ export default class Categorias extends Component {
             graos:"",
             idMercado:"",
             nomeMercado:"",
-            rua:""
+            rua:"",
+            loading:false
         }
         
     }
 
     componentDidMount()
     {
+        this.setState({loading:true})
+
         axios.get("/lojas/get_categorias")
         .then(res=>this.setState({
             derivados:res.data[0].cat_nome,
@@ -34,10 +38,9 @@ export default class Categorias extends Component {
             bebidas:res.data[3].cat_nome,
             carnes:res.data[4].cat_nome,
             dolces:res.data[5].cat_nome,
-            graos:res.data[6].cat_nome
+            graos:res.data[6].cat_nome,
+            loading:false
         }))
-
-        console.log(this.props.match.params)
 
         let idMercado = this.props.match.params.id;
         let nomeMercado = this.props.match.params.name;
@@ -53,7 +56,8 @@ export default class Categorias extends Component {
 
     render() {
         return (
-            <div id="categories">
+            <>
+            {this.state.loading ? <Spinner /> : <div id="categories">
                 <div className="rowCat">
                     <div onClick={this.clickCat.bind(this, this.state.derivados)} className="cat-div">
                         <div>
@@ -108,7 +112,8 @@ export default class Categorias extends Component {
                     </div>
 
                 </div>
-            </div>
+            </div>}
+            </>
         )
     }
 }

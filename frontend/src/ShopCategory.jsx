@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import "./shopCat.css";
+import Spinner from "./Spinner"
 
 export default class ShopCategory extends Component {
 
@@ -14,11 +15,13 @@ export default class ShopCategory extends Component {
             total:0,
             categoria:"",
             click:false,
+            loading:false,
         }
     }
 
     componentDidMount()
     {
+        this.setState({loading:true})
         const {cat, id} = this.props.match.params;
 
         const catUrl = cat.replace(/_/g, " ");
@@ -31,7 +34,7 @@ export default class ShopCategory extends Component {
         }
 
         axios.post("/lojas/get_items", itemInfo)
-        .then(res=>this.setState({items:res.data}));
+        .then(res=>this.setState({items:res.data, loading:false}));
     }
 
     addClick = async (n, p) => {
@@ -51,7 +54,7 @@ export default class ShopCategory extends Component {
 
     render() {
         return (
-            <>
+            <> 
             <div className="total">
                 <div className="total-items">
                     <div>

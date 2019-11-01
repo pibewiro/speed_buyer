@@ -36,6 +36,11 @@ export default class Profile extends Component {
             {
                 this.props.history.push("/profile_entregador"); 
             }
+
+            if(jwt_decode(localStorage.getItem("jwtToken")).ativo === 3)
+            {
+                this.props.history.push("/profile_admin"); 
+            }
         }
 
 

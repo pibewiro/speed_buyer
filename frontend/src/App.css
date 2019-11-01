@@ -244,10 +244,13 @@
 
 .chooseProfile div
 {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     justify-content: center;
     margin-top:40px;
+    width: 95%;
+    margin: auto;
 }
 
 .chooseProfile .profile-box
@@ -259,14 +262,13 @@
     text-decoration:none;
     font-size: 30px;
     font-weight: bold;
-    transition: all 1.5s ease-in-out;
+    text-align: center;
 }
 
 .chooseProfile .profile-box:hover
 {
-    padding: 70px;
     cursor: pointer;
-    font-size: 40px;
+    background: var(--hover);
 }
 
 #form-content-pj

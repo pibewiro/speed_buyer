@@ -69,6 +69,50 @@ router.post("/get_items", async (req,res)=>{
     })
 })
 
+router.post("/add_cart", async (req, res)=>{
+    console.log(req.body)
+
+    // const client = await mysql.createConnection(env)
+    
+    // const query = await `INSERT INTO shopping(sh_it, sh_id_usu) VALUES(${req.body.idItem}, ${req.body.idUsuario})`;
+    
+    // await client.query(query, (err, result)=>{
+    //     if (err) throw err
+    // })
+
+    // client.end();
+
+})
+
+router.post("/del_cart", async (req, res)=>{
+    console.log(req.body)
+
+    const client = mysql.createConnection(env)
+    
+    const query = `
+        SELECT *  
+        FROM shopping
+        WHERE sh_it = ${req.body.idItem} AND sh_id_usu = ${req.body.idUsuario}
+        ORDER BY sh_id DESC
+        LIMIT 1
+    `;
+    
+    await client.query(query, async (err, result)=>{
+
+        if (err) throw err
+        
+        const queryDel = `
+            DELETE FROM shopping WHERE sh_id = ${result[0].sh_id}
+        `;
+
+        await client.query(queryDel, (err, result)=>{
+            if(err) throw err
+        })
+
+        client.end();
+    })
+})
+
 
 
 module.exports = router;

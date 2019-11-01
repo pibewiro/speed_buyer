@@ -20,6 +20,11 @@ import SigninAdmin from "./SigninAdmin";
 import viewStores from "./viewStores";
 import ShopCategory from "./ShopCategory";
 import Spinner from "./Spinner"
+import ProfileAdmin from "./ProfileAdmin";
+import AddStores from "./AddStores";
+import ProfileEntregador from "./ProfileEntregador";
+
+
 
 
 export default class Routes extends Component {
@@ -57,6 +62,9 @@ export default class Routes extends Component {
                     <PrivateRouteUser exact path="/store/:name/:rua/:id/:cat" component={ShopCategory} />
                     <PrivateRouteUser exact path="/choose_profile" component={ChooseProfile} />
                     <PrivateRouteUser exact path="/profilePJ" component={ProfilePJ} />
+                    <PrivateRouteUser exact path="/profile_admin" component={ProfileAdmin} />
+                    <PrivateRouteUser exact path="/add_stores" component={AddStores} />
+                    <PrivateRouteUser exact path="/profile_entregador" component={ProfileEntregador} />
                     <Route exact path="/admin/20192019" component={SigninAdmin}/>
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/signin" component={Signin} />

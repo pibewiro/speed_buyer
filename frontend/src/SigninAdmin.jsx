@@ -43,19 +43,9 @@ export default class signin extends Component {
             localStorage.setItem("jwtToken", token);
             setAuthToken(token)
 
-            if(JWTDecode(localStorage.getItem("jwtToken")).ativo === 2)
+            if(JWTDecode(localStorage.getItem("jwtToken")).ativo === 3)
             {
-                this.props.history.push("/profilePJ")
-            }
-
-            if(JWTDecode(localStorage.getItem("jwtToken")).ativo === 1)
-            {
-                this.props.history.push("/profilePF")
-            }
-
-            else
-            {
-                this.props.history.push("/profile")
+                this.props.history.push("/profile_admin")
             }
         })
         .catch(err=>this.setState({errors:err.response.data}))

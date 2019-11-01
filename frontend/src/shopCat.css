@@ -86,4 +86,15 @@
     font-weight: bold;
 }
 
+.plus
+{
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.plus:hover{
+    cursor: pointer;
+}
+
 

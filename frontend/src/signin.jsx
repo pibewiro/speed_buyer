@@ -53,6 +53,11 @@ export default class signin extends Component {
                 this.props.history.push("/profilePF")
             }
 
+            if(JWTDecode(localStorage.getItem("jwtToken")).ativo === 4)
+            {
+                this.props.history.push("/profile_entregador")
+            }
+
             else
             {
                 this.props.history.push("/profile")

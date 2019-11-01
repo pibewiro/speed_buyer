@@ -26,6 +26,7 @@ export default class signin extends Component {
             <div>
                 <Link to="/pessoa_fisica" class="profile-box">Usuario Fisico</Link>
                 <Link to="/pessoa_juridica" class="profile-box">Usuario Juridica</Link>
+                <Link to="/entregador" class="profile-box">Entregador</Link>
             </div>
         </div>
         )

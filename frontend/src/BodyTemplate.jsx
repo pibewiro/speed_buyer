@@ -35,6 +35,10 @@ export default class Dashboard extends Component {
         if(dashtext === 'Choose_profile') dashtext = 'Choose Profile';
         if(dashtext === 'Pessoa_fisica') dashtext = 'Pessoa Fisica';
         if(dashtext === 'Pessoa_juridica') dashtext = 'Pessoa Juridica';
+        if(dashtext === 'Profile_admin') dashtext = 'Profile Administrador';
+        if(dashtext === 'Add_stores') dashtext = 'Adicionar Lojas';
+        if(dashtext === 'Profile_entregador') dashtext = 'Profile Entregador';
+
 
         return (
                     <div id="dashboard">

@@ -18,7 +18,7 @@ router.get("/get_stores", async (req, response)=>{
 
     client.query(query, (err, result)=>{
         if(err) throw err;
-        // console.log(result)
+        console.log(result)
         client.end();
         return response.status(200).json({result})
     })
@@ -110,6 +110,20 @@ router.post("/del_cart", async (req, res)=>{
         })
 
         client.end();
+    })
+})
+
+router.get("/get_mercados", async (req, res)=>{
+
+    const client = await mysql.createConnection(env)
+    const query = "SELECT * FROM mercado"
+    
+    client.query(query, (err, result)=>{
+        if (err) throw err
+        console.log(result)
+        client.end();
+
+        return res.status(200).json(result)
     })
 })
 

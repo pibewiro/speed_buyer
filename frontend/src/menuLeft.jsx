@@ -31,12 +31,19 @@ export default class menuLeft extends Component {
 
                 {this.state.ativo === 1 || this.state.ativo === 2 ?
                 <>
-                <Link to="/stores"><li><i class="fas fa-store"></i><p>Stores</p></li></Link>
+                <Link to="/mercados"><li><i class="fas fa-store"></i><p>Mercados</p></li></Link>
                 <li><i class="fas fa-list"></i><p>Minha Lista</p></li>
                 <li><i class="fas fa-shopping-cart"></i><p>Meu Carrinho</p></li>
                 <li><i class="fas fa-tags"></i><p>Promoçoes</p></li>
                 <li><i class="far fa-star"></i><p>Favoritos</p></li>
                 <li><i class="fas fa-question"></i><p>Ajuda Central</p></li></> : null}
+
+                {this.state.ativo === 4 ? 
+                    <>
+                    <Link to="/entregas"><li><i class="fas fa-store"></i><p>Pedidos</p></li></Link>
+                    <Link to="/entregas"><li><i class="fas fa-store"></i><p>Entregas</p></li></Link>
+                    </>
+                : null}
             </ul>
         </div>
 

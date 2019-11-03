@@ -618,6 +618,12 @@
     text-align: center;
 }
 
+#profile-admin
+{
+    height: 84.5vh;
+}
+
+
 @media(max-width:768px)
 {
     .menu-left ul li p

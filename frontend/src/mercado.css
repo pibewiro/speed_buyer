@@ -1,0 +1,43 @@
+:root
+{
+    --primary-color:#00283D;
+    --secondary-color:#f4f4f4;
+    --hover:#1D3B4A;
+}
+
+#mercado
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap:20px;
+    width: 95%;
+    margin:auto;
+    padding:20px;
+    justify-content: center;
+    
+}
+
+.mercado-card
+{
+    background:var(--primary-color);
+    text-align: center;
+    color: #f4f4f4;
+    border: 1px solid var(--primary-color);
+}
+
+.mercado-card:hover
+{
+    background: var(--hover);
+    cursor: pointer;
+}
+
+.mercado-card img
+{
+    width:100%;
+    height: 150px;
+}
+
+.mercado-card h2
+{
+    padding: 10px;
+}

@@ -11,7 +11,6 @@ const validateUpdatePF = require("../validations/validateUpdatePF");
 const moment = require("moment")
 
 
-
 router.post("/post_pessoa_fisica", async (req,response)=> {
 
     const {errors, isValid} = validateProfile(req.body);
@@ -497,6 +496,232 @@ router.post("/update_pessoa_fisica", async (req,response)=>{
        update()
     }
 })
+
+router.post("/post_entregador", async (req,response)=> {
+
+    const {errors, isValid} = validateProfile(req.body);
+
+    if(!isValid) return response.status(400).json(errors)
+
+    const client = mysql.createConnection(env)
+
+    const queryEndereco = `
+        INSERT INTO endereco(en_cep, en_cidade, en_estado, en_rua, en_numero, en_complemento)
+        VALUES('${req.body.cep}', '${req.body.cidade}', '${req.body.estado}', '${req.body.rua}', '${req.body.numero}', '${req.body.complemento}')
+    `;
+
+    const queryUF = `
+        INSERT INTO entregador(ent_cpf, ent_data_nascimento, ent_id_usu)
+        VALUES('${req.body.cpf}', '${req.body.dataNascimento}', ${req.body.idUsuario})
+    `;
+
+    const queryCPF = `SELECT ent_cpf FROM entregador WHERE ent_cpf = '${req.body.cpf}'`;
+
+    const getIDEndereco = `
+        SELECT en_id_endereco from endereco 
+        WHERE
+        en_cep = '${req.body.cep}' AND 
+        en_cidade = '${req.body.cidade}' AND 
+        en_estado = '${req.body.estado}' AND 
+        en_rua = '${req.body.rua}' AND 
+        en_numero = '${req.body.numero}' AND 
+        en_complemento = '${req.body.complemento}' 
+    `;
+
+    client.query(queryCPF, (err, result)=>{
+        let errors = {};
+        if(err) throw err
+
+        if(result.length > 0)
+        {
+            errors.cpf = "CPF Already exsists"
+            return response.status(400).json(errors)
+        }
+
+        else
+        {
+            client.query(queryEndereco, (err, result)=>{
+
+                if(err) throw err
+             })
+        
+             client.query(queryUF, (err, result)=>{
+        
+                if(err) throw err
+             })
+        
+             client.query(getIDEndereco, (err, result)=>{
+        
+                if(err) throw err
+        
+                // console.log("Get id end", result[0].en_id_endereco);
+                const idEndereco = result[0].en_id_endereco;
+                
+                const queryUsuario = `
+                    UPDATE usuario SET 
+                    usu_ativo = 4, 
+                    usu_id_endereco = ${idEndereco} 
+                    WHERE  usu_id_usu = ${req.body.idUsuario}
+                `;
+        
+                client.query(queryUsuario, (err, result)=>{
+                    if(err) throw err;
+        
+                    // console.log("User updated");
+                    client.end();
+                    return response.status(200).json("Success");
+                });
+             });
+        
+        }
+     })
+     
+})
+
+
+router.get("/get_entregador/:id", async (req, response)=>{
+
+    const client = await mysql.createConnection(env)
+
+    const query = `
+    SELECT * 
+    FROM endereco
+    INNER JOIN usuario ON usu_id_endereco = en_id_endereco
+    INNER JOIN entregador ON ent_id_usu = usu_id_usu
+    WHERE usu_id_usu = ${req.params.id}
+    `;
+
+    client.query(query, (err, result)=>{
+
+        if(err) throw err
+        client.end();
+        return response.status(200).json(result[0])
+    })
+})
+
+
+
+router.post("/update_entregador", async (req,response)=>{
+
+    const client = mysql.createConnection(env)
+    const {errors, isValid} = validateUpdatePF(req.body);
+
+    if(!isValid) return response.status(400).json(errors);
+
+    const usuarioUpdate = `
+        UPDATE usuario SET
+        primeiro_nome = '${req.body.primeiroNome}',
+        sobre_nome = '${req.body.sobreNome}',
+        usu_email = '${req.body.email}',
+        nome_usuario = '${req.body.usuario}'
+        WHERE usu_id_usu = ${req.body.idUsuario}
+    `;
+
+    const dataN = req.body.dataNascimento.split("-");
+    const dataNascimento = dataN[2] + dataN[1] + dataN[0]
+    const usuarioFisicoUpdate = `
+    UPDATE entregador SET
+    ent_data_nascimento = '${dataNascimento}',
+    ent_cpf = '${req.body.cpf}'
+    WHERE ent_id = ${req.body.idUF}
+    `;
+
+    const enderecoUpdate = `
+    UPDATE endereco SET
+    en_rua = '${req.body.rua}',
+    en_numero = '${req.body.numero}',
+    en_complemento = '${req.body.complemento}',
+    en_cep = '${req.body.cep}',
+    en_cidade = '${req.body.cidade}',
+    en_estado = '${req.body.estado}'
+    WHERE en_id_endereco = ${req.body.idEndereco}
+    `;
+
+    const update = () =>{
+        client.query(usuarioUpdate, (err,result)=>{
+
+            if(err) throw err;
+        })
+
+        client.query(usuarioFisicoUpdate, (err,result)=>{
+
+            if(err) throw err;
+        })
+
+        client.query(enderecoUpdate, (err,result)=>{
+
+            if(err) throw err;
+            client.end();
+            return response.status(200).json("success")
+        })
+    }
+
+    if(req.body.email !== req.body.emailOriginal || req.body.usuario !== req.body.usuarioOriginal || req.body.cpf !== req.body.cpfOriginal)
+    {
+        const searchEmail = `
+        SELECT usu_email, nome_usuario, ent_cpf From usuario
+        INNER JOIN entregador ON ent_id_usu = usu_id_usu
+        `;
+
+        let errors = {}
+
+        client.query(searchEmail, (err, result)=>{
+            let ArrEmail = []
+            let ArrUsuario = []
+            let ArrCPF = []
+
+            if(err) throw err;
+            result.map(res=>ArrEmail.push(res.usu_email))
+            result.map(res=>ArrUsuario.push(res.nome_usuario))
+            result.map(res=>ArrCPF.push(res.uf_cpf))
+
+            if(ArrEmail.includes(req.body.email) && (req.body.email !== req.body.emailOriginal))
+            {
+                errors.email = "Email Exists";
+            }
+
+            if(ArrUsuario.includes(req.body.usuario) && (req.body.usuario !== req.body.usuarioOriginal))
+            {
+                errors.usuario = "Usuario Exists";
+            }
+
+            if(ArrCPF.includes(req.body.cpf) && (req.body.cpf !== req.body.cpfOriginal))
+            {
+                errors.cpf = "CPF Exists";
+            }
+
+            if(Object.keys(errors).length > 0)
+            {
+               return response.status(400).json(errors)
+            }
+
+            else
+            {
+                update()
+            }
+        })
+    }
+
+    else
+    {
+       update()
+    }
+})
+
+
+router.get("/get_admin/:id", async (req,res)=>{
+
+    const client = await mysql.createConnection(env)
+
+    const query = `SELECT * FROM usuario where usu_id_usu = ${req.params.id}`;
+    
+    client.query(query, (err, result)=>{
+        client.end();
+        return res.status(200).json(result[0])
+    })
+})
+
+
 
 
 

@@ -104,13 +104,8 @@ export default class ShopCategory extends Component {
                                     <img src={`/images/${res.it_foto}`} alt="" />
                                     <h3>{res.it_nome}</h3>
                                     <p>R${res.it_preco}</p>
-                                    <button onClick={this.subClick.bind(this, res.item_id, res.it_nome, res.it_preco)}>Delete</button>
-                                    <br /><br />
-                                    <button onClick={this.addClick.bind(this, res.item_id, res.it_nome, res.it_preco)}>Add</button>
-
-                                    {/* <i class="fas fa-minus plus" onClick={this.subClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
-                                    <i class="fas fa-plus plus" onClick={this.addClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i> */}
-                                    <input type="text" />
+                                    <i class="fas fa-minus plus" onClick={this.subClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
+                                    <i class="fas fa-plus plus" onClick={this.addClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
                                 </div>
                             ))}
                         </div>

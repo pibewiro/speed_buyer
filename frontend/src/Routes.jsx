@@ -23,9 +23,10 @@ import Spinner from "./Spinner"
 import ProfileAdmin from "./ProfileAdmin";
 import AddStores from "./AddStores";
 import ProfileEntregador from "./ProfileEntregador";
-
-
-
+import Entregador from "./Entregador"
+import ProfileEntEdit from "./ProfileEntEdit"
+import Mercados from "./Mercados"
+import MercadoList from "./MercadoList"
 
 export default class Routes extends Component {
 
@@ -51,6 +52,10 @@ export default class Routes extends Component {
             <Router>
               <Switch>
                   <PrivateRouteUser exact path="/stores" component={Stores} />
+                  <PrivateRouteUser exact path="/mercados" component={Mercados} />
+                  <PrivateRouteUser exact path="/mercados/:url" component={MercadoList} />
+                  <PrivateRouteUser exact path="/entregador_edit" component={ProfileEntEdit} />
+                  <PrivateRouteUser exact path="/entregador" component={Entregador} />
                   <PrivateRouteUser exact path="/profilePF" component={ProfilePF} />
                   <PrivateRouteUser exact path="/pessoa_fisica" component={PessoaF} />
                   <PrivateRouteUser exact path="/pessoa_juridica" component={PessoaJ} />

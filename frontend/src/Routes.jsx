@@ -27,6 +27,7 @@ import Entregador from "./Entregador"
 import ProfileEntEdit from "./ProfileEntEdit"
 import Mercados from "./Mercados"
 import MercadoList from "./MercadoList"
+import SuperMercado from "./SuperMercado.jsx"
 
 export default class Routes extends Component {
 
@@ -53,7 +54,7 @@ export default class Routes extends Component {
               <Switch>
                   <PrivateRouteUser exact path="/stores" component={Stores} />
                   <PrivateRouteUser exact path="/mercados" component={Mercados} />
-                  <PrivateRouteUser exact path="/mercados/:url" component={MercadoList} />
+                  {/* <PrivateRouteUser exact path="/supermercado" component={SuperMercado} /> */}
                   <PrivateRouteUser exact path="/entregador_edit" component={ProfileEntEdit} />
                   <PrivateRouteUser exact path="/entregador" component={Entregador} />
                   <PrivateRouteUser exact path="/profilePF" component={ProfilePF} />
@@ -71,6 +72,7 @@ export default class Routes extends Component {
                     <PrivateRouteUser exact path="/add_stores" component={AddStores} />
                     <PrivateRouteUser exact path="/profile_entregador" component={ProfileEntregador} />
                     <Route exact path="/admin/20192019" component={SigninAdmin}/>
+                    <PrivateRouteUser exact path="/mercados/:store_url" component={MercadoList} />
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/signin" component={Signin} />
                     <Route exact path="/view_stores" component={viewStores} />

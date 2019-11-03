@@ -5,6 +5,26 @@ const env = require('../config/.env');
 const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
 
+router.get(`/get_stores_brand/:url`, async (req, res)=>{
+
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        SELECT * FROM mercado_info
+        INNER JOIN mercado ON mer_id_mercado = mer_info_id_mer
+        INNER JOIN endereco ON en_id_endereco = mer_info_id_endereco
+        WHERE mer_url = '${req.params.url}'
+        ORDER BY mer_nome ASC
+    `;
+
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        return res.status(200).json(result)
+    })
+})
+
 router.get("/get_stores", async (req, response)=>{
 
     const client = await mysql.createConnection(env)
@@ -126,6 +146,8 @@ router.get("/get_mercados", async (req, res)=>{
         return res.status(200).json(result)
     })
 })
+
+
 
 
 

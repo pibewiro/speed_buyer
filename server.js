@@ -7,6 +7,7 @@ const userRoutes = require("./routes/users")
 const profileRoutes = require("./routes/profile")
 const lojasRoutes = require("./routes/lojas")
 const path = require("path")
+const cors = require('cors')
 
 const passport = require("passport");
 // const {pool} = require("pg");
@@ -15,6 +16,7 @@ const passport = require("passport");
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
+app.use(cors())
 require("./config/passport")(passport);
 
 app.use("/user", userRoutes);

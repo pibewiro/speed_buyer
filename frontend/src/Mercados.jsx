@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import "./mercado.css"
+import {Link} from "react-router-dom"
 
 export default class Mercados extends Component {
 
@@ -20,18 +21,14 @@ export default class Mercados extends Component {
         })
     }
 
-    showStore = (id, url) => {
-        this.props.history.push(`/mercados/${url}`)
-    }
-
     render() {
         return (
             <div id="mercado">
                 {this.state.mercados.map(res=>(
-                    <div class="mercado-card" onClick={this.showStore.bind(this, res.mer_id_mercado, res.mer_url)}>
-                        <img src={`images/${res.mer_img_url}`} alt="" />
+                    <Link to={`/mercados/${res.mer_url}`} class="mercado-card">
+                        <img src={`/images/${res.mer_img_url}`} alt="" />
                         <h2>{res.mer_nome}</h2>
-                    </div>
+                    </Link>
             ))}
             </div>
         )

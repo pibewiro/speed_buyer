@@ -526,7 +526,7 @@
     background: var(--secondary-color);
 }
 
-.store-card:last-child
+.store-card:last-child, .store-card-wrapper:last-child
 {
     border-bottom: none;
 }

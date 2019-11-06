@@ -21,7 +21,7 @@ import viewStores from "./viewStores";
 import ShopCategory from "./ShopCategory";
 import Spinner from "./Spinner"
 import ProfileAdmin from "./ProfileAdmin";
-import AddStores from "./AddStores";
+// import AddStores from "./AddStores";
 import ProfileEntregador from "./ProfileEntregador";
 import Entregador from "./Entregador"
 import ProfileEntEdit from "./ProfileEntEdit"

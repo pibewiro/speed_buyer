@@ -5,7 +5,7 @@ import InputMask from "react-input-mask";
 import jwt_decode from 'jwt-decode';
 import Swal from 'sweetalert2';
 
-export default class NewStore extends Component {
+export default class AddStore extends Component {
 
     constructor()
     {

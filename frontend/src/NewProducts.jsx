@@ -29,7 +29,7 @@ export default class NewProducts extends Component {
     render() {
         return (
             <div id="new-product">
-                <h1>Adicionar Novo Produto</h1>
+                <h1 className="big-heading">Adicionar Novo Produto</h1>
                 <form className="new-product-form">
                     <div className="form-group">
                         <label htmlFor="">Nome Produto</label>
@@ -47,7 +47,7 @@ export default class NewProducts extends Component {
 
                     <div className="form-group">
                         <label htmlFor="">Descrição</label>
-                        <textarea onChange={this.changeDes} value={this.state.descricao}></textarea>
+                        <textarea cols="30" rows="10" onChange={this.changeDes} value={this.state.descricao}></textarea>
                     </div>
                     <div className="btn-div">
                         <button className="btn">Enter</button>

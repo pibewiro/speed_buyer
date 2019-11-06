@@ -31,8 +31,7 @@ import SuperMercado from "./SuperMercado"
 import NewStore from "./NewStore"
 import AddStore from "./AddStore"
 import NewProducts from "./NewProducts"
-
-
+import AddItems from "./AddItems"
 
 export default class Routes extends Component {
 
@@ -58,6 +57,7 @@ export default class Routes extends Component {
             <Router>
               <Switch>
                   <PrivateRouteUser exact path="/stores" component={Stores} />
+                  <PrivateRouteUser exact path="/add_itens" component={AddItems} />
                   <PrivateRouteUser exact path="/novo_produtos" component={NewProducts} />
                   <PrivateRouteUser exact path="/new_store" component={NewStore} />
                   <PrivateRouteUser exact path="/mercados" component={Mercados} />

@@ -39,7 +39,7 @@ export default class Dashboard extends Component {
         if(dashtext === 'Add_stores') dashtext = 'Adicionar Lojas';
         if(dashtext === 'Profile_entregador') dashtext = 'Profile Entregador';
         if(dashtext === 'Entregador_edit') dashtext = 'Entregador';
-
+        if(dashtext === 'Novo_produtos') dashtext = 'Novo Produtos';
 
         return (
                     <div id="dashboard">

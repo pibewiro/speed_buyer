@@ -1,0 +1,55 @@
+:root
+{
+    --primary-color:#00283D;
+    --secondary-color:#f4f4f4;
+    --hover:#1D3B4A;
+}
+
+#new-product
+{
+    height: 84.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+h1
+{
+    margin-top: 20px;
+    font-size: 60px;
+    color:var(--primary-color)
+}
+.new-product-form
+{
+    width:40%;
+    margin:auto;
+}
+
+.form-group
+{
+    margin-bottom: 20px;;
+}
+
+.form-group label
+{
+    display: block;
+}
+
+.form-group input, .form-group select, .form-group textarea
+{
+    width:100%;
+    padding: 10px;
+}
+
+.btn-div
+{
+    text-align: center;
+}
+
+.form-group select
+{
+    background: #fff;
+}
+

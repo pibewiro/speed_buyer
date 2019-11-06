@@ -8,6 +8,7 @@ const profileRoutes = require("./routes/profile")
 const lojasRoutes = require("./routes/lojas")
 const path = require("path")
 const cors = require('cors')
+const adminRoutes = require("./routes/admin")
 
 const passport = require("passport");
 // const {pool} = require("pg");
@@ -19,9 +20,14 @@ app.use(passport.initialize());
 app.use(cors())
 require("./config/passport")(passport);
 
+
+
+
 app.use("/user", userRoutes);
 app.use("/profile", profileRoutes);
 app.use("/lojas", lojasRoutes);
+app.use("/admin", adminRoutes);
+
 
 if(process.env.NODE_ENV === "production")
 {

@@ -232,6 +232,14 @@
     border:1px solid var(--primary-color);
 }
 
+.add-store-select
+{
+    width: 100%;
+    padding: 10px;
+    border:1px solid var(--primary-color);
+    background: #fff;
+}
+
 #form-content form .form-group-btn
 {
     text-align: center;

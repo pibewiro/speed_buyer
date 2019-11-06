@@ -23,8 +23,10 @@ export default class menuLeft extends Component {
                 <Link to="/profile"><li><i class="fas fa-id-badge"></i><p>Meu Profile</p></li></Link>
                 {this.state.ativo === 3 ? 
                     <>
+                    <Link to="/new_store"><li><i class="fas fa-store"></i><p>New Store</p></li></Link>
                     <Link to="/add_stores"><li><i class="fas fa-store"></i><p>Add Stores</p></li></Link>
                     <Link to="/view_users"><li><i class="fas fa-store"></i><p>View Stores</p></li></Link>
+                    <Link to="/novo_produtos"><li><i class="fas fa-store"></i><p>Add New Products</p></li></Link>
                     <Link to="/add_itens"><li><i class="fas fa-store"></i><p>Add Items</p></li></Link>
                     </>
                 : null }

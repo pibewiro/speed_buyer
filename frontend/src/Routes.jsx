@@ -75,7 +75,7 @@ export default class Routes extends Component {
                     <PrivateRouteUser exact path="/choose_profile" component={ChooseProfile} />
                     <PrivateRouteUser exact path="/profilePJ" component={ProfilePJ} />
                     <PrivateRouteUser exact path="/profile_admin" component={ProfileAdmin} />
-                    <PrivateRouteUser exact path="/add_stores" component={AddStores} />
+                    <PrivateRouteUser exact path="/add_stores" component={AddStore} />
                     <PrivateRouteUser exact path="/profile_entregador" component={ProfileEntregador} />
                     <Route exact path="/admin/20192019" component={SigninAdmin}/>
                     <PrivateRouteUser exact path="/mercados/:store_url" component={MercadoList} />

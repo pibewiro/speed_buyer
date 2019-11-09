@@ -1,5 +1,6 @@
 const validator = require("validator");
 const isEmpty = require("./isEmpty");
+const fileType = require("./fileType");
 
 module.exports = function validateNewStore(data){
 
@@ -14,50 +15,26 @@ module.exports = function validateNewStore(data){
     data.cep = !isEmpty(data.cep) ? data.cep : "";
     data.cidade = !isEmpty(data.cidade) ? data.cidade : "";
     data.estado = !isEmpty(data.estado) ? data.estado : "";
+    data.imageURL = !isEmpty(data.imageURL) ? data.imageURL : "";
 
     if(validator.isEmpty(data.nomeMercado))
     {
         errors.nomeMercado = "Nome Mercado is required";
     }
 
-    if(validator.isEmpty(data.image))
+    if(validator.isEmpty(data.imageURL))
     {
-        errors.image = "Image Must be Uploaded";
+        errors.imageURL = "Image Must be Uploaded";
+    }
+
+    else if(!fileType(data.fileType))
+    {
+        errors.imageURL = "Invalid Type"
     }
 
     if(validator.isEmpty(data.mercadoUrl))
     {
         errors.mercadoUrl = "All fields required";
-    }
-   
-    if(validator.isEmpty(data.rua))
-    {
-        errors.rua = "All fields required";
-    }
-
-    if(validator.isEmpty(data.numero))
-    {
-        errors.numero = "All fields required";
-    }
-
-    if(validator.isEmpty(data.complemento))
-    {
-        errors.complemento = "cAll fields required";
-    }
-
-    if(!validator.isLength(data.cep, {min:9, max:9}))
-    {
-        errors.cep = "cep Invalid";
-    }
-
-    if(validator.isEmpty(data.cep))
-    {
-        errors.cep = "cep field is empty";
-    }
-
-    if(validator.isEmpty(data.cidade))
-    {
-        errors.cidade = "cidade field is empty";
     }
 
     return{

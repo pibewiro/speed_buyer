@@ -5,6 +5,26 @@
     --hover:#1D3B4A;
 }
 
+#form-novo-mercado
+{
+    height: 84.5vh;
+}
+#form-novo-mercado form
+{
+    width:50%;
+    margin:30px auto 0 auto;
+}
+
+#form-novo-mercado .form-group-btn
+{
+    text-align: center;
+}
+
+#form-novo-mercado p
+{
+    margin-bottom:10px;
+}
+
 #new-product
 {
     height: 84.5vh;

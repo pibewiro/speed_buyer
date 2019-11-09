@@ -4,59 +4,96 @@ const mysql = require('mysql');
 const env = require('../config/.env');
 const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
-const multer = require("multer")
-const path = require("path")
+const {join} = require("path");
+const Formidable = require("formidable")
+const bluebird = require("bluebird")
+const fs = bluebird.promisifyAll(require('fs'))
 const app = express();
 const validateNewStore = require("../validations/validateNewStore")
 const validateAddStore = require("../validations/validateAddStore")
-app.use(express.static('./frontend/public'))
 
 
+function checkFileType(file)
+{
+    const type = file.type.split("/").pop();
+    const validTypes = ['png', 'jpeg', 'jpg', 'gif', 'pdf']
+    if(validTypes.indexOf(type) === -1)
+    {
+        console.log("Invalid File type")
+        return false
+    }
+
+    return true
+}
+
+router.post("/upload", async (req, res)=>{
+
+    let form = Formidable.IncomingForm()
+    const uploadsFolder = join(__dirname, '../frontend/public', 'images')
+    form.maxFileSize = 50 * 1024 * 1024;
+    form.uploadDir = uploadsFolder
+
+
+    form.parse(req, async (err, fields, files)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+     
+            const file = files.files
+             let isValid = checkFileType(file)
+            console.log(isValid)
+            const fileName = file.name
+
+            if(!isValid)
+            {
+                console.log("invalid")
+            }
+
+            else
+            {
+                try{
+                    await fs.renameAsync(file.path, join(uploadsFolder, fileName))
+                    console.log("file created")
+                    return res.status(200).json("ok")
+                }
+
+                catch(e)
+                {
+                    console.log(e)
+                    try { await fs.unlinkAsync(file.path) } catch (e) {}
+                }
+
+            }
+
+        
+    })
+
+})
 
 router.post("/post_novo_mercado", async (req, res)=>{
 
+    console.log(req.body);
     const {errors, isValid} = validateNewStore(req.body)
     if(!isValid) return res.status(400).json(errors)
-
-    console.log(req.body);
-    let imgUrl = req.body.image.slice(12);
-    console.log(imgUrl)
-
-
-    const storage = multer.diskStorage({
-        destination:'./public/images/',
-        filename: function(req, file, cb){
-            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-        }
-    })
-
-    const upload = multer({
-        storage:storage,
-    }).single('myimage');
-
-    upload(req, res, (err)=>{
-        if (err) throw err;
-        console.log(req.file)
-    })
-
 
     const {nomeMercado, mercadoUrl} = req.body;
 
     const query = `
         INSERT INTO mercado(mer_nome, mer_img_url, mer_url)
         VALUES
-        ('${nomeMercado}', '${imgUrl}', '${mercadoUrl}')
+        ('${nomeMercado}', '${req.body.imageURL}', '${mercadoUrl}')
     `;
 
-    //const client = await mysql.createConnection(env);
-    // client.query(query, (err, result)=>{
-    //     if(err) throw err;
-    //     console.log("result")
+    const client = await mysql.createConnection(env);
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+        console.log("result")
 
     
-    //     client.end();
-    //     return res.status(200).json("Success")
-    // })
+        client.end();
+        return res.status(200).json("Success")
+    })
 })
 
 router.get("/get_mercados", async (req,res)=>{

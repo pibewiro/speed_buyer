@@ -25,7 +25,7 @@ export default class ShopCategory extends Component {
     componentDidMount()
     {
         this.setState({loading:true})
-        const {cat, id, name} = this.props.match.params;
+        const {cat, id} = this.props.match.params;
 
         const catUrl = cat.replace(/_/g, " ");
         this.setState({categoria:catUrl})
@@ -34,7 +34,6 @@ export default class ShopCategory extends Component {
         const itemInfo = {
             idMercado:id,
             categoria:catUrl,
-            nomeMercado:name
         }
 
         axios.post("/lojas/get_items", itemInfo)

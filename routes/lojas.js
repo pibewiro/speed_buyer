@@ -65,14 +65,15 @@ router.get("/get_categorias", async (req,res)=>{
 router.post("/get_items", async (req,res)=>{
 
     console.log(req.body);
-    const {idMercado, categoria} = req.body;
+    const {idMercado, categoria, nomeMercado} = req.body;
 
     const query = `
         select * from item
-        inner join mercado_info on it_id_mercado = mer_info_id
+        inner join mercado on it_id_mercado = mer_id_mercado
         inner join produto on it_id_produto = pro_id_produto
         inner join categoria on pro_id_categoria = cat_id_categoria
         where 
+        mer_nome = '${nomeMercado}' and
         cat_nome = '${categoria}'
     `;
 

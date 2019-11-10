@@ -73,7 +73,6 @@ router.post("/get_items", async (req,res)=>{
         inner join produto on it_id_produto = pro_id_produto
         inner join categoria on pro_id_categoria = cat_id_categoria
         where 
-        it_id_mercado = ${parseInt(idMercado)} and
         cat_nome = '${categoria}'
     `;
 

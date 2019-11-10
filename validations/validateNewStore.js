@@ -9,12 +9,6 @@ module.exports = function validateNewStore(data){
     data.nomeMercado = !isEmpty(data.nomeMercado) ? data.nomeMercado : "";
     data.image = !isEmpty(data.image) ? data.image : "";
     data.mercadoUrl = !isEmpty(data.mercadoUrl) ? data.mercadoUrl : "";
-    data.rua = !isEmpty(data.rua) ? data.rua : "";
-    data.numero = !isEmpty(data.numero) ? data.numero : "";
-    data.complemento = !isEmpty(data.complemento) ? data.complemento : "";
-    data.cep = !isEmpty(data.cep) ? data.cep : "";
-    data.cidade = !isEmpty(data.cidade) ? data.cidade : "";
-    data.estado = !isEmpty(data.estado) ? data.estado : "";
     data.imageURL = !isEmpty(data.imageURL) ? data.imageURL : "";
 
     if(validator.isEmpty(data.nomeMercado))

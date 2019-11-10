@@ -20,30 +20,30 @@ export default class menuLeft extends Component {
         <div className="menu-left">
             <img src={logoImage} alt=""/>
             <ul>
-                <Link to="/profile"><li><i class="fas fa-id-badge"></i><p>Meu Profile</p></li></Link>
+                <Link to="/profile"><li><i className="fas fa-id-badge"></i><p>Meu Profile</p></li></Link>
                 {this.state.ativo === 3 ? 
                     <>
-                    <Link to="/new_store"><li><i class="fas fa-store"></i><p>New Store</p></li></Link>
-                    <Link to="/add_stores"><li><i class="fas fa-store"></i><p>Add Stores</p></li></Link>
-                    <Link to="/view_users"><li><i class="fas fa-store"></i><p>View Stores</p></li></Link>
-                    <Link to="/novo_produtos"><li><i class="fas fa-store"></i><p>Add New Products</p></li></Link>
-                    <Link to="/add_itens"><li><i class="fas fa-store"></i><p>Add Items</p></li></Link>
+                    <Link to="/new_store"><li><i className="fas fa-store"></i><p>New Store</p></li></Link>
+                    <Link to="/add_stores"><li><i className="fas fa-store"></i><p>Add Stores</p></li></Link>
+                    <Link to="/view_users"><li><i className="fas fa-store"></i><p>View Stores</p></li></Link>
+                    <Link to="/novo_produtos"><li><i className="fas fa-store"></i><p>Add New Products</p></li></Link>
+                    <Link to="/add_itens"><li><i className="fas fa-store"></i><p>Add Items</p></li></Link>
                     </>
                 : null }
 
                 {this.state.ativo === 1 || this.state.ativo === 2 ?
                 <>
-                <Link to="/mercados"><li><i class="fas fa-store"></i><p>Mercados</p></li></Link>
-                <li><i class="fas fa-list"></i><p>Minha Lista</p></li>
-                <li><i class="fas fa-shopping-cart"></i><p>Meu Carrinho</p></li>
-                <li><i class="fas fa-tags"></i><p>Promoçoes</p></li>
-                <li><i class="far fa-star"></i><p>Favoritos</p></li>
-                <li><i class="fas fa-question"></i><p>Ajuda Central</p></li></> : null}
+                <Link to="/mercados"><li><i className="fas fa-store"></i><p>Mercados</p></li></Link>
+                <li><i className="fas fa-list"></i><p>Minha Lista</p></li>
+                <li><i className="fas fa-shopping-cart"></i><p>Meu Carrinho</p></li>
+                <li><i className="fas fa-tags"></i><p>Promoçoes</p></li>
+                <li><i className="far fa-star"></i><p>Favoritos</p></li>
+                <li><i className="fas fa-question"></i><p>Ajuda Central</p></li></> : null}
 
                 {this.state.ativo === 4 ? 
                     <>
-                    <Link to="/entregas"><li><i class="fas fa-store"></i><p>Pedidos</p></li></Link>
-                    <Link to="/entregas"><li><i class="fas fa-store"></i><p>Entregas</p></li></Link>
+                    <Link to="/entregas"><li><i className="fas fa-store"></i><p>Pedidos</p></li></Link>
+                    <Link to="/entregas"><li><i className="fas fa-store"></i><p>Entregas</p></li></Link>
                     </>
                 : null}
             </ul>

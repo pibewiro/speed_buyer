@@ -5,22 +5,22 @@
     --hover:#1D3B4A;
 }
 
-#form-novo-mercado
+#add-product
 {
-    height: 84.5vh;
+    margin-bottom: 40px;
 }
-#form-novo-mercado form
+#add-product form
 {
     width:50%;
     margin:30px auto 0 auto;
 }
 
-#form-novo-mercado .form-group-btn
+#add-product .form-group-btn
 {
     text-align: center;
 }
 
-#form-novo-mercado p
+#add-product-form p
 {
     margin-bottom:10px;
 }
@@ -34,15 +34,9 @@
     align-items: center;
 }
 
-#new-product label
+#add-product label
 {
     font-weight:bold;
-}
-
-.new-product-form
-{
-    width:40%;
-    margin:auto;
 }
 
 .form-group
@@ -76,3 +70,21 @@ small
     color:red;
 }
 
+.preco-div
+{
+    display: flex;
+    align-items: center;
+    background: var(--primary-color);
+}
+
+.preco-div div
+{
+    padding:10px;
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.pr
+{
+    padding: 130px;
+}

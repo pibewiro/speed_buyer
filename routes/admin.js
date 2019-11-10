@@ -11,12 +11,13 @@ const fs = bluebird.promisifyAll(require('fs'))
 const app = express();
 const validateNewStore = require("../validations/validateNewStore")
 const validateAddStore = require("../validations/validateAddStore")
-
+const validateNovoProduto = require("../validations/validateNovoProduto")
+const validateAddItem = require("../validations/validateAddItems")
 
 function checkFileType(file)
 {
     const type = file.type.split("/").pop();
-    const validTypes = ['png', 'jpeg', 'jpg', 'gif', 'pdf']
+    const validTypes = ['png', 'jpeg', 'jpg', 'gif']
     if(validTypes.indexOf(type) === -1)
     {
         console.log("Invalid File type")
@@ -104,6 +105,7 @@ router.get("/get_mercados", async (req,res)=>{
     client.query(query, (err, result)=>{
         if (err) throw err;
 
+        client.end();
         return res.status(200).json(result)
     })
 })
@@ -170,6 +172,79 @@ router.get("/get_categorias", async (req, res)=>{
         if(err) throw err;
         client.end();
         return res.status(200).json(result)
+    })
+})
+
+router.post("/post_novo_produto", async (req, res)=>{
+
+    const {errors, isValid} = validateNovoProduto(req.body)
+    if(!isValid) return res.status(400).json(errors)
+    console.log(req.body)
+
+    const client = mysql.createConnection(env)
+    const idCategoria = parseInt(req.body.idCategoria)
+
+    const query = `
+        INSERT INTO produto(pro_nome, pro_descricao, pro_id_categoria)
+        VALUES
+        ('${req.body.nomeProduto}', '${req.body.descricao}', ${idCategoria})
+    `;
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+        client.end();
+        return res.status(200).json("OK")
+    })
+})
+
+router.get("/get_produtos", async (req, res)=>{
+
+    const client = mysql.createConnection(env)
+    const query = "SELECT * FROM produto ORDER BY pro_nome"
+
+    client.query(query, (err, result)=>{
+
+        if(err) throw err;
+        client.end();
+        return res.status(200).json(result)
+    })
+})
+
+router.get("/get_mercados", async (req, res)=>{
+
+    const client = mysql.createConnection(env)
+    const query = "SELECT * FROM mercado ORDER BY mer_nome"
+
+    client.query(query, (err, result)=>{
+
+        if(err) throw err;
+        client.end();
+        return res.status(200).json(result)
+    })
+})
+
+router.post("/add_novo_item", async (req,res)=>{
+
+    const {isValid, errors} = validateAddItem(req.body);
+    if(!isValid) return res.status(400).json(errors);
+    
+    const client = mysql.createConnection(env)
+    const idProduto = parseInt(req.body.idProduto)
+    const idMercado = parseInt(req.body.idMercado)
+    const preco = parseInt(req.body.preco)
+
+    const query = `
+        INSERT INTO item(it_id_produto, it_id_mercado, it_nome, it_preco, it_foto)
+        VALUES
+        (${idProduto}, ${idMercado}, '${req.body.nomeIten}', ${preco}, '${req.body.image}')
+    `;
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+        client.end();
+        console.log("ok")
+        return res.status(200).json("OK")
     })
 })
 

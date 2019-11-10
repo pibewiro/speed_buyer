@@ -48,7 +48,7 @@ export default class Dashboard extends Component {
                             <div className="dash-body">
                                 <div className="dash-header">
                                 <h2>{dashtext}</h2>
-                                <Link onClick={this.logout}><i class="fas fa-sign-out-alt"></i> Log Out</Link>
+                                <Link onClick={this.logout}><i className="fas fa-sign-out-alt"></i> Log Out</Link>
                                 </div>
                                 {this.props.children}
                                 <Footer />

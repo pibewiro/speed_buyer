@@ -48,7 +48,7 @@ export default class ShopCategory extends Component {
             idUsuario:this.state.usuario.id_usuario,
             idItem:i
         }
-       await  axios.post("/lojas/add_cart", cart)
+      // await  axios.post("/lojas/add_cart", cart)
     }
 
     subClick = async (i, n, p) => {
@@ -59,8 +59,8 @@ export default class ShopCategory extends Component {
         }
 
         console.log(cart)
-       axios.post(`/lojas/del_cart`, cart)
-       .then(res=>console.log(res))
+    //    axios.post(`/lojas/del_cart`, cart)
+    //    .then(res=>console.log(res))
         
         //await   this.setState({total:this.state.total <= 0 ? 0 :this.state.total -= p})
         
@@ -103,7 +103,7 @@ export default class ShopCategory extends Component {
                                 <div class="item-card">
                                     <img src={`/images/${res.it_foto}`} alt="" />
                                     <h3>{res.it_nome}</h3>
-                                    <p>R${res.it_preco}</p>
+                                    <p>R${res.it_preco.toString().replace(".", ",")}</p>
                                     <i class="fas fa-minus plus" onClick={this.subClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
                                     <i class="fas fa-plus plus" onClick={this.addClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
                                 </div>

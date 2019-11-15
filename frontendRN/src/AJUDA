@@ -1,0 +1,208 @@
+
+
+import React, { Component } from 'react'
+import { Text, StyleSheet,Button, View ,Image} from 'react-native'
+import styled from 'styled-components/native';
+import firebase from 'firebase';
+import { TextInput } from 'react-native-gesture-handler';
+
+const ToggleArea = styled.TouchableHighlight`
+width:50px;
+height:50px ;
+`;
+
+const ImageMenu = styled.Image`
+width:50px;
+height:50px ;
+`;
+
+export default class Login extends Component {
+   
+    constructor(props){
+        super(props);
+        this.state ={
+            nome:'Carregando...'
+        };
+
+
+        let Config = {
+            apiKey: "AIzaSyCxtWZHJu29balBpM-aRlOSO-1EDoav75A",
+            authDomain: "speedbuyer-8c692.firebaseapp.com",
+            databaseURL: "https://speedbuyer-8c692.firebaseio.com",
+            projectId: "speedbuyer-8c692",
+            storageBucket: "speedbuyer-8c692.appspot.com",
+            messagingSenderId: "609744602242",
+            appId: "1:609744602242:web:ead7658b6da07a3c07609b",
+            measurementId: "G-JXVGFGRF98"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(Config);
+
+         this.cadastrar = this.cadastrar.bind(this);    
+         
+        
+    }
+
+    cadastrar(){
+        
+          firebase.auth().createUserWithEmailAndPassword(
+              this.state.email,
+              this.state.senha
+              ).catch((error)=>{
+                        switch(error.code){
+                            case 'auth/weak-password':
+                                    alert("Sua senha deve ter pelo menos 6 caracteres");
+                            break;     
+                            case 'auth/email-already-in-use':
+                                    alert("Este email ja tem conta");
+                            break;    
+                            default:
+                                    alert("Ocorreu um erro");
+                            break;        
+                        
+                        }    
+
+                  
+              });         
+          
+           
+        
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text>Email: </Text>
+                <TextInput style={styles.input} onChangeText={(email)=>this.setState({email})}> </TextInput>
+                <Text>Senha:</Text>
+                <TextInput secureTextEntry={true} style={styles.input} onChangeText={(senha)=>this.setState({senha})}> </TextInput>
+
+                <Button title="Inserir Usuario" onPress={this.cadastrar} />
+
+            </View>
+        )
+    }
+}
+
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        marginTop:20,
+        padding:20
+    },
+    input:{
+        height:40,
+        borderWidth:1,
+        borderColor:'#FF0000'
+    }
+
+});
+
+////////////////////////////////////////////////////////////////////////////
+
+ <Container>
+            <Background source={require('../images/Backgrounds/bgCinza.jpg')}>
+            <Scroll>
+                <Titulo>Faça seu cadastro</Titulo>
+                <Texto>Preencha os campos do formulario 
+                com os seus dados, e torne-se 
+                um cliente de nosso APP</Texto>
+
+                <InputField>
+                    <TituloInput>NOME:</TituloInput>
+                    <Input placeholder="Nome"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>CPF</TituloInput>
+                    <Input placeholder="___,___,___-__"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>TELEFONE</TituloInput>
+                    <Input placeholder="(__)_____-____"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>DATA DE NASIMENTO</TituloInput>
+                    <Input placeholder="__/__/____"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>RAZÃO SOCIAL</TituloInput>
+                    <Input placeholder=" "/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>CNPJ*</TituloInput>
+                    <Input placeholder="________/____-__"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>E-MAIL</TituloInput>
+                    <Input placeholder="EXEMPLO@EXEMPLO.COM"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>SENHA</TituloInput>
+                    <Input placeholder="****"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>RUA:</TituloInput>
+                    <Input placeholder=""/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>Nº:</TituloInput>
+                    <Input placeholder="___,___,___-__"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>UF</TituloInput>
+                    <Input placeholder="--"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>CIDADE:</TituloInput>
+                    <Input placeholder=" "/>
+                </InputField>
+              
+
+                <InputField>
+                    <TituloInput>BAIRRO</TituloInput>
+                    <Input placeholder=" "/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>COMPLEMENTO</TituloInput>
+                    <Input placeholder="AP-BLOCO-LOTE-FUNDOS-"/>
+                </InputField>
+
+                <InputField>
+                    <TituloInput>PONTO DE REFERENCIA</TituloInput>
+                    <Input placeholder=" "/>
+                </InputField>
+
+                <AreaBotao>
+                    <Botao title="ENVIAR"  />
+                </AreaBotao>
+
+
+
+
+
+            </Scroll>
+    
+            </Background>
+        </Container>
+
+
+
+
+
+
+
+
+
+

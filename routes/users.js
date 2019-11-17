@@ -21,47 +21,54 @@ router.post("/new_user", async (req,response)=>{
         const {email, senha, primeiroNome, sobreNome, usuario} = req.body;
         let senhaHashed = "";
 
-        let queryUsuario = `SELECT usu_id_usu FROM usuario WHERE nome_usuario = '${usuario}'`;
-        let queryEmail = `SELECT usu_id_usu FROM usuario WHERE usu_email = '${email}'`;
+        let findUsuario = `SELECT usu_email, nome_usuario FROM usuario`;
 
-        client.query(queryUsuario, (err,result)=>{
-            if(result.length > 0)
+        let arrEmail = []
+        let arrUsuario = []
+        client.query(findUsuario, (err, result)=>{
+            if(err) throw err;
+
+            result.map(r=>arrEmail.push(r.usu_email))
+            result.map(r=>arrUsuario.push(r.nome_usuario))
+
+            if(arrEmail.includes(email))
             {
-                errors.usuario = "Username Already Exists";
+                errors.email = "Email Already exists"
             }
-        })
 
-        client.query(queryEmail, (err,result)=>{
-            if(result.length > 0)
+            if(arrUsuario.includes(usuario))
             {
-                errors.email = "Email Already Exists";
+                errors.usuario = "User already exists"
             }
 
             if(Object.keys(errors).length > 0)
             {
                 return response.status(400).json(errors)
             }
-        })
 
-        bcrypt.genSalt(10, (err,salt)=>{
-            bcrypt.hash(senha, salt, async (err,hash)=>{
-
-                senhaHashed = hash;
-
-                let errors = {};
-                let query = `
-                INSERT INTO usuario(usu_email, usu_senha, primeiro_nome, sobre_nome, nome_usuario, usu_ativo)
-                VALUES('${email}', '${senhaHashed}', '${primeiroNome}', '${sobreNome}', '${usuario}', 0);
-            `;
-
-
-                const res = await client.query(query, (err,result)=>{
-                    if(err) throw err;
-
-                    client.end();
-                });
-                return response.status(200).json("Success")
-            })
+            else
+            {
+                bcrypt.genSalt(10, (err,salt)=>{
+                    bcrypt.hash(senha, salt, async (err,hash)=>{
+        
+                        senhaHashed = hash;
+        
+                        let errors = {};
+                        let query = `
+                        INSERT INTO usuario(usu_email, usu_senha, primeiro_nome, sobre_nome, nome_usuario, usu_ativo)
+                        VALUES('${email}', '${senhaHashed}', '${primeiroNome}', '${sobreNome}', '${usuario}', 0);
+                    `;
+        
+        
+                        const res = await client.query(query, (err,result)=>{
+                            if(err) throw err;
+        
+                            client.end();
+                        });
+                        return response.status(200).json("Success")
+                    })
+                })
+            }
         })
     })
 

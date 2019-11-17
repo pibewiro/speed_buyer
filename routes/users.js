@@ -43,6 +43,7 @@ router.post("/new_user", async (req,response)=>{
 
             if(Object.keys(errors).length > 0)
             {
+                client.end();
                 return response.status(400).json(errors)
             }
 

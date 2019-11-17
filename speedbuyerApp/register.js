@@ -28,7 +28,7 @@ export default class register extends Component {
 
     salvarUsuario = () => {
 
-        const novoUsuario = {
+        const novoUsuario = { 
             primeiroNome:this.state.primeiroNome,
             sobreNome:this.state.sobreNome,
             usuario:this.state.usuario,

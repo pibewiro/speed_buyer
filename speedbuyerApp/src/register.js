@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {StyleSheet, AppRegistry, Text, View, TextInput, Button} from 'react-native'
+import {StyleSheet, AppRegistry, Text, View, TextInput, Button, AsyncStorage} from 'react-native'
 import axios from 'axios';
-import Component1 from "./Component1"
+import Component1 from "../Component1"
 
 const style = StyleSheet.create({
     styleErrors:{
@@ -24,6 +24,11 @@ export default class register extends Component {
             email:"",
             errors:[]
         }
+    }
+
+    componentDidMount()
+    {
+      console.log()
     }
 
     salvarUsuario = () => {

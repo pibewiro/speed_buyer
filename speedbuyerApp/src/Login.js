@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import {StyleSheet, AppRegistry, Text, View, TextInput, Button} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import Component1 from "./Component1"
 
 const style = StyleSheet.create({
     styleErrors:{
         color:'red'
     }
 })
-
 
 export default class login extends Component {
 
@@ -23,6 +22,23 @@ export default class login extends Component {
         }
     }
 
+    componentDidMount()
+    {
+      try
+      {
+        if('jwtToken' in AsyncStorage === true)
+        {
+          alert(123)
+        }
+      }
+
+      catch(err)
+      {
+        console.log(err)
+      }
+
+    }
+
     handleLogin = () => {
 
         const login = {
@@ -31,8 +47,9 @@ export default class login extends Component {
         }
 
       axios.post("http://10.0.2.2:5000/user/login_user", login)
-      .then(res=>{
-          
+      .then(async res=>{
+          AsyncStorage.setItem("jwtToken", res.data.token)
+          this.props.navigation.navigate('Menu')
       })
       .catch(err=>this.setState({errors:err.response.data}))
     }

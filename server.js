@@ -9,6 +9,7 @@ const lojasRoutes = require("./routes/lojas")
 const path = require("path")
 const cors = require('cors')
 const adminRoutes = require("./routes/admin")
+const morgan = require("morgan")
 
 const passport = require("passport");
 // const {pool} = require("pg");
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(cors())
+app.use(morgan('dev'))
 require("./config/passport")(passport);
 
 

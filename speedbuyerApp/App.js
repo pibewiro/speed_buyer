@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {AppRegistry, Text, View} from 'react-native'
 import axios from 'axios'
-import Login from "./Login.js"
-import Register from "./register.js"
-
-//import {createStackNavigator} from "react-navigation"
+import Login from "./src/Login.js/index.js"
+import Register from "./src/register.js/index.js"
+import Routers from "./src/Routers"
 
 export default class myapp extends Component{
 
@@ -12,15 +11,10 @@ export default class myapp extends Component{
   {
     return(
       <View>
-        <Register />
+        <Routers />
       </View>
     )
   }
 }
-
-/*const AppStackNavigator = createStackNavigator({
-  Component1:Component1,
-  Home:Login
-}) */
 
 AppRegistry.registerComponent('myapp', ()=>myapp)

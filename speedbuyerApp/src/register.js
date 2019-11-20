@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {StyleSheet, AppRegistry, Text, View, TextInput, Button} from 'react-native'
+import {StyleSheet, AppRegistry, Text, View, TextInput, Button, AsyncStorage} from 'react-native'
 import axios from 'axios';
-import Component1 from "./Component1"
+import Component1 from "../Component1"
 
 const style = StyleSheet.create({
     styleErrors:{
@@ -26,9 +26,14 @@ export default class register extends Component {
         }
     }
 
+    componentDidMount()
+    {
+      console.log()
+    }
+
     salvarUsuario = () => {
 
-        const novoUsuario = {
+        const novoUsuario = { 
             primeiroNome:this.state.primeiroNome,
             sobreNome:this.state.sobreNome,
             usuario:this.state.usuario,
@@ -36,9 +41,9 @@ export default class register extends Component {
             senha:this.state.senha
         }
 
-      axios.post("http://10.0.2.2:5000/user/new_user", novoUsuario)
+      axios.post("http://arcane-savannah-75129.herokuapp.com/user/new_user", novoUsuario)
       .then(res=>{
-          console.log("inserted")
+          this.props.navigation.navigate('Login')
       })
       .catch(err=>this.setState({errors:err.response.data}))
     }

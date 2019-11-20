@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {StyleSheet, AppRegistry, Text, View, TextInput, Button} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import Component1 from "./Component1"
+import jwtDecode from "jwt-decode"
 
 const style = StyleSheet.create({
     styleErrors:{
         color:'red'
     }
 })
-
 
 export default class login extends Component {
 
@@ -23,6 +23,11 @@ export default class login extends Component {
         }
     }
 
+    componentDidMount()
+    {
+
+    }
+
     handleLogin = () => {
 
         const login = {
@@ -30,9 +35,23 @@ export default class login extends Component {
             senha:this.state.senha
         }
 
-      axios.post("http://10.0.2.2:5000/user/login_user", login)
-      .then(res=>{
-          
+      axios.post("http://arcane-savannah-75129.herokuapp.com/user/login_user", login)
+      .then(async res=>{
+           AsyncStorage.setItem("jwtToken", res.data.token)
+           AsyncStorage.getItem('jwtToken').then(res=>{
+        
+            const ativo = jwtDecode(res).ativo
+    
+            if(ativo === 0)
+            {
+              this.props.navigation.navigate('Profile')
+            }
+    
+            else
+            {
+              this.props.navigation.navigate('Menu')
+            }
+          })
       })
       .catch(err=>this.setState({errors:err.response.data}))
     }

@@ -41,9 +41,9 @@ export default class register extends Component {
             senha:this.state.senha
         }
 
-      axios.post("http://10.0.2.2:5000/user/new_user", novoUsuario)
+      axios.post("http://arcane-savannah-75129.herokuapp.com/user/new_user", novoUsuario)
       .then(res=>{
-          console.log("inserted")
+          this.props.navigation.navigate('Login')
       })
       .catch(err=>this.setState({errors:err.response.data}))
     }

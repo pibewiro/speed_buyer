@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import jwtDecode from "jwt-decode"
 
 export default class Menu extends Component {
   constructor(props) {
@@ -17,15 +19,21 @@ export default class Menu extends Component {
       }
   })
 
-  pressme = () => {
-      this.props.navigation.navigate("Login")
+  clickProfile = () => {
+      AsyncStorage.getItem('jwtToken')
+      .then(res=>{
+        const ativo = jwtDecode(res).ativo
+        
+        if(ativo === 1) this.props.navigation.navigate('PessoaF')
+        if(ativo === 2) this.props.navigation.navigate('PessoaJ')      
+      })
   }
 
   render() {
     return (
       <View>
         <Text style={this.styles.boxes}> Menu </Text>
-        <Text style={this.styles.boxes} onPress={this.pressme}> Meu Profile </Text>
+        <Text style={this.styles.boxes} onPress={this.clickProfile}> Meu Profile </Text>
         <Text style={this.styles.boxes}> Mercados </Text>
         <Text style={this.styles.boxes}> Minha Lista </Text>
         <Text style={this.styles.boxes}> Meu Carrinho </Text>

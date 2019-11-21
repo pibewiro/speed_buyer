@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import jwtDecode from "jwt-decode"
+import styled from 'styled-components/native';
+
+const Texto = styled.Text`
+    font-size:38px;
+    color:#000;
+    font-weight:bold;
+    text-align:center;
+    padding:20px;
+
+`;
 
 export default class Menu extends Component {
   constructor(props) {
@@ -9,6 +19,7 @@ export default class Menu extends Component {
     this.state = {
     };
   }
+
 
   styles = StyleSheet.create({
       boxes:{
@@ -29,12 +40,16 @@ export default class Menu extends Component {
       })
   }
 
+  clickMercados = () => {
+    this.props.navigation.navigate("Mercados")
+  }
+
   render() {
     return (
       <View>
-        <Text style={this.styles.boxes}> Menu </Text>
+        <Texto> Menu </Texto>
         <Text style={this.styles.boxes} onPress={this.clickProfile}> Meu Profile </Text>
-        <Text style={this.styles.boxes}> Mercados </Text>
+        <Text style={this.styles.boxes} onPress={this.clickMercados}> Mercados </Text>
         <Text style={this.styles.boxes}> Minha Lista </Text>
         <Text style={this.styles.boxes}> Meu Carrinho </Text>
         <Text style={this.styles.boxes}> Promoçoes </Text>

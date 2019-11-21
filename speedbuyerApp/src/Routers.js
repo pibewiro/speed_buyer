@@ -9,6 +9,8 @@ import Register from "./register"
 import PessoaF from "./PessoaF"
 import PessoaJ from "./PessoaJ"
 import Entregador from "./Entregador"
+import Mercados from "./Mercados"
+
 
 const AppNavigator = createStackNavigator({
 
@@ -23,7 +25,8 @@ const AppNavigator = createStackNavigator({
    Register:{screen:Register},
    PessoaJ:{screen:PessoaJ},
    PessoaF:{screen:PessoaF},
-   Entregador:{screen:Entregador}
+   Entregador:{screen:Entregador},
+   Mercados:{screen:Mercados}
 })
 
 export default Routers = createAppContainer(AppNavigator)

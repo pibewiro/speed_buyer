@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import {StyleSheet, AppRegistry, Text, View, TextInput, Button} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import jwtDecode from "jwt-decode"
-
-const style = StyleSheet.create({
-    styleErrors:{
-        color:'red'
-    }
-})
+import {Div, Input, Header, DivImage, Logo, Botao, AreaBotao, Texto, ErrorText, Div2} from "./AppStyles"
+import kart from "./logo.jpg"
 
 export default class login extends Component {
 
@@ -21,11 +16,6 @@ export default class login extends Component {
             senha:"",
             errors:[]
         }
-    }
-
-    componentDidMount()
-    {
-
     }
 
     handleLogin = () => {
@@ -61,13 +51,24 @@ export default class login extends Component {
     const {errors} = this.state;
 
     return (
-      <View style={{padding:20}}>
-          <TextInput placeholder="Email" onChangeText={(email) => this.setState({email})} value={this.state.email} />
-          <Text style={style.styleErrors}>{errors.email}</Text>
-          <TextInput placeholder="Password" onChangeText={(senha) => this.setState({senha})} value={this.state.senha} />
-          <Text style={style.styleErrors}>{errors.senha}</Text>
-          <Button title="Submit" onPress={this.handleLogin} />
-      </View>
+      <Div>
+        <Header>SpeedBuyer</Header>
+          <Div2>
+            <Input placeholder="Email" onChangeText={(email) => this.setState({email})} value={this.state.email} />
+            <ErrorText>{errors.email}</ErrorText>
+          </Div2>
+
+          <Div2>
+            <Input placeholder="Password" secureTextEntry={true} onChangeText={(senha) => this.setState({senha})} value={this.state.senha} />
+            <ErrorText>{errors.senha}</ErrorText>
+          </Div2>
+
+          <AreaBotao>
+            <Botao onPress={this.handleLogin} activeOpacity={0.8} > 
+                <Texto>Login</Texto>
+            </Botao>
+        </AreaBotao>
+      </Div>
     );
   }
 }

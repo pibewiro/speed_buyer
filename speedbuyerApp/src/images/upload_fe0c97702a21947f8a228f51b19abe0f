@@ -1,0 +1,50 @@
+﻿select * from subprojeto  order by id_subprojeto desc
+select * from recurso_asga order by id_recurso desc
+select * from projetos order by id_projeto desc
+select * from projetos order by projeto
+select * from cliente order by id_cliente
+
+SELECT id_projeto_comercial from subprojeto
+
+SELECT * FROM cliente ORDER BY cliente ASC
+
+select * from projetos WHERE ativo = 1 ORDER BY projeto
+ 
+
+
+INSERT INTO projetos(id_projeto_comercial, projeto, ativo, id_cliente) values('1234', '123', 0, 6)
+
+ALTER TABLE projetos alter COLUMN id_projeto SERIAL;
+
+select * from projetos where projeto = 'Atividades Comerciais Diversas - saga|NM'
+
+select * from cliente
+select * from recurso_asga
+
+
+select * from projetos p
+inner join cliente c on c.id_cliente = p.id_cliente
+
+select * from projetos p
+inner join cliente c on c.id_cliente = p.id_cliente
+where projeto = 'Serviços de RA'
+
+${table}_${column}_seq
+ALTER SEQUENCE subprojeto_id_subprojeto_seq RESTART WITH 336
+ALTER SEQUENCE projetos_id_projeto_seq RESTART WITH 115
+
+
+
+insert into subprojeto (id_projeto, id_projeto_comercial, id_aprovador_horas, subprojeto, ativo, excluir) values(2, '123', 7, 'teste', 0, 1)
+
+select * from projetos p
+inner join cliente c on c.id_cliente = p.id_cliente
+
+select * from timesheet where id_colaborador = 316
+order by dt_insercao desc
+
+select * from status_timesheet
+
+
+INSERT INTO projetos(id_projeto_comercial, projeto, ativo, id_cliente) VALUES('123', '123', 1, 4)
+

@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import jwtDecode from "jwt-decode"
 import styled from 'styled-components/native';
+import {Div, Input, Header, DivImage, Logo, Botao, AreaBotao, Texto, ErrorText, Div2, DivView2} from "./AppStyles"
 
-const Texto = styled.Text`
-    font-size:38px;
-    color:#000;
-    font-weight:bold;
-    text-align:center;
-    padding:20px;
 
-`;
 
 export default class Menu extends Component {
   constructor(props) {
@@ -19,16 +13,6 @@ export default class Menu extends Component {
     this.state = {
     };
   }
-
-
-  styles = StyleSheet.create({
-      boxes:{
-          backgroundColor:'blue',
-          textAlign:'center',
-          padding:8,
-          fontSize:25, 
-      }
-  })
 
   clickProfile = () => {
       AsyncStorage.getItem('jwtToken')
@@ -46,16 +30,56 @@ export default class Menu extends Component {
 
   render() {
     return (
-      <View>
-        <Texto> Menu </Texto>
-        <Text style={this.styles.boxes} onPress={this.clickProfile}> Meu Profile </Text>
-        <Text style={this.styles.boxes} onPress={this.clickMercados}> Mercados </Text>
-        <Text style={this.styles.boxes}> Minha Lista </Text>
-        <Text style={this.styles.boxes}> Meu Carrinho </Text>
-        <Text style={this.styles.boxes}> Promoçoes </Text>
-        <Text style={this.styles.boxes}> Favoritos </Text>
-        <Text style={this.styles.boxes}> Ajuda Central </Text>
-      </View>
+      <DivView2>
+        <Header> Menu </Header>
+        <AreaBotao>
+          <Botao onPress={this.clickProfile} activeOpacity={0.8} > 
+              <Texto>Meu Profle</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao onPress={this.clickMercados} activeOpacity={0.8} > 
+              <Texto>Mercados</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao activeOpacity={0.8} > 
+              <Texto>Minha Lista</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao activeOpacity={0.8} > 
+              <Texto>Meu Carrinho</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao activeOpacity={0.8} > 
+              <Texto>Promoções</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao onPress={this.clickMercados} activeOpacity={0.8} > 
+              <Texto>Favoritos</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao onPress={this.clickMercados} activeOpacity={0.8} > 
+              <Texto>Ajuda Central</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao onPress={this.clickMercados} activeOpacity={0.8} > 
+              <Texto>Log Out</Texto>
+          </Botao>
+        </AreaBotao>
+      </DivView2>
     );
   }
 }

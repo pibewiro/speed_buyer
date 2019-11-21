@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-
-const style = StyleSheet.create({
-    styleView:{
-        padding:20,
-    }
-})
+import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import kart from "./logo.jpg"
+import {Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto} from "./AppStyles"
 
 export default class LandingPage extends Component {
   constructor(props) {
@@ -19,11 +15,23 @@ export default class LandingPage extends Component {
 
   render() {
     return (
-      <View style={style.styleView}>
-        <Text>SpeedBuyer</Text>
-        <Button title="Login" onPress={this.signin} />
-        <Button title="Cadastrar-se" onPress={this.signup} />
-      </View>
+      <Div>
+        <Header>SpeedBuyer</Header>
+        <DivImage>
+            <Logo source={kart} />
+        </DivImage>
+        <AreaBotao>
+            <Botao onPress={this.signin} activeOpacity={0.8} > 
+                <Texto>Logar</Texto>
+            </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+            <Botao onPress={this.signup} activeOpacity={0.8} > 
+                <Texto>Cadastrar-se</Texto>
+            </Botao>
+        </AreaBotao>
+      </Div>
     );
   }
 }

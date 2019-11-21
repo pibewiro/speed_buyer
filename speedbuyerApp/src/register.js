@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {StyleSheet, AppRegistry, Text, View, TextInput, Button, AsyncStorage} from 'react-native'
 import axios from 'axios';
-import Component1 from "../Component1"
+import {Div, Input, Header, DivImage, Logo, Botao, AreaBotao, Texto, ErrorText, Div2} from "./AppStyles"
+
 
 const style = StyleSheet.create({
-    styleErrors:{
-        color:'red'
+    divView:{
+        padding:20
     }
 })
 
@@ -53,18 +54,37 @@ export default class register extends Component {
     const {errors} = this.state;
 
     return (
-      <View style={{padding:20}}>
-          <TextInput placeholder="Primeiro Nome" onChangeText={(primeiroNome) => this.setState({primeiroNome})} value={this.state.primeiroNome} />
-          <Text style={style.styleErrors}>{errors.primeiroNome}</Text>
-          <TextInput placeholder="Sobre Nome" onChangeText={(sobreNome) => this.setState({sobreNome})} value={this.state.sobreNome} />
-          <Text style={style.styleErrors}>{errors.sobreNome}</Text>
-          <TextInput placeholder="Usuario" onChangeText={(usuario) => this.setState({usuario})} value={this.state.usuario} />
-          <Text style={style.styleErrors}>{errors.usuario}</Text>
-          <TextInput placeholder="Senha" onChangeText={(senha) => this.setState({senha})} value={this.state.senha} />
-          <Text style={style.styleErrors}>{errors.senha}</Text>
-          <TextInput placeholder="Email" onChangeText={(email) => this.setState({email})} value={this.state.email} />
-          <Text style={style.styleErrors}>{errors.email}</Text>
-          <Button title="Submit" onPress={this.salvarUsuario} />
+      <View style={style.divView}>
+        <Header>Cadastrar</Header>
+        <Div2>
+          <Input placeholder="Primeiro Nome" onChangeText={(primeiroNome) => this.setState({primeiroNome})} value={this.state.primeiroNome} />
+          <ErrorText>{errors.primeiroNome}</ErrorText>
+        </Div2>
+        <Div2>
+          <Input placeholder="Sobre Nome" onChangeText={(sobreNome) => this.setState({sobreNome})} value={this.state.sobreNome} />
+          <ErrorText>{errors.sobreNome}</ErrorText>
+        </Div2>
+
+        <Div2>
+          <Input placeholder="Usuario" onChangeText={(usuario) => this.setState({usuario})} value={this.state.usuario} />
+          <ErrorText>{errors.usuario}</ErrorText>
+        </Div2>
+          
+        <Div2>
+          <Input placeholder="Senha" onChangeText={(senha) => this.setState({senha})} value={this.state.senha} />
+          <ErrorText>{errors.senha}</ErrorText>
+        </Div2>
+        
+        <Div2>
+          <Input placeholder="Email" onChangeText={(email) => this.setState({email})} value={this.state.email} />
+          <ErrorText>{errors.email}</ErrorText>
+        </Div2>
+
+        <AreaBotao>
+          <Botao onPress={this.salvarUsuario} activeOpacity={0.8} > 
+              <Texto>Cadastrar</Texto>
+          </Botao>
+        </AreaBotao>
       </View>
     );
   }

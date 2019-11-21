@@ -1,7 +1,6 @@
 import {createAppContainer} from "react-navigation"
 import {createStackNavigator} from "react-navigation-stack"
 import Login from "./Login"
-import Details from "./Details"
 import Menu from "./Menu"
 import Profile from "./Profile"
 import LandingPage from "./LandingPage"
@@ -10,7 +9,7 @@ import PessoaF from "./PessoaF"
 import PessoaJ from "./PessoaJ"
 import Entregador from "./Entregador"
 import Mercados from "./Mercados"
-
+import PessoaJE from "./PessoaJE"
 
 const AppNavigator = createStackNavigator({
 
@@ -26,7 +25,8 @@ const AppNavigator = createStackNavigator({
    PessoaJ:{screen:PessoaJ},
    PessoaF:{screen:PessoaF},
    Entregador:{screen:Entregador},
-   Mercados:{screen:Mercados}
+   Mercados:{screen:Mercados},
+   PessoaJE:{screen:PessoaJE},
 })
 
 export default Routers = createAppContainer(AppNavigator)

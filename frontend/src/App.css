@@ -21,9 +21,9 @@
     background:var(--primary-color);
     color:#fff;
     text-decoration: none;
-    padding: 15px 50px;
+    padding: 10px 30px;
     border:none;
-    font-size: 19px;
+    font-size: 16px;
 }
 
 .big-heading
@@ -190,6 +190,11 @@
     align-items: center;
     flex-direction: column;
     margin-bottom: 70px;
+}
+
+.signin-height
+{
+    height: 75.8vh;
 }
 
 #form-content h1

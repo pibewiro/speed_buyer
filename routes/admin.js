@@ -14,6 +14,8 @@ const validateAddStore = require("../validations/validateAddStore")
 const validateNovoProduto = require("../validations/validateNovoProduto")
 const validateAddItem = require("../validations/validateAddItems")
 
+
+
 function checkFileType(file)
 {
     const type = file.type.split("/").pop();

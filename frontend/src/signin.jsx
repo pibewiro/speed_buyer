@@ -77,7 +77,7 @@ export default class signin extends Component {
                 <div>
                     <Navbar />
                 </div>
-                <div id="form-content">
+                <div id="form-content" className="signin-height">
                 <h1 className="big-heading">Sign In</h1>
                 <img src={logoImage} alt=""/>
                <form>

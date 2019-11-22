@@ -62,7 +62,7 @@ export default class CustomDrawer extends Component{
           
           const sn = await jwtDecode(res).sobre_nome
           this.setState({primeiro_nome:jwtDecode(res).primeiro_nome})
-          
+         
         })
     }
 

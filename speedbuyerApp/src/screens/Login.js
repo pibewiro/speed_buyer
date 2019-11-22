@@ -98,7 +98,6 @@ export default class login extends Component {
     
             else
             {
-                alert("Ola")
               this.props.navigation.navigate('Cadastro')
             }
           })

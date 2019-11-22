@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import jwtDecode from 'jwt-decode';
 import axios from "axios"
 import AsyncStorage from '@react-native-community/async-storage';
-import {Div, Input, Header, DivImage, Logo, Botao, AreaBotao, Texto, ErrorText, Div2, DivView2} from "./AppStyles"
+import {Div, Input, Header, DivImage, Logo, Botao, AreaBotao, Texto, ErrorText, Div2, DivView2} from "../AppStyles"
 
 export default class Profile extends Component {
   constructor(props) {

@@ -90,15 +90,12 @@ export default class login extends Component {
     
             if(ativo === 0)
             {
-               
-                this.props.navigation.navigate('HomeDrower')
-               
-                   
+                this.props.navigation.navigate('Profile')
             } 
     
             else
             {
-              this.props.navigation.navigate('Cadastro')
+              this.props.navigation.navigate('HomeDrower')
             }
           })
       })

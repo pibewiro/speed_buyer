@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import styled from 'styled-components/native';
 import {DrawerNavigatorItems} from 'react-navigation-drawer';
-
 import AsyncStorage from '@react-native-community/async-storage';
+import jwtDecode from "jwt-decode";
 
 const Scroll = styled.ScrollView`
 flex:1;
@@ -58,11 +58,10 @@ export default class CustomDrawer extends Component{
     componentDidMount()
     {
         AsyncStorage.getItem('jwtToken')
-        .then(async res=>{
-          
-          const sn = await jwtDecode(res).sobre_nome
-          this.setState({primeiro_nome:jwtDecode(res).primeiro_nome})
-         
+        .then(res=>{
+         this.setState({
+             primeiro_nome:jwtDecode(res).primeiroNome,
+            })
         })
     }
 
@@ -75,7 +74,7 @@ return(
     <Scroll>
         <Area>
             <Logo source={require('../images/user.png')}/>
-                <TextBotao>Ola,{this.state.primeiro_nome}</TextBotao>
+                <TextBotao>Ola, {this.state.primeiro_nome}</TextBotao>
             <DrawerNavigatorItems 
             {...this.props} 
                 itemsContainerStyle={{width:'100%'}}

@@ -11,11 +11,6 @@ const Listagem = styled.FlatList`
     flex:1;
 `;
 
-
-
-
-
-
 const Page = (props)=>{
     return(
     <Container>

@@ -17,7 +17,7 @@ const Botao = styled.Button`
 const Page = (props)=>{
     return(
         <Container>
-            <Texto>Pagina HOme</Texto>
+            <Texto>Pagina Home</Texto>
 
             <Botao title="Fulano" onPress={()=>props.navigation
                     .navigate('Perfil')}    />

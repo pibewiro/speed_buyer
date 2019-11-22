@@ -25,6 +25,8 @@ export default class login extends Component {
             senha:this.state.senha
         }
 
+        
+
       axios.post("http://arcane-savannah-75129.herokuapp.com/user/login_user", login)
       .then(async res=>{
            AsyncStorage.setItem("jwtToken", res.data.token)

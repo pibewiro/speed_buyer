@@ -1,20 +1,7 @@
-import React, {Component} from 'react'
-import {AppRegistry, Text, View} from 'react-native'
-import axios from 'axios'
-import Login from "./src/Login.js/index.js"
-import Register from "./src/register.js/index.js"
-import Routers from "./src/Routers"
 
-export default class myapp extends Component{
+import {createAppContainer} from 'react-navigation';
 
-  render()
-  {
-    return(
-      <View>
-        <Routers />
-      </View>
-    )
-  }
-}
+import PrimeiroStack from './src/navigators/PrimeiroStack';
 
-AppRegistry.registerComponent('myapp', ()=>myapp)
+
+export default createAppContainer(PrimeiroStack);

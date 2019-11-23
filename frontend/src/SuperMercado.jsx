@@ -14,7 +14,7 @@ export default class SuperMercado extends Component {
     }
     componentDidMount()
     {
-        let url = this.props.match.params.store_url
+        //let url = this.props.match.params.store_url
         //this.setState({loading:true})
 
         console.log(this.props)

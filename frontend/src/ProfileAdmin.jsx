@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import jwtDecode from "jwt-decode";
 import {Link} from "react-router-dom"
-import moment from "moment"
+//import moment from "moment"
 
 export default class ProfileAdmin extends Component {
 

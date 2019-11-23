@@ -19,7 +19,7 @@ import ProfilePF from "./ProfilePF";
 import SigninAdmin from "./SigninAdmin";
 import viewStores from "./viewStores";
 import ShopCategory from "./ShopCategory";
-import Spinner from "./Spinner"
+// import Spinner from "./Spinner"
 import ProfileAdmin from "./ProfileAdmin";
 // import AddStores from "./AddStores";
 import ProfileEntregador from "./ProfileEntregador";
@@ -27,7 +27,7 @@ import Entregador from "./Entregador"
 import ProfileEntEdit from "./ProfileEntEdit"
 import Mercados from "./Mercados"
 import MercadoList from "./MercadoList"
-import SuperMercado from "./SuperMercado"
+//import SuperMercado from "./SuperMercado"
 import NewStore from "./NewStore"
 import AddStore from "./AddStore"
 import NewProducts from "./NewProducts"

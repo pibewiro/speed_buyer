@@ -44,10 +44,10 @@ export default class ShopCategory extends Component {
 
     addClick = async (i, n, p) => {
       //  await   this.setState({addItem:[...this.state.addItem, {nome:n, preco:p, length:n}], total:this.state.total += p})
-        const cart ={
-            idUsuario:this.state.usuario.id_usuario,
-            idItem:i
-        }
+        // const cart ={
+        //     idUsuario:this.state.usuario.id_usuario,
+        //     idItem:i
+        // }
       // await  axios.post("/lojas/add_cart", cart)
     }
 
@@ -76,10 +76,10 @@ export default class ShopCategory extends Component {
     add = async (n, p) => {
         let price = 0;
 
-       this.state.addItem.map(res=>{
-           price = price + res.preco
+    //    this.state.addItem.map(res=>{
+    //        price = price + res.preco
 
-        })
+    //     })
 
         this.setState({total:price})
     }

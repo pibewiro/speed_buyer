@@ -84,6 +84,10 @@ export default class ShopCategory extends Component {
         this.setState({total:price})
     }
 
+    checkout = () => {
+        this.props.history.push("/chooseEntregador")
+    }
+
     render() {
         return (
             <> 
@@ -94,7 +98,7 @@ export default class ShopCategory extends Component {
                                 <div>
                                     Total: <p>R${this.state.total}</p>
                                 </div>
-                                <button> Check Out</button>
+                                <button onClick={this.checkout}> Check Out</button>
                             </div>
                         </div>
 

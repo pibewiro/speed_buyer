@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const env = require('../config/.env');
 const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
+const stripe = require('stripe')("sk_test_mDc7apmGEPPD3kEuFbKwZESX00KFa5TFP6")
 
 router.get(`/get_stores_brand/:url`, async (req, res)=>{
 
@@ -146,6 +147,69 @@ router.get("/get_mercados", async (req, res)=>{
     })
 })
 
+router.get("/get_entregadores", async (req, res)=>{
+
+    const client = await mysql.createConnection(env)
+    const query = `
+        select * from entregador
+        inner join usuario on ent_id_usu = usu_id_usu
+        inner join endereco on en_id_endereco = usu_id_endereco
+        where ent_ativo = 0;
+    `;
+
+    client.query(query, (err, result)=>{
+        if(err) throw err
+
+        client.end();
+        return res.status(200).json(result)
+    })
+
+})
+
+router.post("/checkout", async (req,res)=>{
+    console.log(req.body)
+    let error;
+    let status;
+
+    try
+    {
+        const {token, product} = req.body;
+
+        const customer = await stripe.customers.create({
+            email:token.email,
+            source:token.id
+        })
+
+        const charge = await stripe.charges.create({
+            amount:product.price * 100,
+            currency:"usd",
+            customer:customer.id,
+            receipt_email:token.email,
+            description:`Purshed the ${product.name}`,
+            shipping:{
+                name:token.card.name,
+                address:{
+                    line1:token.card.address_line1,
+                    line2:token.card.address_line2,
+                    city:token.card.address_city,
+                    country:token.card.address_country,
+                    postal_code:token.card.address_zip
+                }
+            },
+        })
+
+        console.log(123)
+
+         return res.status(200).json("success")
+    }
+
+    catch(err)
+    {
+        console.log(err)
+         status = "failure"
+    }
+
+})
 
 
 

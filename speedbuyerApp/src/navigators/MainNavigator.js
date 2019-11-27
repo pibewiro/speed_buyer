@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 
 
-import Profile from '../screens/Profile';
+import Cadastro from '../screens/Cadastro';
 import HomeStack from '../navigators/HomeStack'
 
 const MainNavigator = createBottomTabNavigator({
@@ -12,7 +12,7 @@ const MainNavigator = createBottomTabNavigator({
                 screen:HomeStack
             },
             Cadastro:{
-                screen:Profile
+                screen:Cadastro
             }
     });
 

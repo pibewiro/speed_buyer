@@ -32,6 +32,8 @@ import NewStore from "./NewStore"
 import AddStore from "./AddStore"
 import NewProducts from "./NewProducts"
 import AddItems from "./AddItems"
+import ChooseEntregador from "./ChooseEntregador"
+import Pagamento from "./Pagamento"
 
 export default class Routes extends Component {
 
@@ -56,6 +58,8 @@ export default class Routes extends Component {
           <>
             <Router>
               <Switch>
+                  <PrivateRouteUser exact path="/pagamento" component={Pagamento} />
+                  <PrivateRouteUser exact path="/chooseEntregador" component={ChooseEntregador} />
                   <PrivateRouteUser exact path="/stores" component={Stores} />
                   <PrivateRouteUser exact path="/add_itens" component={AddItems} />
                   <PrivateRouteUser exact path="/novo_produtos" component={NewProducts} />

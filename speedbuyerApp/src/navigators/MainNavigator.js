@@ -11,7 +11,7 @@ const MainNavigator = createBottomTabNavigator({
     Login:{
                 screen:HomeStack
             },
-            Profile:{
+            Cadastro:{
                 screen:Profile
             }
     });

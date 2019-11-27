@@ -11,7 +11,7 @@ const style = StyleSheet.create({
 })
 
 
-export default class register extends Component {
+export default class Cadastro extends Component {
 
     constructor()
     {

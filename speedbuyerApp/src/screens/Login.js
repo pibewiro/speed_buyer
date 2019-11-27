@@ -17,7 +17,11 @@ const Texto = styled.Text`
     font-size:18px;
     color:#ffffff;
     font-weight:bold;
+`;
 
+const TextoErro = styled.Text`
+    font-size:16px;
+    color:red;
 `;
 
 const AreaBotao = styled.View`
@@ -41,7 +45,6 @@ const Background = styled.ImageBackground`
     width:100%;
     height:100%;
     opacity:0.8;
-    
 `;
 
 
@@ -79,6 +82,7 @@ export default class login extends Component {
             senha:this.state.senha
         }
 
+        
        
 
       axios.post("http://arcane-savannah-75129.herokuapp.com/user/login_user", login)
@@ -90,7 +94,7 @@ export default class login extends Component {
     
             if(ativo === 0)
             {
-                this.props.navigation.navigate('Profile')
+                this.props.navigation.navigate('HomeDrower')
             } 
     
             else
@@ -117,10 +121,10 @@ render() {
                 <Selecao  />    
         
                 <Input placeholder="Email" onChangeText={(email) => this.setState({email})} value={this.state.email}/>
-                <Texto>{errors.email}</Texto>
+                <TextoErro>{errors.email}</TextoErro>
 
                 <Input placeholder="Password" secureTextEntry={true} onChangeText={(senha) => this.setState({senha})} value={this.state.senha}/>
-                <Texto>{errors.senha}</Texto>
+                <TextoErro>{errors.senha}</TextoErro>
 
                 <AreaBotao>
                     <Botao onPress={this.handleLogin} activeOpacity={0.8} > 

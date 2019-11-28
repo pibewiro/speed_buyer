@@ -4,34 +4,32 @@ import axios from "axios"
 import jwtDecode from "jwt-decode"
 import AsyncStorage from '@react-native-community/async-storage';
 import {Label, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2} from "./AppStyles"
+import moment from "moment"
 
-export default class PerfilJ extends Component {
+export default class PerfilE extends Component {
 
-    constructor()
-    {
-        super()
-        
-        this.state = {
-            primeiroNome:"",
-            sobreNome:"",
-            nomeFantasia:"",
-            razaoSocial:"",
-            inscricaoMun:"",
-            inscricaoEst:"",
-            rua:"",
-            numero:"",
-            complemento:"",
-            cep:"",
-            cidade:"",
-            estado:"",
-            cpf:"",
-            cnpj:"",
-            email:"",
-            nomeUsuario:"",
-            idUsuario:"",
-            loading:false
-        }
-    }
+  constructor()
+  {
+      super()
+
+      this.state = {
+          primeiroNome:"",
+          sobrenome:"",
+          cpf:"",
+          dataNascimento:"",
+          email:"",
+          senha:"",
+          rua:"",
+          numero:"",
+          complemento:"",
+          cep:"",
+          cidade:"",
+          estado:"São Paulo",
+          dataNascimento:"",
+          idUsuario: "",
+          errors:[]
+      }
+  }
 
     componentDidMount()
     {
@@ -39,22 +37,20 @@ export default class PerfilJ extends Component {
         this.setState({idUsuario:jwtDecode(res).id_usuario})
       })
       .then(res=>{
-        axios.get(`http://arcane-savannah-75129.herokuapp.com/profile/get_pessoa_juridico/${this.state.idUsuario}`)
+        axios.get(`http://arcane-savannah-75129.herokuapp.com/profile/get_entregador/${this.state.idUsuario}`)
         .then(res=>{
+          console.log(res.data)
             this.setState({
                 primeiroNome:res.data.primeiro_nome,
                 sobreNome:res.data.sobre_nome,
-                nomeFantasia:res.data.uj_nome_fantasia,
-                razaoSocial:res.data.uj_razao_social,
-                inscricaoMun:res.data.uj_inscricao_estadual,
-                inscricaoEst:res.data.uj_inscricao_municipal,
+                dataNascimento:res.data.uf_data_nascimento,
+                cpf:res.data.ent_cpf,
                 rua:res.data.en_rua,
                 numero:res.data.en_numero,
                 complemento:res.data.en_complemento,
                 cep:res.data.en_cep,
                 cidade:res.data.en_cidade,
                 estado:res.data.en_estado,
-                cnpj:res.data.uj_cnpj,
                 email:res.data.usu_email,
                 nomeUsuario:res.data.nome_usuario,
             })
@@ -63,7 +59,7 @@ export default class PerfilJ extends Component {
     }
 
     edit = e => {
-      this.props.navigation.navigate("PessoaJE", {id:e})
+      this.props.navigation.navigate("PessoaEE", {id:e})
     }
 
   render() {
@@ -82,6 +78,16 @@ export default class PerfilJ extends Component {
         </Div2>
 
         <Div2>
+          <Label>Data Nascimento:</Label>
+          <Texto2>{moment(this.state.dataNascimento).format("DD-MM-YYYY")}</Texto2>
+        </Div2>
+
+        <Div2>
+          <Label>CPF:</Label>
+          <Texto2>{this.state.cpf}</Texto2>
+        </Div2>
+
+        <Div2>
           <Label>Email:</Label>
           <Texto2>{this.state.email}</Texto2>
         </Div2>
@@ -89,26 +95,6 @@ export default class PerfilJ extends Component {
         <Div2>
           <Label>Usuario:</Label>
           <Texto2>{this.state.nomeUsuario}</Texto2>
-        </Div2>
-
-        <Div2>
-          <Label>Nome Fantasia:</Label>
-          <Texto2>{this.state.nomeFantasia}</Texto2>
-        </Div2>
-
-        <Div2>
-          <Label>Razão Social:</Label>
-          <Texto2>{this.state.primeiroNome}</Texto2>
-        </Div2>
-
-        <Div2>
-          <Label>Inscrição Municipal:</Label>
-          <Texto2>{this.state.inscricaoMun}</Texto2>
-        </Div2>
-
-        <Div2>
-          <Label>Inscrição Estadual:</Label>
-          <Texto2>{this.state.inscricaoEst}</Texto2>
         </Div2>
 
         <Div2>
@@ -140,12 +126,6 @@ export default class PerfilJ extends Component {
           <Label>Estado:</Label>
           <Texto2>{this.state.estado}</Texto2>
         </Div2>
-
-        <Div2>
-          <Label>CNPJ:</Label>
-          <Texto2>{this.state.cnpj}</Texto2>
-        </Div2>
-
         
         <AreaBotao>
             <Botao onPress={this.edit.bind(this, this.state.idUsuario)} activeOpacity={0.8} > 

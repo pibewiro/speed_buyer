@@ -9,8 +9,11 @@ import PessoaF from '../screens/PessoaF'
 import PessoaJ from '../screens/PessoaJ'
 import Entregador from '../screens/Entregador'
 import PerfilJ from '../screens/PerfilJ'
+import PerfilE from '../screens/PerfilE'
+import PerfilF from '../screens/PerfilF'
 import PessoaJE from '../screens/PessoaJE'
 import PessoaFE from '../screens/PessoaFE'
+import PessoaEE from '../screens/PessoaEE'
 
 import { createStackNavigator } from 'react-navigation';
 
@@ -42,6 +45,18 @@ const MainNavigator = createBottomTabNavigator({
         screen:PerfilJ
     },
 
+    PerfilF:{
+        screen:PerfilF
+    },
+
+    PerfilE:{
+        screen:PerfilE
+    },
+
+    Entregador:{
+        screen:Entregador
+    },
+
     PessoaJE:{
         screen:PessoaJE
     },
@@ -50,13 +65,11 @@ const MainNavigator = createBottomTabNavigator({
         screen:PessoaFE
     },
 
-    Entregador:{
-        screen:Entregador
-    },
+    PessoaEE:{
+        screen:PessoaEE
+    }
 
-
-
-  
+ 
     });
 
     export default MainNavigator;

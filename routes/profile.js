@@ -602,12 +602,12 @@ router.get("/get_entregador/:id", async (req, response)=>{
 
 
 router.post("/update_entregador", async (req,response)=>{
-
+        console.log(req.body)
     const client = mysql.createConnection(env)
     const {errors, isValid} = validateUpdatePF(req.body);
 
     if(!isValid) return response.status(400).json(errors);
-
+    
     const usuarioUpdate = `
         UPDATE usuario SET
         primeiro_nome = '${req.body.primeiroNome}',
@@ -705,7 +705,7 @@ router.post("/update_entregador", async (req,response)=>{
     else
     {
        update()
-    }
+    }  
 })
 
 

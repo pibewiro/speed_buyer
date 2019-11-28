@@ -8,6 +8,7 @@ export default class signin extends Component {
 
     componentDidMount()
     {
+        
         if("jwtToken" in localStorage === false)
         {
             this.props.history.push("/")

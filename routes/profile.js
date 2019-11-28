@@ -623,7 +623,7 @@ router.post("/update_entregador", async (req,response)=>{
     UPDATE entregador SET
     ent_data_nascimento = '${dataNascimento}',
     ent_cpf = '${req.body.cpf}'
-    WHERE ent_id = ${req.body.idUF}
+    WHERE ent_id = ${req.body.idEnt}
     `;
 
     const enderecoUpdate = `

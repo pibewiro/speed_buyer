@@ -115,7 +115,7 @@ export default class ProfileEntEdit extends Component {
             usuario:this.state.usuario,
             idUsuario: this.state.idUsuario,
             idEndereco:this.state.idEndereco,
-            idUF:this.state.idUF,
+            idEnt:this.state.idEnt,
             emailOriginal:this.state.emailOriginal,
             usuarioOriginal:this.state.usuarioOriginal,
             cpfOriginal:this.state.cpfOriginal

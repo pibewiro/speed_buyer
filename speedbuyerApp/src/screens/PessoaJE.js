@@ -46,6 +46,7 @@ export default class PessoaJE extends Component {
             this.setState({
                 primeiroNome:res.data.primeiro_nome,
                 sobreNome:res.data.sobre_nome,
+                usuario:res.data.nome_usuario,
                 nomeFantasia:res.data.uj_nome_fantasia,
                 razaoSocial:res.data.uj_razao_social,
                 inscricaoMun:res.data.uj_inscricao_estadual,
@@ -58,7 +59,7 @@ export default class PessoaJE extends Component {
                 estado:res.data.en_estado,
                 cnpj:res.data.uj_cnpj,
                 email:res.data.usu_email,
-                usuario:res.data.nome_usuario,
+                idUsuario:res.data.usu_id_usu,
                 idEndereco:res.data.en_id_endereco,
                 idUJ:res.data.id_uj,
                 emailOriginal:res.data.usu_email,
@@ -72,25 +73,6 @@ export default class PessoaJE extends Component {
             })
         })
     }
-
-    
-
-    changeEmail = e => this.setState({email:e.target.value})
-    changePrimeiroNome = e => this.setState({primeiroNome:e.target.value})
-    changeSobreNome = e => this.setState({sobreNome:e.target.value})
-    changeSenha = e => this.setState({senha:e.target.value})
-    changeCnpj = e => this.setState({cnpj:e.target.value})
-    changeNomeFantasia = e => this.setState({nomeFantasia:e.target.value})
-    changeRazaoSocial = e => this.setState({razaoSocial:e.target.value})
-    changeInscricaoMun = e => this.setState({inscricaoMun:e.target.value})
-    changeInscricaoEst = e => this.setState({inscricaoEst:e.target.value})
-    changeRua = e => this.setState({rua:e.target.value})
-    changeNumero = e => this.setState({numero:e.target.value})
-    changeCep = e => this.setState({cep:e.target.value})
-    changeCidade = e => this.setState({cidade:e.target.value})
-    changeEstado = e => this.setState({estado:e.target.value})
-    changeComplemento = e => this.setState({complemento:e.target.value})
-    changeUsuario = e => this.setState({usuario:e.target.value})
 
     salvarEdit = (e) => {
         e.preventDefault();
@@ -125,20 +107,13 @@ export default class PessoaJE extends Component {
 
         console.log(editPJ)
 
-        /*
+        
         axios.post("http://arcane-savannah-75129.herokuapp.com/profile/update_pessoa_juridica", editPJ)
         .then(()=>{
-           // this.limparState();
-            /*Swal.fire({
-                title:"Created New Pessoa Juridica",
-                text:"Um novo Pessoa Fisica foi editado", 
-                type:"success",
-                confirmButtonColor: '#00283D',
-            }) 
-            console.log("E", editPJ);
+            alert("Editted")
+            this.props.navigation.navigate("PerfilJ")
         })
         .catch(err=>this.setState({errors:err.response.data}));
-    */
     }
 
   render() {
@@ -149,78 +124,90 @@ export default class PessoaJE extends Component {
         <Header>Editar Pessoa Juridico</Header>
         <Div2>
             <Label>Primeiro Nome:</Label>
-            <Input value={this.state.primeiroNome} />
+            <Input onChangeText={(primeiroNome)=>this.setState({primeiroNome})} value={this.state.primeiroNome} />
             <ErrorText>{errors.primeiroNome}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Sobre Nome:</Label>
-            <Input value={this.state.sobreNome} />
+            <Input onChangeText={(sobreNome)=>this.setState({sobreNome})} value={this.state.sobreNome} />
+            <ErrorText>{errors.sobreNome}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Email:</Label>
-            <Input value={this.state.email} />
+            <Input onChangeText={(email)=>this.setState({email})} value={this.state.email} />
+            <ErrorText>{errors.email}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Usuario:</Label>
-            <Input value={this.state.usuario} />
+            <Input onChangeText={(usuario)=>this.setState({usuario})} value={this.state.usuario} />
+            <ErrorText>{errors.usuario}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>CNPJ:</Label>
-            <Input value={this.state.cnpj} />
+            <Input onChangeText={(cnpj)=>this.setState({cnpj})} value={this.state.cnpj} />
+            <ErrorText>{errors.cnpj}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Nome Fantasia:</Label>
-            <Input value={this.state.nomeFantasia} />
+            <Input onChangeText={(nomeFantasia)=>this.setState({nomeFantasia})} value={this.state.nomeFantasia} />
+            <ErrorText>{errors.nomeFantasia}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Razão Social:</Label>
-            <Input value={this.state.razaoSocial} />
+            <Input onChangeText={(razaoSocial)=>this.setState({razaoSocial})} value={this.state.razaoSocial} />
+            <ErrorText>{errors.razaoSocial}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Inscrição Municipal:</Label>
-            <Input value={this.state.inscricaoMun} />
+            <Input onChangeText={(inscricaoMun)=>this.setState({inscricaoMun})} value={this.state.inscricaoMun} />
+            <ErrorText>{errors.inscricaoMun}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Inscrição Estadual:</Label>
-            <Input value={this.state.inscricaoEst} />
+            <Input onChangeText={(inscricaoEst)=>this.setState({inscricaoEst})} value={this.state.inscricaoEst} />
+            <ErrorText>{errors.inscricaoEst}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Rua:</Label>
-            <Input value={this.state.rua} />
+            <Input onChangeText={(rua)=>this.setState({rua})} value={this.state.rua} />
+            <ErrorText>{errors.rua}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Numero:</Label>
-            <Input value={this.state.numero} />
+            <Input onChangeText={(numero)=>this.setState({numero})} value={this.state.numero} />
+            <ErrorText>{errors.numero}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Complemento:</Label>
-            <Input value={this.state.complemento} />
+            <Input onChangeText={(complemento)=>this.setState({complemento})} value={this.state.complemento} />
         </Div2>
 
         <Div2>
             <Label>CEP:</Label>
-            <Input value={this.state.cep} />
+            <Input onChangeText={(cep)=>this.setState({cep})} value={this.state.cep} />
+            <ErrorText>{errors.cep}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Cidade:</Label>
-            <Input value={this.state.cidade} />
+            <Input onChangeText={(cidade)=>this.setState({cidade})} value={this.state.cidade} />
+            <ErrorText>{errors.cidade}</ErrorText>
         </Div2>
 
         <Div2>
             <Label>Estado:</Label>
-            <Input value={this.state.estado} />
+            <Input onChangeText={(estado)=>this.setState({estado})} value={this.state.estado} />
         </Div2>
 
         <AreaBotao>

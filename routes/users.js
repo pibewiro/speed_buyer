@@ -78,8 +78,6 @@ router.post("/login_user", async (req,response)=>{
 
     const {isValid, errors} = validateSignIn(req.body);
 
-    console.log(errors)
-
     if(!isValid) return response.status(400).json(errors)
 
     const client = await mysql.createConnection(env);

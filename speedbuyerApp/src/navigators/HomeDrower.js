@@ -15,7 +15,6 @@ import Favoritos from '../navigators/StackFavoritos';
 import CentralAjuda from '../navigators/StackCentralAjuda';
 
 
-
 const HomeDrawer = createDrawerNavigator({
 
 Inicio:{
@@ -25,6 +24,7 @@ Inicio:{
                   
      }
 },
+
 Perfil:{
     screen:Perfil
 },

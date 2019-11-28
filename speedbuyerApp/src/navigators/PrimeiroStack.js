@@ -4,9 +4,6 @@ import {createStackNavigator} from 'react-navigation-stack';
 import MainNavigator from '../navigators/MainNavigator';
 import HomeDrower from '../navigators/HomeDrower';
 
-
-
-
 const PrimeiroStack = createStackNavigator({
 
     MainNavigator:{
@@ -21,9 +18,7 @@ const PrimeiroStack = createStackNavigator({
         navigationOptions:{
              header:null
         }
-    }
-
-    
+    },    
 })
 
 export default PrimeiroStack;

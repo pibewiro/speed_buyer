@@ -1,8 +1,14 @@
 
 import React, { Component } from 'react'
-import { Text, StyleSheet, View ,Image} from 'react-native'
+import { Text, StyleSheet, View ,Image, AsyncStorage} from 'react-native'
 import styled from 'styled-components/native';
 import axios from 'axios'
+import PerfilJ from './PerfilJ'
+import PerfilE from './PerfilE'
+import PerfilF from './PerfilF'
+import PerfilA from './PerfilA'
+
+import jwtDecode from "jwt-decode"
 
 const ToggleArea = styled.TouchableHighlight`
 width:50px;
@@ -21,9 +27,16 @@ export default class Perfil extends Component {
         super(props)
 
         this.state = {
-            storesList:[]
+            ativo:""
         }
     }   
+
+    componentDidMount()
+    {
+      AsyncStorage.getItem("jwtToken")
+      .then(res=>this.setState({ativo:jwtDecode(res).ativo}))
+      .then(res=>console.log(this.state))
+    }
   
 
 
@@ -36,18 +49,11 @@ export default class Perfil extends Component {
     };
    
     
-    componentDidMount()
-    {
-        axios.get('http://10.0.3.2:9000/lojas/get_stores')
-        .then(res=>this.setState({storesList:res.data.result}))
-        .catch(err=>alert('error'))
-    }
+
 
     render() {
         return (
-            <View>
-                {this.state.storesList.map(res=>(<Text>{res.en_cep}</Text>))}
-            </View>
+            this.state.ativo === 1 ? <PerfilF navigation={this.props.navigation} /> : this.state.ativo === 2 ? <PerfilJ navigation={this.props.navigation} /> : this.state.ativo === 3 ? <PerfilE navigation={this.props.navigation} /> : <PerfilA />
         )
     }
 }

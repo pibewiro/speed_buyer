@@ -82,24 +82,21 @@ export default class login extends Component {
             senha:this.state.senha
         }
 
-        
-       
-
       axios.post("http://arcane-savannah-75129.herokuapp.com/user/login_user", login)
       .then(async res=>{
-           AsyncStorage.setItem("jwtToken", res.data.token)
+          AsyncStorage.setItem("jwtToken", res.data.token)
            AsyncStorage.getItem('jwtToken').then(res=>{
         
-            const ativo = jwtDecode(res).ativo
+            let ativo = jwtDecode(res).ativo
     
             if(ativo === 0)
             {
-                this.props.navigation.navigate('HomeDrower')
+                this.props.navigation.navigate('Profile')
             } 
     
             else
             {
-              this.props.navigation.navigate('HomeDrower')
+                this.props.navigation.navigate('HomeDrower')
             }
           })
       })

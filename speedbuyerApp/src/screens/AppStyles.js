@@ -73,3 +73,7 @@ export const ErrorText = styled.Text`
 export const DivView2 = styled.View`
     padding:20px
 `;
+
+export const Scroll = styled.View`
+    padding:20px
+`;

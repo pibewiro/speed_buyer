@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {StyleSheet, AppRegistry, Text, View, TextInput, Button, AsyncStorage} from 'react-native'
+import {StyleSheet, AppRegistry, Text, View, TextInput, Button, AsyncStorage, ScrollView} from 'react-native'
 import axios from 'axios';
-import {Div, Input, Header, DivImage, Logo, Botao, AreaBotao, Texto, ErrorText, Div2} from "./AppStyles"
+import {Div, Input, Header, DivImage, Logo, Botao, AreaBotao, Texto, ErrorText, Div2, Scroll} from "./AppStyles"
 
 
 const style = StyleSheet.create({
@@ -54,6 +54,8 @@ export default class Cadastro extends Component {
     const {errors} = this.state;
 
     return (
+      <Scroll>
+        <ScrollView>
       <View style={style.divView}>
         <Header>Cadastrar</Header>
         <Div2>
@@ -86,6 +88,8 @@ export default class Cadastro extends Component {
           </Botao>
         </AreaBotao>
       </View>
+      </ScrollView>
+      </Scroll>
     );
   }
 }

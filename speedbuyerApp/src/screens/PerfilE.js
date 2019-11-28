@@ -5,7 +5,7 @@ import jwtDecode from "jwt-decode"
 import AsyncStorage from '@react-native-community/async-storage';
 import {Label, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2} from "./AppStyles"
 
-export default class PessoaJ extends Component {
+export default class PerfilJ extends Component {
 
     constructor()
     {
@@ -70,7 +70,7 @@ export default class PessoaJ extends Component {
     return (
       <DivView2>
         <ScrollView>
-        <Header>Pessoa Juridico</Header>
+        <Header>Entregador</Header>
         <Div2>
           <Label>Primeiro Nome:</Label>
           <Texto2>{this.state.primeiroNome}</Texto2>

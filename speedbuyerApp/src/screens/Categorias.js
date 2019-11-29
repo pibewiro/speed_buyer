@@ -1,61 +1,33 @@
-import React, {Component} from 'react';
-import styled from 'styled-components/native';
-import { tsPropertySignature } from '@babel/types';
+import React, { Component } from 'react'
+import { Text, View } from 'react-native'
+import axios from "axios";
 
-const Container = styled.SafeAreaView`
-    flex:1;
-`;
+export default class Categorias extends Component {
 
-const Texto = styled.Text`
-    font-size:15px;
-`;
+    constructor()
+    {
+        super()
 
-const Image = styled.Image`
+        this.state = {
+            categorias:[]
+        }
+    }
 
-`;
+    componentDidMount()
+    {
+        console.log("cat",this.props.navigation)
+        axios.get(`http://arcane-savannah-75129.herokuapp.com/lojas/get_categorias`)
+        .then(res=>this.setState({categorias:res.data}))
+        //.then(()=>console.log(this.state))
+    }
+    render() {
 
-
-const AreaBotao = styled.View`
-    width:150px;
-    margin-top:20px;
-    height:100px;
-`;
-
-
-const Botao = styled.Button`
-
-`;
-
-const Page = (props)=>{
-    return(
-        <Container>
-            <Texto>CATEGORIAS</Texto>
-
-            <AreaBotao>
-              <Botao title="Abrir Drawer" onPress={()=>props.navigation.openDrawer() }    />
-            </AreaBotao>
-        </Container>
-    );
-}
-
-Page.navigationOptions = (props) =>{
-
-    const ToggleArea = styled.TouchableHighlight`
-        width:50px;
-        height:50px ;
-    `;
-
-    const ImageMenu = styled.Image`
-        width:50px;
-        height:50px ;
-    `;
-
-    return{
-        title:' Categorias ',
-        headerLeft:<ToggleArea onPress={()=>props.navigation.openDrawer() } >
-                        <ImageMenu source={require('../images/icons/menu.png')} />
-                   </ToggleArea>
+        return (
+            <View>
+                {this.state.categorias.map(res=>(
+                    <Text>{res.cat_nome}</Text>
+                ))}
+            </View>
+        )
     }
 }
-
-export default Page;

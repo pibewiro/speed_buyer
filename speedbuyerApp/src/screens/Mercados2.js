@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, Image } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import axios from "axios"
 import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
 
-export default class Mercados extends Component {
+export default class Mercados2 extends Component {
 
     constructor()
     {
         super()
+
         this.state = {
             mercados:[]
         }
@@ -15,18 +16,17 @@ export default class Mercados extends Component {
 
     componentDidMount()
     {
-        axios.get("http://arcane-savannah-75129.herokuapp.com/lojas/get_mercados")
-        .then(res=>{
-            this.setState({mercados:res.data})
-        })
+        axios.get(`http://arcane-savannah-75129.herokuapp.com/lojas/get_stores_brand/${this.props.navigation.state.params.url}`)
+        .then(res=>this.setState({mercados:res.data}))
         .then(()=>console.log(this.state))
     }
 
-    mercado = (url, idMercado) => {
-        this.props.navigation.navigate("Mercados2", {url, idMercado})
+    categoria = (idMercado) => {
+        this.props.navigation.navigate("Categorias2", {idMercado})
     }
+    
     render() {
-
+        
        function merImage(nome)
        {
            if(nome === "Arena")
@@ -73,9 +73,8 @@ export default class Mercados extends Component {
             <ScrollView>
                 {this.state.mercados.map(res=>{
 
-                    return <Botao onPress={this.mercado.bind(this, res.mer_url, res.mer_id_mercado)}>
+                    return <Botao onPress={this.categoria.bind(this, res.mer_id_mercado)}>
                         <DivMer>
-                        {merImage(res.mer_nome)}
                             <Header>{res.mer_nome}</Header>
                         </DivMer>
                     </Botao>

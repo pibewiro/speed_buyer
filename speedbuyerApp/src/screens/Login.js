@@ -102,6 +102,10 @@ export default class login extends Component {
       })
       .catch(err=>this.setState({errors:err.response.data}))
     }
+
+    handleCadastrar = () => {
+        this.props.navigation.navigate('Cadastrar')
+    }
    
    
 
@@ -124,8 +128,14 @@ render() {
                 <TextoErro>{errors.senha}</TextoErro>
 
                 <AreaBotao>
-                    <Botao onPress={this.handleLogin} activeOpacity={0.8} > 
+                    <Botao onPress={()=>this.props.navigation.navigate("Perfil")} activeOpacity={0.8} > 
                         <Texto>Logar</Texto>
+                    </Botao>
+                </AreaBotao>
+
+                <AreaBotao>
+                    <Botao onPress={this.handleCadastrar} activeOpacity={0.8} > 
+                        <Texto>Cadastrar</Texto>
                     </Botao>
                 </AreaBotao>
               

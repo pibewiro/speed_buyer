@@ -93,7 +93,7 @@ export default class PessoaEE extends Component {
         axios.post("http://arcane-savannah-75129.herokuapp.com/profile/update_entregador", editE)
         .then(res=>{
             alert("Editted")
-            //this.props.navigation.navigate("PerfilE")
+            this.props.navigation.navigate("PerfilE")
         })
         .catch(err=>console.log(err));
         

@@ -26,6 +26,26 @@ router.get(`/get_stores_brand/:url`, async (req, res)=>{
     })
 })
 
+router.get(`/get_stores_brand_rn/:url`, async (req, res)=>{
+
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        SELECT * FROM mercado_info
+        INNER JOIN mercado ON mer_id_mercado = mer_info_id_mer
+        INNER JOIN endereco ON en_id_endereco = mer_info_id_endereco
+        WHERE mer_url = '${req.params.url}'
+        ORDER BY mer_nome ASC
+    `;
+
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        return res.status(200).json(result)
+    })
+})
+
 router.get("/get_stores", async (req, response)=>{
 
     const client = await mysql.createConnection(env)

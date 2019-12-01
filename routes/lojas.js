@@ -92,45 +92,72 @@ router.post("/get_items", async (req,res)=>{
 router.post("/add_cart", async (req, res)=>{
     console.log(req.body)
 
-    // const client = await mysql.createConnection(env)
+    const client = await mysql.createConnection(env)
     
-    // const query = await `INSERT INTO shopping(sh_it, sh_id_usu) VALUES(${req.body.idItem}, ${req.body.idUsuario})`;
+    const query = await `INSERT INTO shopping(sh_it, sh_id_usu, sh_id_compras) VALUES(${req.body.idItem}, ${req.body.idUsuario}, '${req.body.idComprar}')`;
     
-    // await client.query(query, (err, result)=>{
-    //     if (err) throw err
-    // })
+    const query2  = await `
+    select sh_it, it_preco, count(*) as qtd
+    from shopping 
+    inner join item on item_id = sh_it
+    where 
+    sh_id_compras = '${req.body.idComprar}' AND
+    sh_id_usu = ${req.body.idUsuario}
+    group by sh_it
+    `;
+    
+    await client.query(query, (err, result)=>{
+        if (err) throw err
+    }) 
+    
+    await client.query(query2, (err, result)=>{
+        if (err) throw err
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })  
 
-    // client.end();
 
 })
 
 router.post("/del_cart", async (req, res)=>{
     console.log(req.body)
 
-    const client = mysql.createConnection(env)
+     const client = mysql.createConnection(env)
     
     const query = `
-        SELECT *  
-        FROM shopping
-        WHERE sh_it = ${req.body.idItem} AND sh_id_usu = ${req.body.idUsuario}
-        ORDER BY sh_id DESC
-        LIMIT 1
+        delete from shopping 
+        where 
+        sh_id_usu  = ${req.body.idUsuario} and 
+        sh_it = ${req.body.idItem}  and 
+        sh_id_compras = '${req.body.idComprar}'
+        limit 1
+    `;
+
+    const query2  = await `
+    select sh_it, it_preco, count(*) as qtd
+    from shopping
+    inner join item on item_id = sh_it 
+    where 
+    sh_id_compras = '${req.body.idComprar}' AND
+    sh_id_usu = ${req.body.idUsuario}
+    group by sh_it
     `;
     
-    await client.query(query, async (err, result)=>{
+     await client.query(query, async (err, result)=>{
 
-        if (err) throw err
-        
-        const queryDel = `
-            DELETE FROM shopping WHERE sh_id = ${result[0].sh_id}
-        `;
-
-        await client.query(queryDel, (err, result)=>{
-            if(err) throw err
-        })
-
-        client.end();
+         if (err) throw err
+    
     })
+
+    await client.query(query2, (err, result)=>{
+        if (err) throw err
+
+        console.log(result)
+        client.end();
+
+        return res.status(200).json(result)
+    })  
 })
 
 router.get("/get_mercados", async (req, res)=>{
@@ -209,6 +236,28 @@ router.post("/checkout", async (req,res)=>{
          status = "failure"
     }
 
+})
+
+router.get("/qtd_item/:idComprar/:idUsuario", async (req, res)=>{
+
+    const client = mysql.createConnection(env)
+
+    const query  = await `
+    select sh_it, it_preco, count(*) as qtd
+    from shopping 
+    inner join item on item_id = sh_it
+    where 
+    sh_id_compras = '${req.params.idComprar}' AND
+    sh_id_usu = ${req.params.idUsuario}
+    group by sh_it
+    `; 
+    
+    await client.query(query, (err, result)=>{
+        if (err) throw err
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })  
 })
 
 

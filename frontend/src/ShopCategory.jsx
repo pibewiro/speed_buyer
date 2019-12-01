@@ -18,7 +18,8 @@ export default class ShopCategory extends Component {
             click:false,
             loading:false,
             length:0,
-            usuario:jwtDecode(localStorage.getItem("jwtToken"))
+            usuario:jwtDecode(localStorage.getItem("jwtToken")),
+            qtd:[]
         }
     }
 
@@ -40,49 +41,51 @@ export default class ShopCategory extends Component {
         .then(res=>{
             this.setState({items:res.data, loading:false})
         });
+
+        axios.get(`/lojas/qtd_item/${this.props.location.state.idComprar}/${jwtDecode(localStorage.getItem("jwtToken")).id_usuario}`)
+        .then(res=>this.setState({qtd:res.data}))
+        .then(()=>this.calcularPreco())
+    }
+
+    calcularPreco = () => {
+       let preco = 0;
+        this.state.qtd.map(res=>{
+           preco += res.qtd * res.it_preco;
+            this.setState({total:preco})
+        })
     }
 
     addClick = async (i, n, p) => {
-      //  await   this.setState({addItem:[...this.state.addItem, {nome:n, preco:p, length:n}], total:this.state.total += p})
-        // const cart ={
-        //     idUsuario:this.state.usuario.id_usuario,
-        //     idItem:i
-        // }
-      // await  axios.post("/lojas/add_cart", cart)
+       //await   this.setState({addItem:[...this.state.addItem, {nome:n, preco:p, length:n, idComprar:this.props.location.state.idComprar}], total:this.state.total += p})
+        const cart ={
+            idUsuario:this.state.usuario.id_usuario,
+            idItem:i,
+            idComprar:this.props.location.state.idComprar
+        }
+
+       await  axios.post("/lojas/add_cart", cart)
+                .then(res=>this.setState({qtd:res.data}))
+        await this.calcularPreco()
+        
     }
 
     subClick = async (i, n, p) => {
 
         const cart = {
             idUsuario:this.state.usuario.id_usuario,
-            idItem:i
+            idItem:i,
+            idComprar:this.props.location.state.idComprar
         }
 
-        console.log(cart)
-    //    axios.post(`/lojas/del_cart`, cart)
-    //    .then(res=>console.log(res))
-        
-        //await   this.setState({total:this.state.total <= 0 ? 0 :this.state.total -= p})
-        
-        // this.state.addItem.map(res=>{
-        //     if(n === res.nome)
-        //     {
-        //         this.state.addItem.splice(res, 1);
-        //         return
-        //     }
-        // })
-      }
+       await axios.post(`/lojas/del_cart`, cart)
+       .then(res=>console.log(res))
 
-    add = async (n, p) => {
-        let price = 0;
+       await axios.get(`/lojas/qtd_item/${this.props.location.state.idComprar}/${jwtDecode(localStorage.getItem("jwtToken")).id_usuario}`)
+       .then(res=>this.setState({qtd:res.data}))
 
-    //    this.state.addItem.map(res=>{
-    //        price = price + res.preco
-
-    //     })
-
-        this.setState({total:price})
+       await this.calcularPreco()
     }
+
 
     checkout = () => {
         this.props.history.push("/chooseEntregador")
@@ -103,15 +106,31 @@ export default class ShopCategory extends Component {
                         </div>
 
                         <div id="items">
-                            {this.state.items.map(res=>(
-                                <div class="item-card">
-                                    <img src={`/images/${res.it_foto}`} alt="" />
-                                    <h3>{res.it_nome}</h3>
-                                    <p>R${res.it_preco.toString().replace(".", ",")}</p>
-                                    <i class="fas fa-minus plus" onClick={this.subClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
-                                    <i class="fas fa-plus plus" onClick={this.addClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
-                                </div>
-                            ))}
+                            {this.state.items.map(res=>{
+
+                                let id = "";
+
+                                this.state.qtd.map(res2=>{
+                                    if(res2.sh_it === res.item_id)
+                                    {
+                                        id = res2.qtd
+                                    }
+                                })
+
+                                console.log(id)
+
+                                
+                                return (
+                                    <div class="item-card">
+                                        <img src={`/images/${res.it_foto}`} alt="" />
+                                        <h3>{res.it_nome}</h3>
+                                        <p>R${res.it_preco.toString().replace(".", ",")}</p>
+                                        <i class="fas fa-minus plus" onClick={this.subClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
+                                        <i class="fas fa-plus plus" onClick={this.addClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
+                                        <p>{id}</p>
+                                    </div>
+                                )
+                            })}
                         </div>
                         </>
             }

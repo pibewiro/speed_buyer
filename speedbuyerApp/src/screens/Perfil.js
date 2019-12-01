@@ -53,7 +53,7 @@ export default class Perfil extends Component {
 
     render() {
         return (
-            this.state.ativo === 1 ? <PerfilF navigation={this.props.navigation} /> : this.state.ativo === 2 ? <PerfilJ navigation={this.props.navigation} /> : this.state.ativo === 3 ? <PerfilE navigation={this.props.navigation} /> : <PerfilA />
+            this.state.ativo === 1 ? <PerfilF navigation={this.props.navigation} /> : this.state.ativo === 2 ? <PerfilJ navigation={this.props.navigation} /> : this.state.ativo === 4 ? <PerfilE navigation={this.props.navigation} /> : <PerfilA />
         )
     }
 }

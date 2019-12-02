@@ -5,6 +5,7 @@ const env = require('../config/.env');
 const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
 const stripe = require('stripe')("sk_test_mDc7apmGEPPD3kEuFbKwZESX00KFa5TFP6")
+const moment = require("moment")
 
 router.get(`/get_stores_brand/:url`, async (req, res)=>{
 
@@ -114,7 +115,7 @@ router.post("/add_cart", async (req, res)=>{
 
     const client = await mysql.createConnection(env)
     
-    const query = await `INSERT INTO shopping(sh_it, sh_id_usu, sh_id_compras) VALUES(${req.body.idItem}, ${req.body.idUsuario}, '${req.body.idComprar}')`;
+    const query = await `INSERT INTO shopping(sh_it, sh_id_usu, sh_id_compras, sh_preco) VALUES(${req.body.idItem}, ${req.body.idUsuario}, '${req.body.idComprar}', ${req.body.preco})`;
     
     const query2  = await `
     select sh_it, it_preco, count(*) as qtd
@@ -278,6 +279,91 @@ router.get("/qtd_item/:idComprar/:idUsuario", async (req, res)=>{
         console.log(result)
         return res.status(200).json(result)
     })  
+})
+
+router.post("/post_compras/:idComprar", async (req, res)=>{
+
+    console.log(req.body)
+    console.log(req.params)
+    const client = mysql.createConnection(env)
+    let query = "";
+
+    req.body.map(res=>{
+        query = `
+        INSERT INTO compras(data_comprado, comp_id_usu, comp_item_id, comp_id_compras, comp_qtd, comp_id_ent, preco) 
+        VALUES('${res.data}', ${res.idUsuario}, ${res.idItem}, '${res.idCompras}', ${res.qtd}, ${res.idEntregador}, ${res.preco})
+        `;
+
+     client.query(query, (err, result)=>{
+           //if(err) throw err;
+           // client.end();
+        })
+    })
+
+
+    const query2 = await `SELECT * FROM compras WHERE comp_id_compras = '${req.params.idComprar}'`;
+
+    client.query(query2, (err, result)=>{
+        if(err) throw err;
+
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })
+
+    
+    // client.end();
+    // return res.status(200).json("Passed")
+
+
+})
+
+router.get('/nota_fiscal/:idComprar/:idEntregador', async (req,res)=>{
+
+    console.log(moment(new Date()).format("YYYY-MM-DD HH:MM"))
+    const client = mysql.createConnection(env)
+
+    const query = `
+        Update shopping 
+        SET 
+        sh_data = '${moment(new Date()).format("YYYY-MM-DD HH:MM")}', 
+        sh_entregador_id = ${req.params.idEntregador}
+        WHERE 
+        sh_id_compras = '${req.params.idComprar}'
+        `;
+
+    console.log(query)
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+        //client.end();
+    })
+
+    //const query2 = `SELECT * FROM shopping WHERE sh_id_compras = '${req.params.idComprar}'`;
+
+    const query2 = `
+    select 
+    sh_it, sh_preco, sh_id_compras, primeiro_nome, sobre_nome, it_nome, sh_data,
+    mer_nome, en_cep, en_cidade, en_estado, en_rua, en_numero, en_complemento, count(*) as qtd
+    from shopping 
+    inner join item on sh_it = item_id
+    inner join mercado on it_id_mercado = mer_id_mercado
+    inner join entregador on ent_id = sh_entregador_id
+    inner join usuario on ent_id_usu = usu_id_usu
+    inner join mercado_info on mer_info_id = mer_id_mercado
+    inner join endereco on en_id_endereco = mer_info_id_endereco
+    WHERE sh_id_compras = '${req.params.idComprar}' 
+    group by sh_it
+    `;
+
+    client.query(query2, (err,result)=>{
+        if(err) throw err;
+        client.end();
+        console.log(query2)
+        console.log(result)
+        return res.status(200).json(result)
+    })
 })
 
 

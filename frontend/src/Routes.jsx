@@ -34,6 +34,8 @@ import NewProducts from "./NewProducts"
 import AddItems from "./AddItems"
 import ChooseEntregador from "./ChooseEntregador"
 import Pagamento from "./Pagamento"
+import NotaFiscal from "./nota_fiscal"
+
 
 export default class Routes extends Component {
 
@@ -59,6 +61,7 @@ export default class Routes extends Component {
             <Router>
               <Switch>
                   <PrivateRouteUser exact path="/pagamento" component={Pagamento} />
+                  <PrivateRouteUser exact path="/nota_fiscal" component={NotaFiscal} />
                   <PrivateRouteUser exact path="/chooseEntregador" component={ChooseEntregador} />
                   <PrivateRouteUser exact path="/stores" component={Stores} />
                   <PrivateRouteUser exact path="/add_itens" component={AddItems} />

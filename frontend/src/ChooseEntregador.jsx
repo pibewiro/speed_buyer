@@ -18,8 +18,8 @@ export default class ChooseEntregador extends Component {
         .then(res=>this.setState({entregadores:res.data}))
     }
 
-    escolha = e => {
-        this.props.history.push("/pagamento")
+    escolha = id => {
+        this.props.history.push("/pagamento", {idComprar:this.props.location.state.idComprar, idEntregador:id})
     }
 
     render() {
@@ -30,7 +30,7 @@ export default class ChooseEntregador extends Component {
                     <div className="ent-card">
                         <p>{res.primeiro_nome} {res.sobre_nome}</p>
                         <p>{res.en_cidade}</p>
-                        <button onClick={this.escolha} className="btn">Escolha</button>
+                        <button onClick={this.escolha.bind(this, res.ent_id)} className="btn">Escolha</button>
                     </div>
                 ))}
                 </div>

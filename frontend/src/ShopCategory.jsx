@@ -60,7 +60,8 @@ export default class ShopCategory extends Component {
         const cart ={
             idUsuario:this.state.usuario.id_usuario,
             idItem:i,
-            idComprar:this.props.location.state.idComprar
+            idComprar:this.props.location.state.idComprar,
+            preco:p
         }
 
        await  axios.post("/lojas/add_cart", cart)
@@ -88,7 +89,7 @@ export default class ShopCategory extends Component {
 
 
     checkout = () => {
-        this.props.history.push("/chooseEntregador")
+        this.props.history.push("/chooseEntregador", {idComprar:this.props.location.state.idComprar})
     }
 
     render() {
@@ -108,7 +109,7 @@ export default class ShopCategory extends Component {
                         <div id="items">
                             {this.state.items.map(res=>{
 
-                                let id = "";
+                                let id = 0;
 
                                 this.state.qtd.map(res2=>{
                                     if(res2.sh_it === res.item_id)

@@ -484,6 +484,39 @@ router.post(`/del_favoritos`, async (req, res)=>{
     })
 
 
+    router.get(`/get_promocoes`, async (req,res)=>{
+        console.log(req.params)
+
+        const client = await mysql.createConnection(env);
+
+        const query = ` select * from item where promocao = 1`;
+        console.log(query)
+        client.query(query, (err, result)=>{
+            if (err) throw err;
+
+            client.end();
+            console.log(result)
+            return res.status(200).json(result)
+        })
+    })
+
+    router.post(`/add_promocao`, async (req,res)=>{
+        console.log(req.body)
+
+        const client = await mysql.createConnection(env);
+
+        const query = `UPDATE item SET promocao = 1 where item_id = ${req.body.idProduto}`;
+        console.log(query)
+        client.query(query, (err, result)=>{
+            if (err) throw err;
+
+            client.end();
+            console.log(result)
+            return res.status(200).json(result)
+        })
+    })
+
+
 
 
 module.exports = router;

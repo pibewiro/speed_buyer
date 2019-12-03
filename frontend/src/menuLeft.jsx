@@ -28,6 +28,7 @@ export default class menuLeft extends Component {
                     <Link to="/view_users"><li><i className="fas fa-store"></i><p>View Stores</p></li></Link>
                     <Link to="/novo_produtos"><li><i className="fas fa-store"></i><p>Add New Products</p></li></Link>
                     <Link to="/add_itens"><li><i className="fas fa-store"></i><p>Add Items</p></li></Link>
+                    <Link to="/promocoes"><li><i className="fas fa-store"></i><p>Add Promocoes</p></li></Link>
                     </>
                 : null }
 
@@ -36,11 +37,12 @@ export default class menuLeft extends Component {
                 <Link to="/mercados"><li><i className="fas fa-store"></i><p>Mercados</p></li></Link>
                 <li><i className="fas fa-list"></i><p>Minha Lista</p></li>
                 <li><i className="fas fa-shopping-cart"></i><p>Meu Carrinho</p></li>
-                <li><i className="fas fa-tags"></i><p>Promoçoes</p></li>
                 <Link to="/favoritos"><li><i className="far fa-star"></i><p>Favoritos</p></li></Link>
                 <Link to="/comparar_categorias"><li><i className="fas fa-store"></i><p>Comparar Preco</p></li></Link>
                 <Link to="/historico"><li><i className="fas fa-store"></i><p>Historico</p></li></Link>
-                <li><i className="fas fa-question"></i><p>Ajuda Central</p></li></> : null}
+                <Link to="/promocoes"><li><i className="fas fa-store"></i><p>Promocoes</p></li></Link>
+                <li><i className="fas fa-question"></i><p>Ajuda Central</p></li></> 
+                : null}
 
                 {this.state.ativo === 4 ? 
                     <>

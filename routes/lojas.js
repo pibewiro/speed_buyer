@@ -84,10 +84,10 @@ router.get("/get_categorias", async (req,res)=>{
 
 })
 
-router.get("/get_nome_produtos", async (req,res)=>{
+router.get("/get_nome_produtos/:idCat", async (req,res)=>{
 
     
-    const query = `select * from produto`;
+    const query = `select * from produto where pro_id_categoria = ${req.params.idCat}`;
     
     const client = mysql.createConnection(env);
 
@@ -97,6 +97,7 @@ router.get("/get_nome_produtos", async (req,res)=>{
        // console.log(result);
 
         client.end();
+        console.log(query)
         return res.status(200).json(result)
     })
 
@@ -406,6 +407,56 @@ router.get('/nota_fiscal/:idComprar/:idEntregador', async (req,res)=>{
         console.log(query2)
         console.log(result)
         return res.status(200).json(result)
+    })
+})
+
+router.get(`/get_favoritos/:idUsuario`, async (req, res)=>{
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        SELECT * FROM favoritos where fav_id_usu = ${req.params.idUsuario}
+    `;
+    console.log(query)
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })
+})
+
+router.post(`/favoritos`, async (req, res)=>{
+    console.log(req.body)
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        INSERT INTO favoritos(fav_id_usu, fav_id_item) values(${req.body.idUsuario}, ${req.body.idItem})
+    `;
+    console.log(query)
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        console.log("ok")
+        return res.status(200).json("ok")
+    })
+})
+
+router.post(`/del_favoritos`, async (req, res)=>{
+    console.log(req.body)
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        delete from favoritos where fav_id_usu = ${req.body.idUsuario} and fav_id_item = ${req.body.idItem}
+    `;
+    console.log(query)
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        console.log("ok")
+        return res.status(200).json("ok")
     })
 })
 

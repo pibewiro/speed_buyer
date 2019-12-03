@@ -716,7 +716,7 @@
 
 .comparar-select
 {
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .comparar-select select
@@ -754,15 +754,30 @@
     border:1px solid black;
 }
 
+.comparar-card h3
+{
+    padding: 10px 0;
+}
+
+.comparar-card p
+{
+    padding-bottom: 10px;
+}
 .comparar-card i
 {
     color:white;
+    padding-bottom:10px;
 }
 
 .comparar-card i:hover
 {
     color: yellow;
     cursor: pointer;
+}
+
+.yellow-star
+{
+    color: yellow;
 }
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import jwtDecode from "jwt-decode"
+import moment from "moment"
 
 export default class nota_fiscal extends Component {
 
@@ -36,7 +37,9 @@ export default class nota_fiscal extends Component {
             complemento:this.state.dados[0].en_complemento,
             cep:this.state.dados[0].en_cep,
             cidade:this.state.dados[0].en_cidade,
-            estado:this.state.dados[0].en_estado
+            estado:this.state.dados[0].en_estado,
+            numero:this.state.dados[0].en_numero,
+            data:this.state.dados[0].sh_data,
         }))
         .then(()=>this.calcularPreco())
     }
@@ -45,22 +48,41 @@ export default class nota_fiscal extends Component {
         let preco = 0;
          this.state.dados.map(res=>{
             preco += res.qtd * res.sh_preco;
-             this.setState({total:preco})
+             this.setState({total:preco.toFixed(2)})
         })
     }
 
     render() {
         return (
             <div>
-                <div>
-                    <p>{this.state.nomeCliente}</p>
+                <div className="notaFiscal">
 
+                    <h2>Cliente: {this.state.nomeCliente}</h2>
                     {this.state.dados.map(res=>(
                         <>
-                        <p>{res.it_nome}</p>
-                        <p>{res.qtd}</p>
+                        <div className="itemInfo">
+                            <p className="itemInfo2"><span>Item:</span> {res.it_nome}</p>
+                            <div className="itemInfo3">
+                                <p><span>Quantidade:</span>  {res.qtd}</p>
+                                <p><span>Preco:</span>  R${res.sh_preco.toFixed(2).toString().replace(".", ",")}</p>
+                            </div>
+                        </div>
                         </>
                     ))}
+                    
+                    <p className="total"><span>Total: R$</span>{this.state.total.toString().replace(".", ",")}</p>
+
+                    <div className="address">
+                        <p><span>Supermercado: </span>{this.state.nomeMercado}</p>
+                        <p>{this.state.rua}, {this.state.numero}</p>
+                        <p>{this.state.cep}</p>
+                    </div>
+
+                    <div class="nf-footer">
+                        <p><span>Entregador: </span>{this.state.nomeEntregador}</p>
+                        <p><span>Codigo de Compras: </span>{this.state.codigoCompras}</p>
+                        <p><span>Data de Compra:</span> {moment(this.state.data).format('DD-MM-YYYY HH:MM')}</p>
+                    </div>
                 </div>                
             </div>
         )

@@ -84,6 +84,49 @@ router.get("/get_categorias", async (req,res)=>{
 
 })
 
+router.get("/get_nome_produtos", async (req,res)=>{
+
+    
+    const query = `select * from produto`;
+    
+    const client = mysql.createConnection(env);
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+       // console.log(result);
+
+        client.end();
+        return res.status(200).json(result)
+    })
+
+
+})
+
+router.get("/comparar_precos/:idProduto", async (req,res)=>{
+
+    
+    const query = `
+        select * from item
+        inner join produto on it_id_produto = pro_id_produto
+        inner join mercado on it_id_mercado = mer_id_mercado
+        where pro_id_produto = ${req.params.idProduto}
+    `;
+
+    console.log(query)
+    
+    const client = mysql.createConnection(env);
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+       // console.log(result);
+
+        client.end();
+        return res.status(200).json(result)
+    })
+})
+
 router.post("/get_items", async (req,res)=>{
 
     console.log(req.body);

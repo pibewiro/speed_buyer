@@ -38,6 +38,8 @@ export default class menuLeft extends Component {
                 <li><i className="fas fa-shopping-cart"></i><p>Meu Carrinho</p></li>
                 <li><i className="fas fa-tags"></i><p>Promoçoes</p></li>
                 <li><i className="far fa-star"></i><p>Favoritos</p></li>
+                <Link to="/comparar_categorias"><li><i className="fas fa-store"></i><p>Comparar Preco</p></li></Link>
+                <Link to="/historico"><li><i className="fas fa-store"></i><p>Historico</p></li></Link>
                 <li><i className="fas fa-question"></i><p>Ajuda Central</p></li></> : null}
 
                 {this.state.ativo === 4 ? 

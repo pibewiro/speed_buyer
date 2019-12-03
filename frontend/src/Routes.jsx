@@ -35,6 +35,11 @@ import AddItems from "./AddItems"
 import ChooseEntregador from "./ChooseEntregador"
 import Pagamento from "./Pagamento"
 import NotaFiscal from "./nota_fiscal"
+import CompararPreco from "./CompararPreco"
+import Historico from "./Historico"
+import CategoriasComp from "./CategoriasComp"
+
+
 
 
 export default class Routes extends Component {
@@ -61,6 +66,7 @@ export default class Routes extends Component {
             <Router>
               <Switch>
                   <PrivateRouteUser exact path="/pagamento" component={Pagamento} />
+                  <PrivateRouteUser exact path="/comparar_preco" component={CompararPreco} />
                   <PrivateRouteUser exact path="/nota_fiscal" component={NotaFiscal} />
                   <PrivateRouteUser exact path="/chooseEntregador" component={ChooseEntregador} />
                   <PrivateRouteUser exact path="/stores" component={Stores} />
@@ -76,6 +82,7 @@ export default class Routes extends Component {
                   <PrivateRouteUser exact path="/pessoa_juridica_edit" component={PessoaJEdit} />
                   <PrivateRouteUser exact path="/pessoa_fisica_edit" component={PessoaPFEdit} />
                     <PrivateRouteUser exact path="/dashboard" component={Dashboard} />
+                    <PrivateRouteUser exact path="/comparar_categorias" component={CategoriasComp} />
                     <PrivateRouteUser exact path="/profile" component={Profile} />
                     <PrivateRouteUser exact path="/store/:name/:rua/:id" component={Categories} />
                     <PrivateRouteUser exact path="/store/:name/:rua/:id/:cat" component={ShopCategory} />
@@ -86,6 +93,7 @@ export default class Routes extends Component {
                     <PrivateRouteUser exact path="/profile_entregador" component={ProfileEntregador} />
                     <Route exact path="/admin/20192019" component={SigninAdmin}/>
                     <PrivateRouteUser exact path="/mercados/:store_url" component={MercadoList} />
+                    <PrivateRouteUser exact path="/historico" component={Historico} />
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/signin" component={Signin} />
                     <Route exact path="/view_stores" component={viewStores} />

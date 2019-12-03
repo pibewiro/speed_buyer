@@ -51,7 +51,7 @@ export default class ShopCategory extends Component {
        let preco = 0;
         this.state.qtd.map(res=>{
            preco += res.qtd * res.it_preco;
-            this.setState({total:preco})
+            this.setState({total:preco.toFixed(2).toString().replace(".", ",")})
         })
     }
 

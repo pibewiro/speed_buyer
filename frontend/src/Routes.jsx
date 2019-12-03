@@ -38,6 +38,8 @@ import NotaFiscal from "./nota_fiscal"
 import CompararPreco from "./CompararPreco"
 import Historico from "./Historico"
 import CategoriasComp from "./CategoriasComp"
+import Favoritos from "./Favoritos"
+
 
 
 
@@ -66,6 +68,7 @@ export default class Routes extends Component {
             <Router>
               <Switch>
                   <PrivateRouteUser exact path="/pagamento" component={Pagamento} />
+                  <PrivateRouteUser exact path="/favoritos" component={Favoritos} />
                   <PrivateRouteUser exact path="/comparar_preco" component={CompararPreco} />
                   <PrivateRouteUser exact path="/nota_fiscal" component={NotaFiscal} />
                   <PrivateRouteUser exact path="/chooseEntregador" component={ChooseEntregador} />

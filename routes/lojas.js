@@ -104,7 +104,7 @@ router.get("/get_nome_produtos/:idCat", async (req,res)=>{
 
 })
 
-router.get("/comparar_precos/:idProduto", async (req,res)=>{
+router.get("/comparar_precos/:idProduto/:filtro", async (req,res)=>{
 
     
     const query = `
@@ -112,6 +112,7 @@ router.get("/comparar_precos/:idProduto", async (req,res)=>{
         inner join produto on it_id_produto = pro_id_produto
         inner join mercado on it_id_mercado = mer_id_mercado
         where pro_id_produto = ${req.params.idProduto}
+        order by it_preco ${req.params.filtro}
     `;
 
     console.log(query)
@@ -459,6 +460,28 @@ router.post(`/del_favoritos`, async (req, res)=>{
         return res.status(200).json("ok")
     })
 })
+
+    router.get(`/get_favoritos_pagina/:idUsuario/:filtro`, async (req,res)=>{
+        console.log(req.params)
+
+        const client = await mysql.createConnection(env);
+
+        const query = `
+            select * from favoritos
+            inner join item on item_id = fav_id_item
+            inner join mercado on it_id_mercado = mer_id_mercado
+            where fav_id_usu = ${req.params.idUsuario}
+            order by it_preco ${req.params.filtro}
+        `;
+        console.log(query)
+        client.query(query, (err, result)=>{
+            if (err) throw err;
+
+            client.end();
+            console.log(result)
+            return res.status(200).json(result)
+        })
+    })
 
 
 

@@ -125,7 +125,7 @@ export default class ShopCategory extends Component {
                                     <div class="item-card">
                                         <img src={`/images/${res.it_foto}`} alt="" />
                                         <h3>{res.it_nome}</h3>
-                                        <p>R${res.it_preco.toString().replace(".", ",")}</p>
+                                        <p>R${res.it_preco.toFixed(2).toString().replace(".", ",")}</p>
                                         <i class="fas fa-minus plus" onClick={this.subClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
                                         <i class="fas fa-plus plus" onClick={this.addClick.bind(this, res.item_id, res.it_nome, res.it_preco)}></i>
                                         <p>{id}</p>

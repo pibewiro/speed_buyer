@@ -147,7 +147,8 @@
 
 #showcase .showcase-content h1
 {
-    font-size:60px;
+    font-size:100px;
+    margin-bottom:40px;
     z-index: 1;
 }
 
@@ -606,6 +607,19 @@
     width: 100%;
     padding:10px;
     border-bottom: 1px solid #f4f4f4;
+}
+
+.promocao
+{
+    width:80%;
+    margin:auto;
+    padding:40px;
+}
+
+.promocao-div
+{
+    border-bottom:1px solid black;
+    padding-top:20px;
 }
 
 .profile-div .profile-field

@@ -45,15 +45,7 @@ export default class navbar extends Component {
                         </li>
 
                         <li>
-                            <Link to="/view_stores" href="#">Stores</Link>
-                        </li>
-
-                        <li>
-                            <Link to="/account" href="#">About Us</Link>
-                        </li>
-
-                        <li>
-                            <Link to="/" href="#">Contact Us</Link>
+                            <Link to="/view_stores" href="#">Mercados</Link>
                         </li>
                     </ul>
                     <div onClick={this.toggleMenu} className="menuToggle"><p>&#9776;</p></div>

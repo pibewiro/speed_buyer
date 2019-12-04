@@ -22,11 +22,10 @@ export default class landing extends Component {
             <div id="showcase">
                <Navbar />
                <div className="showcase-content">
-                    <h1>Buy Foods From The Comfort of Your Home</h1>
-                    <p>A new way to deliver food</p>
+                    <h1>SpeedBuyer</h1>
                     <div>
-                        <Link to="/signin" className="btn" >Sign-In</Link>
-                        <Link to="/signup" className="btn" >Sign-Up</Link>
+                        <Link to="/signin" className="btn" >Login</Link>
+                        <Link to="/signup" className="btn" >Cadastrar</Link>
                     </div>
                 </div> 
                 <Footer />

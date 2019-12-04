@@ -48,7 +48,7 @@ export default class ProfileAdmin extends Component {
         </div>
 
             <div className="btn-edit-div">
-                <Link to="/pessoa_fisica_edit" className="btn">Edit Profile</Link>
+                <Link to="/pessoa_fisica_edit" className="btn">Editar Perfil</Link>
             </div>
             </div>
 

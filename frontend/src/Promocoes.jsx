@@ -39,7 +39,7 @@ export default class Promocoes extends Component {
 
     render() {
         return (
-            <div>
+            <div className="promocao">
                 {this.state.ativo === 3 ? 
 
                     <div>
@@ -51,10 +51,10 @@ export default class Promocoes extends Component {
                 }
 
                 {this.state.promocao.map(res=>(
-                        <>
+                        <div class="promocao-div">
                         <p>{res.it_nome}</p>
-                        <p>{res.it_preco}</p>
-                        </>
+                        <p>R${res.it_preco}</p>
+                        </div>
                 ))}
             </div>
         )

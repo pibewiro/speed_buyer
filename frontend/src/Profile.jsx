@@ -53,7 +53,7 @@ export default class Profile extends Component {
                              {this.state.primeiroNome.toUpperCase()} {this.state.sobreNome.toUpperCase()}
                            </h1>     
                                 <div className="child">
-                                   <Link to="/choose_profile" className="btn crt-prf-btn">Create Profile</Link>
+                                   <Link to="/choose_profile" className="btn crt-prf-btn">Criar Perfil</Link>
                                 </div>
                         </div>
              )

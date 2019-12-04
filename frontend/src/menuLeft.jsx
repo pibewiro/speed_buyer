@@ -20,14 +20,13 @@ export default class menuLeft extends Component {
         <div className="menu-left">
             <img src={logoImage} alt=""/>
             <ul>
-                <Link to="/profile"><li><i className="fas fa-id-badge"></i><p>Meu Profile</p></li></Link>
+                <Link to="/profile"><li><i className="fas fa-id-badge"></i><p>Meu Perfil</p></li></Link>
                 {this.state.ativo === 3 ? 
                     <>
-                    <Link to="/new_store"><li><i className="fas fa-store"></i><p>New Store</p></li></Link>
-                    <Link to="/add_stores"><li><i className="fas fa-store"></i><p>Add Stores</p></li></Link>
-                    <Link to="/view_users"><li><i className="fas fa-store"></i><p>View Stores</p></li></Link>
-                    <Link to="/novo_produtos"><li><i className="fas fa-store"></i><p>Add New Products</p></li></Link>
-                    <Link to="/add_itens"><li><i className="fas fa-store"></i><p>Add Items</p></li></Link>
+                    <Link to="/new_store"><li><i className="fas fa-store"></i><p>Novo Mercado</p></li></Link>
+                    <Link to="/add_stores"><li><i className="fas fa-store"></i><p>Adicionar Mercado</p></li></Link>
+                    <Link to="/novo_produtos"><li><i className="fas fa-store"></i><p>Adicionar Novo Produtos</p></li></Link>
+                    <Link to="/add_itens"><li><i className="fas fa-store"></i><p>AAdicionardd Itens</p></li></Link>
                     <Link to="/promocoes"><li><i className="fas fa-store"></i><p>Add Promocoes</p></li></Link>
                     </>
                 : null }

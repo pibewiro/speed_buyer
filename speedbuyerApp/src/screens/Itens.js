@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Button } from 'react-native'
 import axios from 'axios'
+import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2} from "./AppStyles"
 
 export default class Itens extends Component {
 
@@ -25,11 +26,18 @@ export default class Itens extends Component {
         .then(res=>this.setState({itens:res.data}))
         .then(()=>console.log(this.state))
     }
+
+    comprar = () => {
+        this.props.navigation.navigate("EscolhaEntregador")
+    }
     render() {
         return (
             <View>
                 {this.state.itens.map(res=>(
+                    <>
                     <Text>{res.it_nome}</Text>
+                    <Button title="Comprar" onPress= {this.comprar} />
+                    </>
                 ))}
             </View>
         )

@@ -24,9 +24,13 @@ export default class Menu extends Component {
       })
   }
 
-  clickMercados = () => {
-    this.props.navigation.navigate("Mercados")
-  }
+  clickMercados = () => this.props.navigation.navigate("Mercados")
+  clickCP = () => this.props.navigation.navigate("CategoriasComp")
+  clickPromo = () => this.props.navigation.navigate("Promocoes")
+  clickFav = () => this.props.navigation.navigate("Favoritos")
+  clickAC = () => this.props.navigation.navigate("Ajuda Central")
+  clickLogout = () => this.props.navigation.navigate("Landing")
+
 
   render() {
     return (
@@ -57,25 +61,31 @@ export default class Menu extends Component {
         </AreaBotao>
 
         <AreaBotao>
-          <Botao activeOpacity={0.8} > 
+          <Botao onPress={this.clickCP} activeOpacity={0.8} > 
+              <Texto>Comparar Preço</Texto>
+          </Botao>
+        </AreaBotao>
+
+        <AreaBotao>
+          <Botao activeOpacity={0.8} onPress={this.clickPromo}> 
               <Texto>Promoções</Texto>
           </Botao>
         </AreaBotao>
 
         <AreaBotao>
-          <Botao onPress={this.clickMercados} activeOpacity={0.8} > 
+          <Botao onPress={this.clickFav} activeOpacity={0.8} > 
               <Texto>Favoritos</Texto>
           </Botao>
         </AreaBotao>
 
         <AreaBotao>
-          <Botao onPress={this.clickMercados} activeOpacity={0.8} > 
+          <Botao onPress={this.clickAC} activeOpacity={0.8} > 
               <Texto>Ajuda Central</Texto>
           </Botao>
         </AreaBotao>
 
         <AreaBotao>
-          <Botao onPress={this.clickMercados} activeOpacity={0.8} > 
+          <Botao onPress={this.clickLogout} activeOpacity={0.8} > 
               <Texto>Log Out</Texto>
           </Botao>
         </AreaBotao>

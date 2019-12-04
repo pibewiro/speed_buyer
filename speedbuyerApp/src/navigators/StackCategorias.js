@@ -10,9 +10,7 @@ const StackCategorias = createStackNavigator({
     
 },{
     defaultNavigationOptions:{
-        headerStyle:{
-            backgroundColor:'#f4f4f4'
-        }
+        headerStyle:null
     }
 })
 

@@ -117,10 +117,7 @@ render() {
         
 
 <Background source={require('../images/Backgrounds/carrinho.jpg' )}>
-    <Container>          
-
-                <Selecao  />    
-        
+    <Container>                  
                 <Input placeholder="Email" onChangeText={(email) => this.setState({email})} value={this.state.email}/>
                 <TextoErro>{errors.email}</TextoErro>
 

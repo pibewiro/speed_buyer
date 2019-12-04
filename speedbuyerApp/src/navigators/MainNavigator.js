@@ -1,7 +1,5 @@
 import React from 'react';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-
-
 import HomeStack from '../navigators/HomeStack'
 import Cadastrar from '../screens/Cadastro'
 import Profile from '../screens/Profile'
@@ -17,7 +15,8 @@ import PessoaEE from '../screens/PessoaEE'
 import Mercados2 from '../screens/Mercados2'
 import Categorias2 from '../screens/Categorias2'
 import Itens from '../screens/Itens'
-
+import EscolhaEntregador from '../screens/EscolhaEntregador'
+import Pagamento from '../screens/Pagamento'
 import { createStackNavigator } from 'react-navigation';
 
 
@@ -82,10 +81,15 @@ const MainNavigator = createStackNavigator({
 
     Itens:{
         screen:Itens
+    },
+
+    EscolhaEntregador:{
+        screen:EscolhaEntregador
+    },
+
+    Pagamento:{
+        screen:Pagamento
     }
-
-
- 
-    });
+});
 
     export default MainNavigator;

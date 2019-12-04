@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
 import axios from "axios";
+import {DivItens, DivButton, DivItens2, Div, TextoE, Header, Total, TextEE, Botao, AreaBotao, Texto, DivView2, ButtonI} from "./AppStyles"
+
 
 export default class EscolhaEntregador extends Component {
 
@@ -27,14 +29,19 @@ export default class EscolhaEntregador extends Component {
 
     render() {
         return (
-            <View>
+            <Div>
+                <Header>Entregador</Header>
                 {this.state.entregador.map(res=>(
                     <>
-                    <Text>{res.primeiro_nome} {res.sobre_nome}</Text>
-                    <Button title="Escolhe" onPress={this.escolha.bind(this, res.ent_id)} />
+                    <TextEE>{res.primeiro_nome} {res.sobre_nome}</TextEE>
+                    <AreaBotao>
+                        <Botao onPress={this.escolha.bind(this, res.ent_id)} activeOpacity={0.8} > 
+                            <TextoE>Escolhe</TextoE>
+                        </Botao>
+                    </AreaBotao>
                     </>
                 ))}
-            </View>
+            </Div>
         )
     }
 }

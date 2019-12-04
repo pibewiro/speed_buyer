@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, ScrollView } from 'react-native'
 import axios from "axios"
-import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
+import {Label, ErrorText, TextoMer2, Div, DivMerList, Header, DivImage, Logo, BotaoMer, AreaBotao, TextoMer, DivView2, Texto3, DivMer, ImageMer} from "./AppStyles"
 import uuid from "uuid"
 
 export default class Mercados2 extends Component {
@@ -75,11 +75,18 @@ export default class Mercados2 extends Component {
             <ScrollView>
                 {this.state.mercados.map(res=>{
 
-                    return <Botao onPress={this.categoria.bind(this, res.mer_id_mercado, uuid())}>
+                    return <BotaoMer onPress={this.categoria.bind(this, res.mer_id_mercado, uuid())}>
                         <DivMer>
-                            <Header>{res.mer_nome}</Header>
+                        {merImage(res.mer_nome)}
+                        <DivMerList>
+                            <TextoMer2>{res.mer_nome}</TextoMer2>
+                            <Texto3>{res.en_rua} {res.en_numero}</Texto3>
+                            <Texto3>{res.en_cidade}, SP</Texto3>
+                            {res.en_complemento === "" ? null : <Texto3>{res.en_complemento}</Texto3>}
+                            <Texto3>{res.en_cep}</Texto3>
+                            </DivMerList>
                         </DivMer>
-                    </Botao>
+                    </BotaoMer>
     }           )}
             </ScrollView>
         )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Button, ScrollView } from 'react-native'
 import axios from 'axios'
-import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2} from "./AppStyles"
+import {DivItens, DivButton, DivItens2, Div, TextI, Header, Total, Logo, Botao, AreaBotao, Texto, DivView2, ButtonI} from "./AppStyles"
 import AsyncStorage from '@react-native-community/async-storage';
 import jwtDecode from "jwt-decode"
 
@@ -98,17 +98,28 @@ export default class Itens extends Component {
 
     render() {
         return (
-            <View>
-                <Text>Total:{this.state.total}</Text>
+            <ScrollView>
+            <DivItens>
+                <Header>Itens</Header>
+                <Total>Total:{this.state.total}</Total>
                 {this.state.itens.map(res=>(
-                    <>
-                    <Text>{res.it_nome}</Text>
-                    <Button title="+" onPress={this.addCart.bind(this, res.item_id, res.it_nome, res.it_preco)} />
-                    <Button title="-" onPress={this.delCart.bind(this, res.item_id, res.it_nome, res.it_preco)} />
-                    </>
+                    <DivItens2>
+                    <TextI>{res.it_nome}</TextI>
+                    <TextI>R${res.it_preco.toFixed(2).toString().replace(".", ",")}</TextI>
+                    <DivButton>
+                        <ButtonI title="+" onPress={this.addCart.bind(this, res.item_id, res.it_nome, res.it_preco)} />
+                        <ButtonI title="-" onPress={this.delCart.bind(this, res.item_id, res.it_nome, res.it_preco)} />
+                    </DivButton>
+                    </DivItens2>
                 ))}
-                <Button title="Checkout" onPress={this.checkout}/>
-            </View>
+                <AreaBotao>
+            <Botao onPress={this.checkout} activeOpacity={0.8} > 
+                <Texto>Checkout</Texto>
+            </Botao>
+        </AreaBotao>
+            </DivItens>
+            </ScrollView>
+
         )
     }
 }

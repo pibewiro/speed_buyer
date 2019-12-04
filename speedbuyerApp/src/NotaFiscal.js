@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from "axios";
 import jwtDecode from "jwt-decode"
 import moment from "moment"
+import {DivItens, DivButton, DivItens2, Div, TextoE, Header, Total, TextEE, Botao, AreaBotao, Texto, DivView2, ButtonI} from "./AppStyles"
+
 
 export default class NotaFiscal extends Component {
 
@@ -65,7 +67,8 @@ export default class NotaFiscal extends Component {
     }
     render() {
         return (
-            <View>
+            <Div>
+                <Header>Nota Fiscal</Header>
             <View>
 
                 <Text>Cliente: {this.state.nomeCliente}</Text>
@@ -96,7 +99,7 @@ export default class NotaFiscal extends Component {
                 </View>
                 <Button title="Voltar Ao Menu" onPress={this.menu} />
             </View>                
-        </View>
+        </Div>
         )
     }
 }

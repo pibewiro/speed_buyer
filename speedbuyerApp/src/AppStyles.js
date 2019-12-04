@@ -51,9 +51,23 @@ export const Label = styled.Text`
     font-weight:bold;
 `;
 
-export const Texto2 = styled.Text`
-    font-size:17px;
-    color:#000;
+export const TextoMer = styled.Text`
+    font-size:30px;
+    font-weight:bold;
+    padding-left:35px;
+    padding-top:30px;
+    color:#fff;
+`;
+
+export const TextoMer2 = styled.Text`
+    font-size:15px;
+    font-weight:bold;
+    color:#fff;
+`;
+
+export const Texto3 = styled.Text`
+    font-size:12px;
+    color:#fff;
 `;
 
 export const Input = styled.TextInput`
@@ -71,7 +85,7 @@ export const ErrorText = styled.Text`
 `;
 
 export const DivView2 = styled.View`
-    padding:20px
+    padding:10px;
 `;
 
 export const Scroll = styled.View`
@@ -81,12 +95,90 @@ export const Scroll = styled.View`
 export const DivMer = styled.View`
     display:flex
     flex-direction:row;
-    background-color:red;
-    margin-bottom:30px;
+    background-color:#00283D;
     width:100%;
+    margin-bottom:15px;
 `;
 
 export const ImageMer = styled.Image`
     width:100px;
     height:100px;
 `;
+
+export const BotaoMer = styled.TouchableOpacity`
+   width:100%;
+   align-items:center;
+`;
+
+export const DivMerList = styled.View`
+    background-color:#00283D;
+    width:100%;
+    margin-bottom:15px;
+    padding-left:35px;
+`;
+
+export const BotaoC = styled.TouchableOpacity`
+   background-color:#fff;
+   width:100%;
+   align-items:center;
+   `;
+
+
+export const DivC = styled.View`
+    background-color:#00283D;
+    width:90%;
+    align-items:center;
+    margin-bottom:10px;
+    padding:10px;
+`;
+
+export const TextoC = styled.Text`
+    font-size:17px;
+    color:#ffffff;
+`;
+
+export const DivButton = styled.View`
+    display:flex;
+    flex-direction:row;
+`;
+
+export const DivItens = styled.View`
+    width:90%;
+    margin:auto;
+`;
+
+export const DivItens2 = styled.View`
+    margin-bottom:10px;
+    background-color:#00283d;
+`;
+
+export const TextI = styled.Text`
+    font-size:20px;
+    font-weight:bold;
+    color:#fff;
+
+`;
+
+export const Total = styled.Text`
+    font-size:20px;
+    font-weight:bold;
+`;
+
+
+export const ButtonI = styled.Button`
+   background-color:#00283D;
+`;
+
+export const TextoE = styled.Text`
+    font-size:15px;
+    font-weight:bold;
+    color:#fff;
+`;
+
+export const TextEE = styled.Text`
+    font-size:20px;
+    font-weight:bold;
+`;
+
+
+

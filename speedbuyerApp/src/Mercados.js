@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView, Image } from 'react-native'
 import axios from "axios"
 import styled from 'styled-components/native';
-import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
+import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, BotaoMer, AreaBotao, TextoMer, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
 
 const ToggleArea = styled.TouchableHighlight`
 width:50px;
@@ -93,12 +93,12 @@ export default class Mercados extends Component {
             <ScrollView>
                 {this.state.mercados.map(res=>{
 
-                    return <Botao onPress={this.mercado.bind(this, res.mer_url, res.mer_id_mercado)}>
+                    return <BotaoMer onPress={this.mercado.bind(this, res.mer_url, res.mer_id_mercado)}>
                         <DivMer>
                         {merImage(res.mer_nome)}
-                            <Header>{res.mer_nome}</Header>
+                            <TextoMer>{res.mer_nome}</TextoMer>
                         </DivMer>
-                    </Botao>
+                    </BotaoMer>
     }           )}
             </ScrollView>
         )

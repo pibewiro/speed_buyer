@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import axios from "axios";
-import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
+import {BotaoC, DivC, TextoC, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Categorias extends Component {
@@ -39,12 +39,13 @@ export default class Categorias extends Component {
 
         return (
             <ScrollView>
+                <Header>Categorias</Header>
                 {this.state.categorias.map(res=>(
-                   <Botao onPress={this.comprar.bind(this, res.cat_nome)}>
-                   <DivMer>
-                       <Header>{res.cat_nome}</Header>
-                   </DivMer>
-               </Botao>
+                <BotaoC onPress={this.comprar.bind(this, res.cat_nome)}>
+                   <DivC>
+                       <TextoC>{res.cat_nome}</TextoC>
+                   </DivC>
+               </BotaoC>
                 ))}
             </ScrollView>
         )

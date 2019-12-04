@@ -81,12 +81,14 @@ export const Scroll = styled.View`
 export const DivMer = styled.View`
     display:flex
     flex-direction:row;
-    background-color:red;
-    margin-bottom:30px;
-    width:100%;
+
 `;
 
 export const ImageMer = styled.Image`
     width:100px;
     height:100px;
+`;
+
+export const Botao2 = styled.TouchableOpacity`
+
 `;

@@ -3,6 +3,8 @@ import { Text, View, Button } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from "axios";
 import jwtDecode from "jwt-decode"
+import {DivItens, DivButton, DivItens2, Div, TextoE, Header, Total, TextEE, Botao, AreaBotao, Texto, DivView2, ButtonI} from "./AppStyles"
+
 
 
 
@@ -48,12 +50,12 @@ export default class Pagamento extends Component {
 
     render() {
         return (
-            <View>
-                <Text> pagamento </Text>
+            <Div>
+                <Header> Pagamento </Header>
 
 
                 <Button title="Pagar" onPress={this.notaFiscal} />
-            </View>
+            </Div>
         )
     }
 }

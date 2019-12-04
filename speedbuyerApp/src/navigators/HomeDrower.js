@@ -67,7 +67,7 @@ CentralAjuda:{
     
 }, {
     contentComponent:(props) =><CustomDrawer {...props}/>,
-    hideStatusBar:true,
+    hideStatusBar:false,
     contentOptions:{
         activeTintColor:'#ff0000',
         activeBackgroundColor:'#eee'

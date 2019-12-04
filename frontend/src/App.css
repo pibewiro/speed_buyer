@@ -654,6 +654,133 @@
     margin-bottom:5px;
 }
 
+.notaFiscal
+{
+    width: 80%;
+    margin: auto;
+}
+
+.notaFiscal h2
+{
+    padding: 10px 0 0 0;
+}
+
+
+.itemInfo
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap:10px;
+    justify-content: center;
+    padding:5px 0;
+}
+
+.itemInfo3
+{
+    display: flex;
+    margin-left:10px;
+}
+
+.itemInfo3 p
+{
+    margin-left:20px;
+}
+
+.notaFiscal .total  
+{
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.nf-footer p
+{
+    padding-bottom: 5px;
+}
+
+.nf-footer p:last-child
+{
+    padding-bottom: 20px;
+}
+
+.address
+{
+    padding-bottom: 20px;
+}
+
+.comparar-content
+{
+    width: 80%;
+    margin:auto;
+    padding: 20px;
+}
+
+.notaFiscal span
+{
+    font-weight: bold;
+}
+
+.comparar-items
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap:10px;
+}
+
+.comparar-card
+{
+    text-align: center;
+    padding-bottom: 10px;
+    background: var(--primary-color);
+    color:#fff;
+}
+
+.comparar-card img
+{
+    width:100%; 
+    height: 200px;
+    border:1px solid black;
+}
+
+.comparar-card h3
+{
+    padding: 10px 0;
+}
+
+.comparar-card p
+{
+    padding-bottom: 10px;
+}
+.comparar-card i
+{
+    color:white;
+    padding-bottom:10px;
+}
+
+.comparar-card i:hover
+{
+    color: yellow;
+    cursor: pointer;
+}
+
+.comparar-filtro
+{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.comparar-filtro select
+{
+    padding: 5px;
+    background: #fff;
+}
+
+.comparar-filtro-preco
+{
+    margin-left:10px;
+}
+
 
 @media(max-width:768px)
 {

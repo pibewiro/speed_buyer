@@ -4,7 +4,7 @@ import axios from 'axios';
 import removeAccents from "remove-accents"
 import Spinner from "./Spinner"
 
-export default class Categorias extends Component {
+export default class Categories extends Component {
 
     constructor()
     {
@@ -50,7 +50,7 @@ export default class Categorias extends Component {
     }
 
     clickCat = (cat) => {
-        this.props.history.push(`/store/${this.state.nomeMercado.toLowerCase()}/${this.state.rua.toLowerCase()}/${this.state.idMercado}/${removeAccents(cat).toLowerCase().replace(/\s/g, "_")}`)
+        this.props.history.push(`/store/${this.state.nomeMercado.toLowerCase()}/${this.state.rua.toLowerCase()}/${this.state.idMercado}/${removeAccents(cat).toLowerCase().replace(/\s/g, "_")}`, {idComprar:this.props.location.state.idComprar})
     }
 
 

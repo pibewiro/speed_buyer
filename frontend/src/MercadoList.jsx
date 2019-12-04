@@ -3,6 +3,7 @@ import axios from "axios"
 import {Link} from "react-router-dom"
 import removeAccents from "remove-accents"
 import Spinner from "./Spinner"
+import UUID from 'uuid'
 
 export default class MercadoList extends Component {
     
@@ -26,6 +27,10 @@ export default class MercadoList extends Component {
         .catch(err=>console.log("Errors", err))
     }
 
+    comprar = (nome, rua, idmercado, idComprar) => {
+        this.props.history.push(`/store/${nome.toLowerCase().replace(/\s/g, "_")}/${removeAccents(rua).toLowerCase().replace(/\s/g, '_')}/${idmercado}`, {idComprar})
+    }
+
     render() {
 
         return (
@@ -46,7 +51,7 @@ export default class MercadoList extends Component {
                     </div>
 
                     <div className="store-card-3">
-                       <Link to={`/store/${res.mer_nome.toLowerCase().replace(/\s/g, "_")}/${removeAccents(res.en_rua).toLowerCase().replace(/\s/g, '_')}/${res.mer_id_mercado}`} className="btn">Comprar</Link> 
+                        <button className="btn" onClick={this.comprar.bind(this, res.mer_nome, res.en_rua, res.mer_id_mercado, UUID())}>Comprar</button>
                     </div>
                 </div>
                 </div>

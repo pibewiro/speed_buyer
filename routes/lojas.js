@@ -5,6 +5,7 @@ const env = require('../config/.env');
 const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
 const stripe = require('stripe')("sk_test_mDc7apmGEPPD3kEuFbKwZESX00KFa5TFP6")
+const moment = require("moment")
 
 router.get(`/get_stores_brand/:url`, async (req, res)=>{
 
@@ -83,6 +84,51 @@ router.get("/get_categorias", async (req,res)=>{
 
 })
 
+router.get("/get_nome_produtos/:idCat", async (req,res)=>{
+
+    
+    const query = `select * from produto where pro_id_categoria = ${req.params.idCat}`;
+    
+    const client = mysql.createConnection(env);
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+       // console.log(result);
+
+        client.end();
+        console.log(query)
+        return res.status(200).json(result)
+    })
+
+
+})
+
+router.get("/comparar_precos/:idProduto/:filtro", async (req,res)=>{
+
+    
+    const query = `
+        select * from item
+        inner join produto on it_id_produto = pro_id_produto
+        inner join mercado on it_id_mercado = mer_id_mercado
+        where pro_id_produto = ${req.params.idProduto}
+        order by it_preco ${req.params.filtro}
+    `;
+
+    console.log(query)
+    
+    const client = mysql.createConnection(env);
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+       // console.log(result);
+
+        client.end();
+        return res.status(200).json(result)
+    })
+})
+
 router.post("/get_items", async (req,res)=>{
 
     console.log(req.body);
@@ -112,45 +158,72 @@ router.post("/get_items", async (req,res)=>{
 router.post("/add_cart", async (req, res)=>{
     console.log(req.body)
 
-    // const client = await mysql.createConnection(env)
+    const client = await mysql.createConnection(env)
     
-    // const query = await `INSERT INTO shopping(sh_it, sh_id_usu) VALUES(${req.body.idItem}, ${req.body.idUsuario})`;
+    const query = await `INSERT INTO shopping(sh_it, sh_id_usu, sh_id_compras, sh_preco) VALUES(${req.body.idItem}, ${req.body.idUsuario}, '${req.body.idComprar}', ${req.body.preco})`;
     
-    // await client.query(query, (err, result)=>{
-    //     if (err) throw err
-    // })
+    const query2  = await `
+    select sh_it, it_preco, count(*) as qtd
+    from shopping 
+    inner join item on item_id = sh_it
+    where 
+    sh_id_compras = '${req.body.idComprar}' AND
+    sh_id_usu = ${req.body.idUsuario}
+    group by sh_it
+    `;
+    
+    await client.query(query, (err, result)=>{
+        if (err) throw err
+    }) 
+    
+    await client.query(query2, (err, result)=>{
+        if (err) throw err
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })  
 
-    // client.end();
 
 })
 
 router.post("/del_cart", async (req, res)=>{
     console.log(req.body)
 
-    const client = mysql.createConnection(env)
+     const client = mysql.createConnection(env)
     
     const query = `
-        SELECT *  
-        FROM shopping
-        WHERE sh_it = ${req.body.idItem} AND sh_id_usu = ${req.body.idUsuario}
-        ORDER BY sh_id DESC
-        LIMIT 1
+        delete from shopping 
+        where 
+        sh_id_usu  = ${req.body.idUsuario} and 
+        sh_it = ${req.body.idItem}  and 
+        sh_id_compras = '${req.body.idComprar}'
+        limit 1
+    `;
+
+    const query2  = await `
+    select sh_it, it_preco, count(*) as qtd
+    from shopping
+    inner join item on item_id = sh_it 
+    where 
+    sh_id_compras = '${req.body.idComprar}' AND
+    sh_id_usu = ${req.body.idUsuario}
+    group by sh_it
     `;
     
-    await client.query(query, async (err, result)=>{
+     await client.query(query, async (err, result)=>{
 
-        if (err) throw err
-        
-        const queryDel = `
-            DELETE FROM shopping WHERE sh_id = ${result[0].sh_id}
-        `;
-
-        await client.query(queryDel, (err, result)=>{
-            if(err) throw err
-        })
-
-        client.end();
+         if (err) throw err
+    
     })
+
+    await client.query(query2, (err, result)=>{
+        if (err) throw err
+
+        console.log(result)
+        client.end();
+
+        return res.status(200).json(result)
+    })  
 })
 
 router.get("/get_mercados", async (req, res)=>{
@@ -230,6 +303,218 @@ router.post("/checkout", async (req,res)=>{
     }
 
 })
+
+router.get("/qtd_item/:idComprar/:idUsuario", async (req, res)=>{
+
+    const client = mysql.createConnection(env)
+
+    const query  = await `
+    select sh_it, it_preco, count(*) as qtd
+    from shopping 
+    inner join item on item_id = sh_it
+    where 
+    sh_id_compras = '${req.params.idComprar}' AND
+    sh_id_usu = ${req.params.idUsuario}
+    group by sh_it
+    `; 
+    
+    await client.query(query, (err, result)=>{
+        if (err) throw err
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })  
+})
+
+router.post("/post_compras/:idComprar", async (req, res)=>{
+
+    console.log(req.body)
+    console.log(req.params)
+    const client = mysql.createConnection(env)
+    let query = "";
+
+    req.body.map(res=>{
+        query = `
+        INSERT INTO compras(data_comprado, comp_id_usu, comp_item_id, comp_id_compras, comp_qtd, comp_id_ent, preco) 
+        VALUES('${res.data}', ${res.idUsuario}, ${res.idItem}, '${res.idCompras}', ${res.qtd}, ${res.idEntregador}, ${res.preco})
+        `;
+
+     client.query(query, (err, result)=>{
+           //if(err) throw err;
+           // client.end();
+        })
+    })
+
+
+    const query2 = await `SELECT * FROM compras WHERE comp_id_compras = '${req.params.idComprar}'`;
+
+    client.query(query2, (err, result)=>{
+        if(err) throw err;
+
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })
+
+    
+    // client.end();
+    // return res.status(200).json("Passed")
+
+
+})
+
+router.get('/nota_fiscal/:idComprar/:idEntregador', async (req,res)=>{
+
+    console.log(moment(new Date()).format("YYYY-MM-DD HH:MM"))
+    const client = mysql.createConnection(env)
+
+    const query = `
+        Update shopping 
+        SET 
+        sh_data = '${moment(new Date()).format("YYYY-MM-DD HH:MM")}', 
+        sh_entregador_id = ${req.params.idEntregador}
+        WHERE 
+        sh_id_compras = '${req.params.idComprar}'
+        `;
+
+    console.log(query)
+
+    client.query(query, (err, result)=>{
+        if(err) throw err;
+
+        //client.end();
+    })
+
+    //const query2 = `SELECT * FROM shopping WHERE sh_id_compras = '${req.params.idComprar}'`;
+
+    const query2 = `
+    select 
+    sh_it, sh_preco, sh_id_compras, primeiro_nome, sobre_nome, it_nome, sh_data,
+    mer_nome, en_cep, en_cidade, en_estado, en_rua, en_numero, en_complemento, count(*) as qtd
+    from shopping 
+    inner join item on sh_it = item_id
+    inner join mercado on it_id_mercado = mer_id_mercado
+    inner join entregador on ent_id = sh_entregador_id
+    inner join usuario on ent_id_usu = usu_id_usu
+    inner join mercado_info on mer_info_id = mer_id_mercado
+    inner join endereco on en_id_endereco = mer_info_id_endereco
+    WHERE sh_id_compras = '${req.params.idComprar}' 
+    group by sh_it
+    `;
+
+    client.query(query2, (err,result)=>{
+        if(err) throw err;
+        client.end();
+        console.log(query2)
+        console.log(result)
+        return res.status(200).json(result)
+    })
+})
+
+router.get(`/get_favoritos/:idUsuario`, async (req, res)=>{
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        SELECT * FROM favoritos where fav_id_usu = ${req.params.idUsuario}
+    `;
+    console.log(query)
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        console.log(result)
+        return res.status(200).json(result)
+    })
+})
+
+router.post(`/favoritos`, async (req, res)=>{
+    console.log(req.body)
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        INSERT INTO favoritos(fav_id_usu, fav_id_item) values(${req.body.idUsuario}, ${req.body.idItem})
+    `;
+    console.log(query)
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        console.log("ok")
+        return res.status(200).json("ok")
+    })
+})
+
+router.post(`/del_favoritos`, async (req, res)=>{
+    console.log(req.body)
+    const client = await mysql.createConnection(env);
+
+    const query = `
+        delete from favoritos where fav_id_usu = ${req.body.idUsuario} and fav_id_item = ${req.body.idItem}
+    `;
+    console.log(query)
+    client.query(query, (err, result)=>{
+        if (err) throw err;
+
+        client.end();
+        console.log("ok")
+        return res.status(200).json("ok")
+    })
+})
+
+    router.get(`/get_favoritos_pagina/:idUsuario/:filtro`, async (req,res)=>{
+        console.log(req.params)
+
+        const client = await mysql.createConnection(env);
+
+        const query = `
+            select * from favoritos
+            inner join item on item_id = fav_id_item
+            inner join mercado on it_id_mercado = mer_id_mercado
+            where fav_id_usu = ${req.params.idUsuario}
+            order by it_preco ${req.params.filtro}
+        `;
+        console.log(query)
+        client.query(query, (err, result)=>{
+            if (err) throw err;
+
+            client.end();
+            console.log(result)
+            return res.status(200).json(result)
+        })
+    })
+
+
+    router.get(`/get_promocoes`, async (req,res)=>{
+        console.log(req.params)
+
+        const client = await mysql.createConnection(env);
+
+        const query = ` select * from item where promocao = 1`;
+        console.log(query)
+        client.query(query, (err, result)=>{
+            if (err) throw err;
+
+            client.end();
+            console.log(result)
+            return res.status(200).json(result)
+        })
+    })
+
+    router.post(`/add_promocao`, async (req,res)=>{
+        console.log(req.body)
+
+        const client = await mysql.createConnection(env);
+
+        const query = `UPDATE item SET promocao = 1 where item_id = ${req.body.idProduto}`;
+        console.log(query)
+        client.query(query, (err, result)=>{
+            if (err) throw err;
+
+            client.end();
+            console.log(result)
+            return res.status(200).json(result)
+        })
+    })
 
 
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
+import jwtDecode from "jwt-decode"
+
 //import {toast} from 'react-toastify';
 
 export default class Pagamento extends Component {
@@ -10,9 +12,25 @@ export default class Pagamento extends Component {
         super()
 
         this.state = {
-            name:"Tesla",
-            price:888.90
+            qtd:[],
+            price:"",
+            data:new Date()
         }
+    }
+
+    componentDidMount()
+    {
+        axios.get(`/lojas/qtd_item/${this.props.location.state.idComprar}/${jwtDecode(localStorage.getItem("jwtToken")).id_usuario}`)
+        .then(res=>this.setState({qtd:res.data}))
+        .then(()=>this.calcularPreco())
+    }
+
+    calcularPreco = () => {
+        let preco = 0;
+         this.state.qtd.map(res=>{
+            preco += res.qtd * res.it_preco;
+             this.setState({price:preco})
+        })
     }
 
 
@@ -25,10 +43,28 @@ export default class Pagamento extends Component {
 
         if(response.data === 'success')
         {
-            //toast.configure();
-            //toast('Success', {type:'success'})
-            alert("123")
+
+            // let items = [];
+
+            // this.state.qtd.map(res=>{
+            //     items.push({
+            //         data:this.state.data,
+            //         idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario,
+            //         idItem:res.sh_it,
+            //         idCompras:this.props.location.state.idComprar,
+            //         qtd:res.qtd,
+            //         preco:res.it_preco,
+            //         idEntregador:this.props.location.state.idEntregador
+            //     })
+            // })
+
+            //axios.post(`lojas/post_compras/${this.props.location.state.idComprar}`, items)
+            this.nf();
         }
+    }
+
+    nf = () => {
+        this.props.history.push("/nota_fiscal", {idComprar:this.props.location.state.idComprar, idEntregador:this.props.location.state.idEntregador})
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Button } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from "axios";
 import jwtDecode from "jwt-decode"
@@ -59,6 +59,10 @@ export default class NotaFiscal extends Component {
              this.setState({total:preco.toFixed(2)})
         })
     }
+
+    menu = () => {
+        this.props.navigation.navigate("Menu")
+    }
     render() {
         return (
             <View>
@@ -90,6 +94,7 @@ export default class NotaFiscal extends Component {
                     <Text>Codigo de Compras: {this.state.codigoCompras}</Text>
                     <Text>Data de Compra: {moment(this.state.data).format('DD-MM-YYYY HH:MM')}</Text>
                 </View>
+                <Button title="Voltar Ao Menu" onPress={this.menu} />
             </View>                
         </View>
         )

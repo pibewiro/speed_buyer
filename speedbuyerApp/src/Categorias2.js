@@ -12,7 +12,8 @@ export default class Categorias extends Component {
 
         this.state = {
             categorias:[],
-            idMercado:""
+            idMercado:"",
+            idCompras:""
         }
     }
 
@@ -21,13 +22,17 @@ export default class Categorias extends Component {
 
         axios.get(`http://arcane-savannah-75129.herokuapp.com/lojas/get_categorias`)
         .then(res=>this.setState({categorias:res.data}))
-        .then(()=>this.setState({idMercado:this.props.navigation.state.params.idMercado}))
+        .then(()=>this.setState({
+            idMercado:this.props.navigation.state.params.idMercado,
+            idCompras:this.props.navigation.state.params.idCompras
+        }))
+        .then(()=>console.log(this.state))
     }
 
     comprar = (categoria) => {
-        console.log(this.state.idMercado, categoria)
+        console.log("To Itens:", this.state.idMercado, categoria, this.state.idCompras)
 
-       this.props.navigation.navigate("Itens", {idMercado:this.state.idMercado, categoria})
+       this.props.navigation.navigate("Itens", {idMercado:this.state.idMercado, categoria, idCompras:this.state.idCompras})
 
     }
     render() {

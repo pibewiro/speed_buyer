@@ -19,8 +19,9 @@ export default class EscolhaEntregador extends Component {
         .then(res=>this.setState({entregador:res.data}))
     }
 
-    pagamento = () => {
-        this.props.navigation.navigate("Pagamento")
+    escolha = (id) => {
+        console.log(id, this.props.navigation.state.params.idCompras)
+       this.props.navigation.navigate("Pagamento", {idCompras:this.props.navigation.state.params.idCompras, idEntregador:id})
     }
 
 
@@ -30,7 +31,7 @@ export default class EscolhaEntregador extends Component {
                 {this.state.entregador.map(res=>(
                     <>
                     <Text>{res.primeiro_nome} {res.sobre_nome}</Text>
-                    <Button title="Escolhe" onPress={this.pagamento} />
+                    <Button title="Escolhe" onPress={this.escolha.bind(this, res.ent_id)} />
                     </>
                 ))}
             </View>

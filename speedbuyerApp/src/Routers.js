@@ -18,6 +18,8 @@ import Favoritos from "./Favoritos"
 import Promocoes from "./Promocoes"
 import CompararPreco from "./CompararPreco"
 import Profile from "./Profile"
+import NotaFiscal from "./NotaFiscal"
+import CategoriasComp from "./CategoriasComp"
 
 const AppNavigator = createStackNavigator({
 
@@ -43,7 +45,9 @@ const AppNavigator = createStackNavigator({
    Favoritos:{screen:Favoritos},
    Promocoes:{screen:Promocoes},
    CompararPreco:{screen:CompararPreco},
-   Profile:{screen:Profile}
+   Profile:{screen:Profile},
+   NotaFiscal:{screen:NotaFiscal},
+   CategoriasComp:{screen:CategoriasComp}
 })
 
 export default Routers = createAppContainer(AppNavigator)

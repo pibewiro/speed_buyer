@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView } from 'react-native'
 import axios from "axios"
 import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
+import uuid from "uuid"
 
 export default class Mercados2 extends Component {
 
@@ -21,8 +22,9 @@ export default class Mercados2 extends Component {
         .then(()=>console.log(this.state))
     }
 
-    categoria = (idMercado) => {
-        this.props.navigation.navigate("Categorias2", {idMercado})
+    categoria = (idMercado, idCompras) => {
+        console.log(idCompras)
+        this.props.navigation.navigate("Categorias2", {idMercado, idCompras})
     }
     
     render() {
@@ -73,7 +75,7 @@ export default class Mercados2 extends Component {
             <ScrollView>
                 {this.state.mercados.map(res=>{
 
-                    return <Botao onPress={this.categoria.bind(this, res.mer_id_mercado)}>
+                    return <Botao onPress={this.categoria.bind(this, res.mer_id_mercado, uuid())}>
                         <DivMer>
                             <Header>{res.mer_nome}</Header>
                         </DivMer>

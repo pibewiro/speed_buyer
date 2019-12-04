@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView, Image } from 'react-native'
 import axios from "axios"
 import styled from 'styled-components/native';
-
 import {Label, ErrorText, Input, Div, Div2, Header, DivImage, Logo, Botao, AreaBotao, Texto, DivView2, Texto2, DivMer, ImageMer} from "./AppStyles"
 
 const ToggleArea = styled.TouchableHighlight`

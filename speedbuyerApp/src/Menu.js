@@ -25,7 +25,7 @@ export default class Menu extends Component {
   }
 
   clickMercados = () => this.props.navigation.navigate("Mercados")
-  clickCP = () => this.props.navigation.navigate("CompararPreco")
+  clickCP = () => this.props.navigation.navigate("CategoriasComp")
   clickPromo = () => this.props.navigation.navigate("Promocoes")
   clickFav = () => this.props.navigation.navigate("Favoritos")
   clickAC = () => this.props.navigation.navigate("Ajuda Central")

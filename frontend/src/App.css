@@ -795,6 +795,30 @@
     margin-left:10px;
 }
 
+.historico
+{
+    display:flex;
+    padding: 5px 20px;
+    border-bottom: 1px solid #000;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.historico span
+{
+    font-weight:bold;
+}
+
+.historico .h1
+{
+    width: 50%;
+}
+
+.historico .h2, .historico .h3
+{
+    width: 25%;
+    text-align: left;
+}
 
 @media(max-width:768px)
 {

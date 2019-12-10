@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 import jwtDecode from "jwt-decode"
+import moment from "moment"
 
 //import {toast} from 'react-toastify';
 
@@ -13,8 +14,7 @@ export default class Pagamento extends Component {
 
         this.state = {
             qtd:[],
-            price:"",
-            data:new Date()
+            price:""
         }
     }
 
@@ -44,21 +44,20 @@ export default class Pagamento extends Component {
         if(response.data === 'success')
         {
 
-            // let items = [];
+            let items = [];
 
-            // this.state.qtd.map(res=>{
-            //     items.push({
-            //         data:this.state.data,
-            //         idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario,
-            //         idItem:res.sh_it,
-            //         idCompras:this.props.location.state.idComprar,
-            //         qtd:res.qtd,
-            //         preco:res.it_preco,
-            //         idEntregador:this.props.location.state.idEntregador
-            //     })
-            // })
+            this.state.qtd.map(res=>{
+                items.push({
+                    idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario,
+                    idItem:res.sh_it,
+                    idCompras:this.props.location.state.idComprar,
+                    qtd:res.qtd,
+                    preco:res.it_preco,
+                    idEntregador:this.props.location.state.idEntregador
+                })
+            })
 
-            //axios.post(`lojas/post_compras/${this.props.location.state.idComprar}`, items)
+            axios.post(`lojas/post_compras/${this.props.location.state.idComprar}`, items)
             this.nf();
         }
     }

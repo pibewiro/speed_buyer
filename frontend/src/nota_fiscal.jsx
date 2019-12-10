@@ -20,7 +20,8 @@ export default class nota_fiscal extends Component {
             cep:"",
             codigoCompras:"",
             cidade:"",
-            estado:""
+            estado:"",
+            data:""
         }
     }
 
@@ -81,7 +82,7 @@ export default class nota_fiscal extends Component {
                     <div class="nf-footer">
                         <p><span>Entregador: </span>{this.state.nomeEntregador}</p>
                         <p><span>Codigo de Compras: </span>{this.state.codigoCompras}</p>
-                        <p><span>Data de Compra:</span> {moment(this.state.data).format('DD-MM-YYYY HH:MM')}</p>
+                        <p><span>Data de Compra:</span> {moment(this.state.data).format("DD-MM-YYYY HH:mm")}</p>
                     </div>
                 </div>                
             </div>

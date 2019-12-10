@@ -336,12 +336,13 @@ router.post("/post_compras/:idComprar", async (req, res)=>{
     req.body.map(res=>{
         query = `
         INSERT INTO compras(data_comprado, comp_id_usu, comp_item_id, comp_id_compras, comp_qtd, comp_id_ent, preco) 
-        VALUES('${res.data}', ${res.idUsuario}, ${res.idItem}, '${res.idCompras}', ${res.qtd}, ${res.idEntregador}, ${res.preco})
+        VALUES('${moment(res.data).format("YYYY-DD-MM HH:mm")}', ${res.idUsuario}, ${res.idItem}, '${res.idCompras}', ${res.qtd}, ${res.idEntregador}, ${res.preco})
         `;
 
      client.query(query, (err, result)=>{
            //if(err) throw err;
            // client.end();
+           console.log(query)
         })
     })
 
@@ -371,7 +372,7 @@ router.get('/nota_fiscal/:idComprar/:idEntregador', async (req,res)=>{
     const query = `
         Update shopping 
         SET 
-        sh_data = '${moment(new Date()).format("YYYY-MM-DD HH:MM")}', 
+        sh_data = '${moment(new Date()).format("YYYY-MM-DD HH:mm")}', 
         sh_entregador_id = ${req.params.idEntregador}
         WHERE 
         sh_id_compras = '${req.params.idComprar}'
@@ -506,6 +507,37 @@ router.post(`/del_favoritos`, async (req, res)=>{
         const client = await mysql.createConnection(env);
 
         const query = `UPDATE item SET promocao = 1 where item_id = ${req.body.idProduto}`;
+        console.log(query)
+        client.query(query, (err, result)=>{
+            if (err) throw err;
+
+            client.end();
+            console.log(result)
+            return res.status(200).json(result)
+        })
+    })
+
+    router.get(`/historico/:id`, async (req,res)=>{
+
+        console.log(req.params)
+        const client = await mysql.createConnection(env);
+
+        const query = `
+        select 
+        comp_id_compras, comp_id_usu, data_comprado, comp_id_ent, mer_nome,
+        u.primeiro_nome as pn, u.sobre_nome as sn, e.primeiro_nome, e.sobre_nome, count(*)
+        from compras
+        inner join usuario as u on comp_id_usu = u.usu_id_usu
+        inner join entregador on comp_id_ent = ent_id
+        inner join usuario as e on e.usu_id_usu = ent_id_usu
+        inner join item on comp_item_id = item_id
+        inner join mercado on it_id_mercado = mer_id_mercado
+        inner join mercado_info on mer_id_mercado = mer_info_id_mer
+        inner join endereco on mer_info_id_endereco = en_id_endereco
+        where comp_id_usu = ${req.params.id}
+        group by comp_id_compras
+        order by data_comprado desc
+        `;
         console.log(query)
         client.query(query, (err, result)=>{
             if (err) throw err;

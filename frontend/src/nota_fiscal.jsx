@@ -49,7 +49,7 @@ export default class nota_fiscal extends Component {
         let preco = 0;
          this.state.dados.map(res=>{
             preco += res.qtd * res.sh_preco;
-             this.setState({total:preco.toFixed(2)})
+             return this.setState({total:preco.toFixed(2)})
         })
     }
 

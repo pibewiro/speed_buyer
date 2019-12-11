@@ -55,8 +55,8 @@ export default class nota_fiscal extends Component {
 
     render() {
         return (
-            <div>
-                <div className="notaFiscal">
+            <div className="notaFiscal">
+                <div className="notaFiscal2">
 
                     <h2>Cliente: {this.state.nomeCliente}</h2>
                     {this.state.dados.map(res=>(
@@ -83,6 +83,9 @@ export default class nota_fiscal extends Component {
                         <p><span>Entregador: </span>{this.state.nomeEntregador}</p>
                         <p><span>Codigo de Compras: </span>{this.state.codigoCompras}</p>
                         <p><span>Data de Compra:</span> {moment(this.state.data).format("DD-MM-YYYY HH:mm")}</p>
+                        <div className="btn-div2">
+                            <button className="btn">Download</button>
+                        </div>
                     </div>
                 </div>                
             </div>

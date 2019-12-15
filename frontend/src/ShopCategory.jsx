@@ -51,7 +51,7 @@ export default class ShopCategory extends Component {
        let preco = 0;
         this.state.qtd.map(res=>{
            preco += res.qtd * res.it_preco;
-            return this.setState({total:preco.toFixed(2).toString().replace(".", ",")})
+            this.setState({total:preco.toFixed(2).toString().replace(".", ",")})
         })
     }
 
@@ -114,7 +114,7 @@ export default class ShopCategory extends Component {
                                 this.state.qtd.map(res2=>{
                                     if(res2.sh_it === res.item_id)
                                     {
-                                        return id = res2.qtd
+                                        id = res2.qtd
                                     }
                                 })
 

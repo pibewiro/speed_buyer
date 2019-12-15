@@ -811,11 +811,6 @@
     margin-left:10px;
 }
 
-.historico-div, .favoritios, .comparar-content, .promocao
-{
-    height: 100%;
-}
-
 .historico
 {
     display:flex;
@@ -824,8 +819,6 @@
     align-items: center;
     justify-content: space-between;
 }
-
-
 
 .historico span
 {
@@ -892,11 +885,6 @@
     {
         width: 95%;
     }
-}
-
-.pagamento
-{
-    height: 100%;
 }
 
 @media(max-width:400px)

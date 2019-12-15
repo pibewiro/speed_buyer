@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios"
+import {Link} from "react-router-dom"
 import removeAccents from "remove-accents"
 import Spinner from "./Spinner"
 import UUID from 'uuid'

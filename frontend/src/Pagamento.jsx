@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 import jwtDecode from "jwt-decode"
+import moment from "moment"
 
 //import {toast} from 'react-toastify';
 
@@ -28,7 +29,7 @@ export default class Pagamento extends Component {
         let preco = 0;
          this.state.qtd.map(res=>{
             preco += res.qtd * res.it_preco;
-             return this.setState({price:preco})
+             this.setState({price:preco})
         })
     }
 
@@ -46,7 +47,7 @@ export default class Pagamento extends Component {
             let items = [];
 
             this.state.qtd.map(res=>{
-               return items.push({
+                items.push({
                     idUsuario:jwtDecode(localStorage.getItem("jwtToken")).id_usuario,
                     idItem:res.sh_it,
                     idCompras:this.props.location.state.idComprar,
@@ -67,18 +68,15 @@ export default class Pagamento extends Component {
 
     render() {
         return (
-            <div className="pagamento">
-                <h1 className="big-heading">Pagamento</h1>
-                    <div className="btn-div2">
-                        <StripeCheckout 
-                            stripeKey="pk_test_Liu307TKygFZuUCNEh1oGB4O00MKuTQFHK" 
-                            token={this.handleToken} 
-                            billingAddress
-                            shippingAddress
-                            amount={this.state.price * 100}
-                            className={{backgroundColor:"red"}}
-                        />
-                </div>
+            <div>
+                <p>Payment</p>
+                <StripeCheckout 
+                    stripeKey="pk_test_Liu307TKygFZuUCNEh1oGB4O00MKuTQFHK" 
+                    token={this.handleToken} 
+                    billingAddress
+                    shippingAddress
+                    amount={this.state.price * 100}
+                />
             </div>
         )
     }

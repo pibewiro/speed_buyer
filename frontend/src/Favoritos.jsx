@@ -55,7 +55,7 @@ export default class Favoritos extends Component {
         this.state.favoritos.map(res=>arr.push(res.fav_id_item))
 
         return (
-            <div className="favoritios">
+            <div>
                   <div className="comparar-content">
                 <div className="comparar-filtro">
                     <div className="comparar-filtro-preco">

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require('mysql');
-const env = require('../config/.env');
+const env = require('../config/dbInfo');
 const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
 const {join} = require("path");

@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const env = require('./config/.env').port;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT_SERVER || 5000;
 const bodyParser = require("body-parser")
 const userRoutes = require("./routes/users")
 const profileRoutes = require("./routes/profile")
@@ -10,6 +10,7 @@ const path = require("path")
 const cors = require('cors')
 const adminRoutes = require("./routes/admin")
 const morgan = require("morgan")
+require("dotenv").config();
 
 const passport = require("passport");
 // const {pool} = require("pg");

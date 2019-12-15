@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require('mysql');
-const env = require('../config/.env');
+const env = require('../config/dbInfo');
 const passport = require("passport")
 const auth = passport.authenticate("jwt", {session:false});
 const stripe = require('stripe')("sk_test_mDc7apmGEPPD3kEuFbKwZESX00KFa5TFP6")
 const moment = require("moment")
+const pdfTemplate = require("../documents")
+const pdf = require("html-pdf")
+const path = require("path")
+
 
 router.get(`/get_stores_brand/:url`, async (req, res)=>{
 
@@ -546,6 +550,23 @@ router.post(`/del_favoritos`, async (req, res)=>{
             console.log(result)
             return res.status(200).json(result)
         })
+    })
+
+    router.post("/create_pdf", (req,res)=>{
+        console.log(req.body)
+
+        pdf.create(pdfTemplate(req.body), {}).toFile(`routes/${req.body.codigoCompras}.pdf`, (err)=>{
+            if(err)
+            {
+                res.send(Promise.reject())
+            }
+
+            res.send(Promise.resolve())
+        })
+    })
+
+    router.get("/fetch_pdf/:id", (req,res)=>{
+      res.sendFile(`${__dirname}/${req.params.id}.pdf`)
     })
 
 

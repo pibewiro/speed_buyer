@@ -60,7 +60,7 @@ export default class signin extends Component {
 
         const {errors} = this.state;
         return (
-            <div id="signup">
+            <div>
                 <div>
                     <Navbar />
                 </div>

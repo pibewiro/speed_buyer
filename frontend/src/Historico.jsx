@@ -30,7 +30,7 @@ export default class Historico extends Component {
     render() {
 
         return (
-            <div>
+            <div className="historico-div">
                 {this.state.historico.length !== 0 ?  this.state.historico.map(res=>(
                     <div className="historico">
                         <div className="h1">

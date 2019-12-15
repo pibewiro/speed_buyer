@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import jwtDecode from "jwt-decode"
 import moment from "moment"
-import {saveAs} from 'file-saver'
 
 export default class nota_fiscal extends Component {
 
@@ -50,25 +49,14 @@ export default class nota_fiscal extends Component {
         let preco = 0;
          this.state.dados.map(res=>{
             preco += res.qtd * res.sh_preco;
-             this.setState({total:preco.toFixed(2)})
+             return this.setState({total:preco.toFixed(2)})
         })
-    }
-
-    createPDF = () => {
-        console.log(this.state)
-       axios.post("lojas/create_pdf", this.state)
-       .then(()=>axios.get(`lojas/fetch_pdf/${this.state.codigoCompras}`, {responseType:'blob'}))
-       .then(res=>{
-           console.log(res.data)
-           const pdfBlob = new Blob([res.data], {type:'application/pdf'})
-           saveAs(pdfBlob, `${this.state.codigoCompras}.pdf`)
-       }) 
     }
 
     render() {
         return (
-            <div>
-                <div className="notaFiscal">
+            <div className="notaFiscal">
+                <div className="notaFiscal2">
 
                     <h2>Cliente: {this.state.nomeCliente}</h2>
                     {this.state.dados.map(res=>(
@@ -95,12 +83,9 @@ export default class nota_fiscal extends Component {
                         <p><span>Entregador: </span>{this.state.nomeEntregador}</p>
                         <p><span>Codigo de Compras: </span>{this.state.codigoCompras}</p>
                         <p><span>Data de Compra:</span> {moment(this.state.data).format("DD-MM-YYYY HH:mm")}</p>
-<<<<<<< HEAD
                         <div className="btn-div2">
-                            <button className="btn" onClick={this.createPDF}>Download</button>
+                            <button className="btn">Download</button>
                         </div>
-=======
->>>>>>> parent of 84aa457... updates
                     </div>
                 </div>                
             </div>

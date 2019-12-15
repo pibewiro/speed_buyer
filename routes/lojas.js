@@ -553,7 +553,7 @@ router.post(`/del_favoritos`, async (req, res)=>{
     router.post("/create_pdf", (req,res)=>{
         console.log("create pdf:", req.body)
 
-        pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf', (err)=>{
+        pdf.create(pdfTemplate(req.body), {}).toFile('routes/result.pdf', (err)=>{
             if(err)
             {
                 res.send(Promise.reject())
@@ -562,6 +562,12 @@ router.post(`/del_favoritos`, async (req, res)=>{
             res.send(Promise.resolve())
         })
     })
+
+    router.get("/fetch_pdf", (req,res)=>{
+        res.sendFile(`${__dirname}/result.pdf`)
+    })
+
+
 
 
 

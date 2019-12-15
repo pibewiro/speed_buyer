@@ -67,8 +67,8 @@ export default class nota_fiscal extends Component {
 
     render() {
         return (
-            <div className="notaFiscal">
-                <div className="notaFiscal2">
+            <div>
+                <div className="notaFiscal">
 
                     <h2>Cliente: {this.state.nomeCliente}</h2>
                     {this.state.dados.map(res=>(
@@ -95,9 +95,12 @@ export default class nota_fiscal extends Component {
                         <p><span>Entregador: </span>{this.state.nomeEntregador}</p>
                         <p><span>Codigo de Compras: </span>{this.state.codigoCompras}</p>
                         <p><span>Data de Compra:</span> {moment(this.state.data).format("DD-MM-YYYY HH:mm")}</p>
+<<<<<<< HEAD
                         <div className="btn-div2">
                             <button className="btn" onClick={this.createPDF}>Download</button>
                         </div>
+=======
+>>>>>>> parent of 84aa457... updates
                     </div>
                 </div>                
             </div>

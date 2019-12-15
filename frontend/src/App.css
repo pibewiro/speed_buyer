@@ -672,10 +672,6 @@
 {
     width: 80%;
     margin: auto;
-    height: 84.5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .notaFiscal h2
@@ -683,18 +679,6 @@
     padding: 10px 0 0 0;
 }
 
-.btn-div2
-{
-    text-align: center;
-    padding:20px;
-}
-
-.notaFiscal2
-{
-    border:1px solid #000;
-    padding: 20px;
-    border-radius: 20px;
-}
 
 .itemInfo
 {
@@ -836,6 +820,7 @@
     text-align: left;
 }
 
+<<<<<<< HEAD
 #signup
 {
     height:100%;
@@ -843,6 +828,8 @@
 
 
 
+=======
+>>>>>>> parent of 84aa457... updates
 @media(max-width:768px)
 {
     .menu-left ul li p

@@ -53,6 +53,10 @@ export default class nota_fiscal extends Component {
         })
     }
 
+    createAndDownloadPdf = () => {
+       axios.post("lojas/create_pdf", this.state)
+    }
+
     render() {
         return (
             <div className="notaFiscal">
@@ -84,7 +88,7 @@ export default class nota_fiscal extends Component {
                         <p><span>Codigo de Compras: </span>{this.state.codigoCompras}</p>
                         <p><span>Data de Compra:</span> {moment(this.state.data).format("DD-MM-YYYY HH:mm")}</p>
                         <div className="btn-div2">
-                            <button className="btn">Download</button>
+                            <button className="btn" onClick={this.createAndDownloadPdf}>Download</button>
                         </div>
                     </div>
                 </div>                

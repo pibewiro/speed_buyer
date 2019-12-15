@@ -56,10 +56,10 @@ export default class nota_fiscal extends Component {
 
     createAndDownloadPdf = () => {
        axios.post("lojas/create_pdf", this.state)
-       .then(()=>axios.get("lojas/fetch_pdf", {responseType:"blob"}))
+       .then(()=>axios.get(`lojas/fetch_pdf/${this.state.codigoCompras}`, {responseType:"blob"}))
        .then(res=>{
            const pdfBlob = new Blob([res.data], {type:"application/pdf"})
-           saveAs(pdfBlob, 'newPdf.pdf')
+           saveAs(pdfBlob, `${this.state.codigoCompras}.pdf`)
        })
     }
 

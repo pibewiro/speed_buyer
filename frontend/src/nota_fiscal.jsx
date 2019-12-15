@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import jwtDecode from "jwt-decode"
 import moment from "moment"
-import {saveAs} from 'file-saver'
 
 export default class nota_fiscal extends Component {
 
@@ -54,17 +53,6 @@ export default class nota_fiscal extends Component {
         })
     }
 
-    createPDF = () => {
-        console.log(this.state)
-       axios.post("lojas/create_pdf", this.state)
-       .then(()=>axios.get(`lojas/fetch_pdf/${this.state.codigoCompras}`, {responseType:'blob'}))
-       .then(res=>{
-           console.log(res.data)
-           const pdfBlob = new Blob([res.data], {type:'application/pdf'})
-           saveAs(pdfBlob, `${this.state.codigoCompras}.pdf`)
-       }) 
-    }
-
     render() {
         return (
             <div className="notaFiscal">
@@ -96,7 +84,7 @@ export default class nota_fiscal extends Component {
                         <p><span>Codigo de Compras: </span>{this.state.codigoCompras}</p>
                         <p><span>Data de Compra:</span> {moment(this.state.data).format("DD-MM-YYYY HH:mm")}</p>
                         <div className="btn-div2">
-                            <button className="btn" onClick={this.createPDF}>Download</button>
+                            <button className="btn">Download</button>
                         </div>
                     </div>
                 </div>                

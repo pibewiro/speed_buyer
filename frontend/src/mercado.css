@@ -14,6 +14,7 @@
     margin:auto;
     justify-content: center;
     padding: 60px 0;
+    margin-bottom: 100px;
 }
 
 .mercado-card
@@ -33,7 +34,7 @@
 .mercado-card img
 {
     width:100%;
-    height: 150px;
+    height: 350px;
 }
 
 .mercado-card h2

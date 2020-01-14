@@ -124,6 +124,7 @@ export default class ProfilePF extends Component {
 
             <div className="btn-edit-div">
                 <Link to="/pessoa_fisica_edit" className="btn">Edit Profile</Link>
+                <Link to="/pessoa_fisica_edit" className="btnDelete">Delete Profile</Link>                
             </div>
             </>
 

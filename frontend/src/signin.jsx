@@ -73,7 +73,8 @@ export default class signin extends Component {
         
 
         return (
-            <div>
+            <>
+            <div className="signin">
                 <div>
                     <Navbar />
                 </div>
@@ -99,8 +100,9 @@ export default class signin extends Component {
                </form>
             </div>  
 
-                <Footer />
             </div>
+            <Footer />
+            </>
 
         )
     }

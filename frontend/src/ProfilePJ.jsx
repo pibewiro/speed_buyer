@@ -139,7 +139,8 @@ export default class ProfilePJ extends Component {
             </div>
         </div>
         <div className="btn-edit-div">
-                <Link to="/pessoa_juridica_edit" className="btn">Edit Profile</Link>
+                <Link to="/pessoa_juridica_edit" className="btn">Edit Profile</Link>                
+                <Link to="/pessoa_juridica_edit" className="btnDelete">Delete Profile</Link>                
             </div>
         
         </>}

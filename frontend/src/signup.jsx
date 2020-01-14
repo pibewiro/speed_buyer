@@ -60,7 +60,8 @@ export default class signin extends Component {
 
         const {errors} = this.state;
         return (
-            <div>
+            <>
+            <div className="signup">
                 <div>
                     <Navbar />
                 </div>
@@ -104,8 +105,11 @@ export default class signin extends Component {
                </form>
             </div>  
 
-                <Footer />
             </div>
+
+            <Footer />
+
+            </>
 
         )
     }

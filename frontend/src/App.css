@@ -24,6 +24,26 @@
     padding: 10px 30px;
     border:none;
     font-size: 16px;
+    border: 1px solid transparent;
+}
+
+.btnDelete
+{
+    text-align: center;
+    background:white;
+    color:red;
+    text-decoration: none;
+    padding: 10px 30px;
+    border:none;
+    font-size: 16px;
+    border: 1px solid red;
+    margin-left:10px;
+}
+
+.btnDelete:hover
+{
+    background: red;
+    color:#fff;
 }
 
 .big-heading
@@ -841,6 +861,11 @@
 {
     width: 25%;
     text-align: left;
+}
+
+.signin, .signup
+{
+    height: 96.1vh;
 }
 
 
